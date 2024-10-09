@@ -103,6 +103,7 @@ public class VehicleRegistration {
 				saveVehicleData(vehicle);
 				JOptionPane.showMessageDialog(frame, vehicle.getDetails(), "Vehicle Registered",
 						JOptionPane.INFORMATION_MESSAGE);
+						frame.dispose();
 
 				txtMake.setText("");
 				txtModel.setText("");
