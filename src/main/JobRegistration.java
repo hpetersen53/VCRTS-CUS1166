@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatterBuilder;
 
 
 class JobListing {
-    private String name;
+    private String client;
     private String businessName;
     private String title;
     private double payout;
@@ -20,8 +20,8 @@ class JobListing {
     private LocalDate deadline; 
 
     
-    public JobListing(String name, String businessName, String title, double payout, String estimatedTime, String attachedFileName, LocalDate deadline) {
-        this.name = name;
+    public JobListing(String client, String businessName, String title, double payout, String estimatedTime, String attachedFileName, LocalDate deadline) {
+        this.client = client;
         this.businessName = businessName;
         this.title = title;
         this.payout = payout;
@@ -33,7 +33,7 @@ class JobListing {
     
     public String getDetails() {
         return "Job Listing Details:\n" +
-                "Name: " + name + "\n" +
+                "Name: " + client + "\n" +
                 "Business Name: " + (businessName.isEmpty() ? "N/A" : businessName) + "\n" +
                 "Title: " + title + "\n" +
                 "Payout: $" + payout + "\n" +
@@ -44,14 +44,14 @@ class JobListing {
 
     
     public String toFileString() {
-        return name + "," + (businessName.isEmpty() ? "N/A" : businessName) + "," + title + "," + payout + "," + estimatedTime + "," + (attachedFileName != null ? attachedFileName : "None") + "," + (deadline != null ? deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "None");
+        return client + "," + (businessName.isEmpty() ? "N/A" : businessName) + "," + title + "," + payout + "," + estimatedTime + "," + (attachedFileName != null ? attachedFileName : "None") + "," + (deadline != null ? deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "None");
     }
 }
 
 
 public class JobRegistration {
     private JFrame frame;
-    private JTextField txtName, txtBusinessName, txtTitle, txtPayout, txtEstimatedTime;
+    private JTextField txtClient, txtBusinessName, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null; 
     private JSpinner spinnerDeadline; 
     private Dash dashBoard;
@@ -62,7 +62,7 @@ public class JobRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         
-        txtName = new JTextField(20);
+        txtClient = new JTextField(20);
         txtBusinessName = new JTextField(20);
         txtTitle = new JTextField(20);
         txtPayout = new JTextField(20);
@@ -98,10 +98,10 @@ public class JobRegistration {
         gbc.anchor = GridBagConstraints.WEST; 
 
         
-        gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Your Name:"), gbc);
-        gbc.gridx = 1; gbc.gridy = 0; panel.add(txtName, gbc);
+        gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Client ID:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 0; panel.add(txtClient, gbc);
         
-        gbc.gridx = 0; gbc.gridy = 1; panel.add(new JLabel("Business Name (if applicable):"), gbc);
+        gbc.gridx = 0; gbc.gridy = 1; panel.add(new JLabel("Business/Lister Name:"), gbc);
         gbc.gridx = 1; gbc.gridy = 1; panel.add(txtBusinessName, gbc);
         
         gbc.gridx = 0; gbc.gridy = 2; panel.add(new JLabel("Job Title:"), gbc);
@@ -128,7 +128,7 @@ public class JobRegistration {
 
     
     private void submitJob() {
-        String name = txtName.getText();
+        String client = txtClient.getText();
         String businessName = txtBusinessName.getText();
         String title = txtTitle.getText();
         String payoutStr = txtPayout.getText();
@@ -136,7 +136,7 @@ public class JobRegistration {
         LocalDate deadline = ((java.util.Date) spinnerDeadline.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(); // Convert spinner value to LocalDate
 
         
-        if (name.isEmpty() || title.isEmpty() || payoutStr.isEmpty() || estimatedTime.isEmpty()) {
+        if (client.isEmpty() || title.isEmpty() || payoutStr.isEmpty() || estimatedTime.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -150,7 +150,7 @@ public class JobRegistration {
         }
 
         
-        JobListing job = new JobListing(name, businessName, title, payout, estimatedTime, attachedFileName, deadline);
+        JobListing job = new JobListing(client, businessName, title, payout, estimatedTime, attachedFileName, deadline);
         saveJobData(job);
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
@@ -175,7 +175,7 @@ public class JobRegistration {
 
     
     private void clearFields() {
-        txtName.setText("");
+        txtClient.setText("");
         txtBusinessName.setText("");
         txtTitle.setText("");
         txtPayout.setText("");
