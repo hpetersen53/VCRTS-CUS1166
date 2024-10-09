@@ -30,7 +30,7 @@ class Vehicle {
 	// gets vehicle details
 	public String getDetails() {
 		return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
-				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "Time Available: " + residency;
+				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n" + "Time Available: " + residency;
 	}
 
 	// format to write vehicle details to a file.
