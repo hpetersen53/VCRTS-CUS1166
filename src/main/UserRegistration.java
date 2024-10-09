@@ -15,13 +15,15 @@ class User {
 	private String emailAddr;
 	private String licenseNum;
 	private String userType;
+	private String password;
 	
 	
 	
-	public User(String fName, String lName, String emailAddr, String licenseNum, String userType) {
+	public User(String fName, String lName, String emailAddr, String password, String licenseNum, String userType) {
 		this.fName = fName;
 		this.lName = lName;
 		this.emailAddr = emailAddr;
+		this.password = password;
 		this.licenseNum = licenseNum;
 		this.userType = userType;
 	}
@@ -59,6 +61,9 @@ public class UserRegistration {
 		JLabel lblEmail = new JLabel("Email Address:");
 		JTextField txtEmail = new JTextField(20);
 		
+		JLabel lblPassword = new JLabel("Password:");
+		JPasswordField txtPassword = new JPasswordField(20);
+		
 		JLabel lblLicense= new JLabel("License Number:");
 		JTextField txtLicense = new JTextField(20);
 		
@@ -76,6 +81,7 @@ public class UserRegistration {
 				String fName = txtFName.getText();
 				String lName = txtLName.getText();
 				String emailAddr = txtEmail.getText();
+				String password = txtPassword.getText();
 				String licenseNum = txtLicense.getText();
 				String userType = txtUType.getText();
 				
@@ -86,8 +92,8 @@ public class UserRegistration {
 					return;
 				}
 				
-				User user = new User(fName, lName, emailAddr, licenseNum, userType);
-				//saveUserData(user);
+				User user = new User(fName, lName, emailAddr, password, licenseNum, userType);
+				saveUserData(user);
 				JOptionPane.showMessageDialog(jFrame, user.getDetails(), "User Registered", JOptionPane.INFORMATION_MESSAGE);
 				
 				//Clears text fields
@@ -110,6 +116,8 @@ public class UserRegistration {
 		jPanel.add(txtLName);
 		jPanel.add(lblEmail);
 		jPanel.add(txtEmail);
+		jPanel.add(lblPassword);
+		jPanel.add(txtPassword);
 		jPanel.add(lblLicense);
 		jPanel.add(txtLicense);
 		jPanel.add(lblUType);
