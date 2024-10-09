@@ -16,6 +16,7 @@ class Vehicle {
 	private String vin;
 	private String licensePlate;
 	private String residency;
+	
 
 	// initialize a new vehicle object
 	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, String residency) {
@@ -42,6 +43,7 @@ class Vehicle {
 // user interface and registration
 public class VehicleRegistration {
 	private JFrame frame;
+	private Dash dashBoard;
 
 	public VehicleRegistration() {
 		frame = new JFrame("Vehicle Registration");
@@ -117,6 +119,8 @@ public class VehicleRegistration {
 				txtVIN.setText("");
 				txtLicensePlate.setText("");
 				txtResidency.setText("");
+				
+				dashBoard = new Dash();
 			}
 		});
 		// adds labels and text fields to the panel

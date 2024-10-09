@@ -54,6 +54,7 @@ public class JobRegistration {
     private JTextField txtName, txtBusinessName, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null; 
     private JSpinner spinnerDeadline; 
+    private Dash dashBoard;
 
     public JobRegistration() {
         frame = new JFrame("Job Registration");
@@ -155,6 +156,7 @@ public class JobRegistration {
 
         
         clearFields();
+        dashBoard = new Dash();
     }
 
     

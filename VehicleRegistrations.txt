@@ -1,2 +1,5 @@
 2024-10-08 21:31:41,123131231,123131231,321313,12313,123131,12313132
 2024-10-08 21:41:16,toyota,camry,2016,black,123123123132,12123123132,null
+2024-10-08 22:00:07,asafds,asdfafds,2016,adasfafd,adfafsd,asdafs,null
+2024-10-08 22:00:48,asdfasfd,asdfafds,2,asdfafds,asdadfs,asdfafs,null
+2024-10-08 22:02:39,aasdfadf,adsfafds,3,adfsafd,asdfasdf,asdfasdf,null

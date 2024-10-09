@@ -19,6 +19,7 @@ class User {
 	
 	
 	
+	
 	public User(String fName, String lName, String emailAddr, String password, String licenseNum, String userType) {
 		this.fName = fName;
 		this.lName = lName;
