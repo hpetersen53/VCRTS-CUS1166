@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,12 +22,13 @@ public class GUIWindow {
 	private MouseInputs mouseInputs;
 	// private VehicleRegistration vehicleReg;
 	private UserRegistration userReg;
+	
 
 	public GUIWindow() {
 
 		// JButton = Buttons
 
-		JButton user1Btn = new JButton("Register/Manage a Car");
+		JButton user1Btn = new JButton("Register or Manage a Car");
 		user1Btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -37,56 +39,44 @@ public class GUIWindow {
 
 			}
 		});
+		
 
-		JButton user2Btn = new JButton("Post/Manage a Job");
+		JButton user2Btn = new JButton("Post or Manage a Job");
+		user2Btn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// vehicleReg = new VehicleRegistration();
+				userReg = new UserRegistration();
+
+			}
+		});
 
 		JLabel welcome = new JLabel("Welcome");
+		welcome.setHorizontalAlignment(JLabel.CENTER);
 		JPanel jPanel = new JPanel();
-
+		jPanel.setLayout(new GridLayout(8,2));
+		
+		jPanel.add(welcome);
+		jPanel.add(user1Btn);
+		jPanel.add(user2Btn);
+		
 		jFrame = new JFrame();
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // terminate on close
 		jFrame.setTitle("Vehicular Cloud Real-Time System"); // window title
-		jFrame.setResizable(false); // not resizable
+		jFrame.setResizable(true); // not resizable
 		jFrame.setVisible(true); // visible
-		jFrame.setSize(600, 600);
-		jFrame.setLayout(null);
-		jFrame.getContentPane().setBackground(Color.gray);
+		jFrame.setSize(400, 500);
+		//jFrame.setLayout(null);
+		
+		jFrame.add(jPanel);
 
 		
 		
 		
-		// Ignore
-		// ----------------------------------------------------------------------------------------------
-		// JLabel = Panel Contents
-
-		/*
-		 * JLabel welcome = new JLabel("Welcome"); welcome.setForeground(Color.white);
-		 * welcome.setFont(new Font("Plain",Font.PLAIN, 30));
-		 * 
-		 * JLabel chooseUser = new JLabel("I want to...");
-		 * chooseUser.setForeground(Color.white); chooseUser.setFont(new Font("Plain",
-		 * Font.PLAIN, 15));
-		 * 
-		 * 
-		 * 
-		 * 
-		 * //JPanel = Window Contents
-		 * 
-		 * JPanel banner = new JPanel(); banner.setBackground(Color.DARK_GRAY);
-		 * banner.setBounds(5,5,975,100); banner.add(welcome);
-		 * 
-		 * JPanel promptMsg = new JPanel(); promptMsg.setBackground(Color.DARK_GRAY);
-		 * promptMsg.setBounds(5,110,975,50); promptMsg.add(chooseUser);
-		 * 
-		 * JPanel user1Select = new JPanel();
-		 * user1Select.setBackground(Color.DARK_GRAY);
-		 * user1Select.setBounds(5,165,485,350); user1Select.add(user1Btn);
-		 * 
-		 * JPanel user2Select = new JPanel();
-		 * user2Select.setBackground(Color.DARK_GRAY);
-		 * user2Select.setBounds(495,165,485,350); user2Select.add(user2Btn);
-		 */
+		
 
 	}
 

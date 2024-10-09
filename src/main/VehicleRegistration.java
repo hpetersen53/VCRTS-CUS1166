@@ -15,9 +15,10 @@ class Vehicle {
 	private String color;
 	private String vin;
 	private String licensePlate;
+	private String residency;
 
 	// initialize a new vehicle object
-	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate) {
+	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, String residency) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -29,12 +30,12 @@ class Vehicle {
 	// gets vehicle details
 	public String getDetails() {
 		return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
-				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate;
+				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "Time Available: " + residency;
 	}
 
 	// format to write vehicle details to a file.
 	public String toFileString() {
-		return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate;
+		return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate + "," + residency;
 	}
 }
 
@@ -48,7 +49,7 @@ public class VehicleRegistration {
 		frame.setSize(400, 400);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(7, 2));
+		panel.setLayout(new GridLayout(8, 2));
 
 		JLabel lblMake = new JLabel("Make:");
 		JTextField txtMake = new JTextField(20);
@@ -67,6 +68,9 @@ public class VehicleRegistration {
 
 		JLabel lblLicensePlate = new JLabel("License Plate:");
 		JTextField txtLicensePlate = new JTextField(20);
+		
+		JLabel lblResidency = new JLabel("Time Available:");
+		JTextField txtResidency = new JTextField(20);
 
 		JButton btnRegister = new JButton("Register");
 
@@ -80,10 +84,11 @@ public class VehicleRegistration {
 				String color = txtColor.getText();
 				String vin = txtVIN.getText();
 				String licensePlate = txtLicensePlate.getText();
+				String residency = txtResidency.getText();
 
 				// data validation
 				if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() || vin.isEmpty()
-						|| licensePlate.isEmpty()) {
+						|| licensePlate.isEmpty() || residency.isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					return;
@@ -99,7 +104,7 @@ public class VehicleRegistration {
 				}
 
 				// creates a new vehicle object and saves the data to a file
-				Vehicle vehicle = new Vehicle(make, model, year, color, vin, licensePlate);
+				Vehicle vehicle = new Vehicle(make, model, year, color, vin, licensePlate, residency);
 				saveVehicleData(vehicle);
 				JOptionPane.showMessageDialog(frame, vehicle.getDetails(), "Vehicle Registered",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -111,6 +116,7 @@ public class VehicleRegistration {
 				txtColor.setText("");
 				txtVIN.setText("");
 				txtLicensePlate.setText("");
+				txtResidency.setText("");
 			}
 		});
 		// adds labels and text fields to the panel
@@ -126,6 +132,8 @@ public class VehicleRegistration {
 		panel.add(txtVIN);
 		panel.add(lblLicensePlate);
 		panel.add(txtLicensePlate);
+		panel.add(lblResidency);
+		panel.add(txtResidency);
 		panel.add(new JLabel(""));
 		panel.add(btnRegister);
 

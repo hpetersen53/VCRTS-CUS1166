@@ -43,6 +43,7 @@ public class UserRegistration {
 	
 	private JFrame jFrame;
 	private VehicleRegistration vehicleReg;
+	private JobRegistration jobReg;
 	
 	public UserRegistration() {
 		jFrame = new JFrame("User Registration");
@@ -50,7 +51,7 @@ public class UserRegistration {
 		jFrame.setSize(400,400);
 		
 		JPanel jPanel = new JPanel();
-		jPanel.setLayout(new GridLayout(7,2));
+		jPanel.setLayout(new GridLayout(8,2));
 		
 		JLabel lblFName = new JLabel("First Name:");
 		JTextField txtFName = new JTextField(20);
@@ -68,8 +69,13 @@ public class UserRegistration {
 		JTextField txtLicense = new JTextField(20);
 		
 		//make radio buttons instead
-		JLabel lblUType = new JLabel("UserType:");
-		JTextField txtUType = new JTextField(20); 
+		
+		JLabel lblRadio = new JLabel();
+		JRadioButton btnU1 = new JRadioButton("Car Owner");
+		JRadioButton btnU2 = new JRadioButton("Job Lister");
+		ButtonGroup group = new ButtonGroup();
+		group.add(btnU1);
+		group.add(btnU2);
 		
 		JButton btnRegister = new JButton("Submit & Continue");
 		
@@ -83,7 +89,15 @@ public class UserRegistration {
 				String emailAddr = txtEmail.getText();
 				String password = txtPassword.getText();
 				String licenseNum = txtLicense.getText();
-				String userType = txtUType.getText();
+				String userType;
+				
+				if(btnU1.isSelected()) {
+					userType = "Car Owner";
+					vehicleReg = new VehicleRegistration();
+				} else {
+					userType = "Job Lister";
+					jobReg = new JobRegistration();
+				}
 				
 				
 				//Validates information. Makes sure all boxes are filled.
@@ -96,19 +110,25 @@ public class UserRegistration {
 				saveUserData(user);
 				JOptionPane.showMessageDialog(jFrame, user.getDetails(), "User Registered", JOptionPane.INFORMATION_MESSAGE);
 				
+				
 				//Clears text fields
 				txtFName.setText("");
 				txtLName.setText("");
 				txtEmail.setText("");
 				txtLicense.setText("");
-				txtUType.setText("");
 				
-				//if car owner then bring to vehicle registration
-				//if business owner then bring to job posting
-				vehicleReg = new VehicleRegistration();
+				if(btnU1.isSelected()) {
+					vehicleReg = new VehicleRegistration();
+				} else {
+					jobReg = new JobRegistration();
+				}
+				
+				
 				
 			}	
 		});
+		
+		
 		
 		jPanel.add(lblFName);
 		jPanel.add(txtFName);
@@ -120,8 +140,8 @@ public class UserRegistration {
 		jPanel.add(txtPassword);
 		jPanel.add(lblLicense);
 		jPanel.add(txtLicense);
-		jPanel.add(lblUType);
-		jPanel.add(txtUType);
+		jPanel.add(btnU1);
+		jPanel.add(btnU2);
 		jPanel.add(btnRegister);
 		
 		jFrame.add(jPanel);
