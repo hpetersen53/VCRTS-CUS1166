@@ -96,6 +96,8 @@ public class UserRegistration {
 				txtEmail.setText("");
 				txtLicense.setText("");
 				txtUType.setText("");
+
+				jFrame.dispose();
 				
 				//if car owner then bring to vehicle registration
 				//if business owner then bring to job posting
