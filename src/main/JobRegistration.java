@@ -6,8 +6,10 @@ import java.awt.event.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate; 
+import java.time.format.DateTimeFormatterBuilder; 
 
-// Stores job listing information
+
 class JobListing {
     private String name;
     private String businessName;
@@ -15,18 +17,20 @@ class JobListing {
     private double payout;
     private String estimatedTime;
     private String attachedFileName;
+    private LocalDate deadline; 
 
-    // Initializes a new job listing object
-    public JobListing(String name, String businessName, String title, double payout, String estimatedTime, String attachedFileName) {
+    
+    public JobListing(String name, String businessName, String title, double payout, String estimatedTime, String attachedFileName, LocalDate deadline) {
         this.name = name;
         this.businessName = businessName;
         this.title = title;
         this.payout = payout;
         this.estimatedTime = estimatedTime;
         this.attachedFileName = attachedFileName;
+        this.deadline = deadline; 
     }
 
-    // Gets job listing details
+    
     public String getDetails() {
         return "Job Listing Details:\n" +
                 "Name: " + name + "\n" +
@@ -34,38 +38,46 @@ class JobListing {
                 "Title: " + title + "\n" +
                 "Payout: $" + payout + "\n" +
                 "Estimated Time: " + estimatedTime + "\n" +
+                "Deadline: " + (deadline != null ? deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "None") + "\n" +
                 "Attached File: " + (attachedFileName != null ? attachedFileName : "None");
     }
 
-    // Formats to write job details to a file
+    
     public String toFileString() {
-        return name + "," + (businessName.isEmpty() ? "N/A" : businessName) + "," + title + "," + payout + "," + estimatedTime + "," + (attachedFileName != null ? attachedFileName : "None");
+        return name + "," + (businessName.isEmpty() ? "N/A" : businessName) + "," + title + "," + payout + "," + estimatedTime + "," + (attachedFileName != null ? attachedFileName : "None") + "," + (deadline != null ? deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "None");
     }
 }
 
-// User registration and job listing system
+
 public class JobRegistration {
     private JFrame frame;
     private JTextField txtName, txtBusinessName, txtTitle, txtPayout, txtEstimatedTime;
-    private String attachedFileName = null; // Variable to store the selected file name
+    private String attachedFileName = null; 
+    private JSpinner spinnerDeadline; 
 
     public JobRegistration() {
         frame = new JFrame("Job Registration");
-        frame.setSize(500, 500); // Increased size for a bigger panel
+        frame.setSize(500, 550); 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Initialize form components with larger size
+        
         txtName = new JTextField(20);
         txtBusinessName = new JTextField(20);
         txtTitle = new JTextField(20);
         txtPayout = new JTextField(20);
         txtEstimatedTime = new JTextField(20);
 
+        
+        spinnerDeadline = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spinnerDeadline, "yyyy-MM-dd");
+        spinnerDeadline.setEditor(dateEditor);
+        spinnerDeadline.setValue(new java.util.Date()); 
+
         JButton btnAttachFile = new JButton("Attach File");
         JLabel lblFileStatus = new JLabel("No file attached");
         JButton btnSubmit = new JButton("Submit Job");
 
-        // File chooser action
+        
         btnAttachFile.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(frame);
@@ -75,16 +87,16 @@ public class JobRegistration {
             }
         });
 
-        // Submit button action
+        
         btnSubmit.addActionListener(e -> submitJob());
 
-        // Arrange components in the frame
+        
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Spacing around components
-        gbc.anchor = GridBagConstraints.WEST; // Align components to the west
+        gbc.insets = new Insets(5, 5, 5, 5); 
+        gbc.anchor = GridBagConstraints.WEST; 
 
-        // Add components to the panel
+        
         gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Your Name:"), gbc);
         gbc.gridx = 1; gbc.gridy = 0; panel.add(txtName, gbc);
         
@@ -99,26 +111,30 @@ public class JobRegistration {
         
         gbc.gridx = 0; gbc.gridy = 4; panel.add(new JLabel("Estimated Time:"), gbc);
         gbc.gridx = 1; gbc.gridy = 4; panel.add(txtEstimatedTime, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 5; panel.add(new JLabel("Deadline:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 5; panel.add(spinnerDeadline, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 6; panel.add(btnAttachFile, gbc);
+        gbc.gridx = 1; gbc.gridy = 6; panel.add(lblFileStatus, gbc);
         
-        gbc.gridx = 0; gbc.gridy = 5; panel.add(btnAttachFile, gbc);
-        gbc.gridx = 1; gbc.gridy = 5; panel.add(lblFileStatus, gbc);
-        
-        gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER; // Center the submit button
+        gbc.gridx = 0; gbc.gridy = 7; gbc.gridwidth = 2; gbc.anchor = GridBagConstraints.CENTER; // Center the submit button
         panel.add(btnSubmit, gbc);
 
         frame.add(panel);
         frame.setVisible(true);
     }
 
-    // Submit job listing
+    
     private void submitJob() {
         String name = txtName.getText();
         String businessName = txtBusinessName.getText();
         String title = txtTitle.getText();
         String payoutStr = txtPayout.getText();
         String estimatedTime = txtEstimatedTime.getText();
+        LocalDate deadline = ((java.util.Date) spinnerDeadline.getValue()).toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate(); // Convert spinner value to LocalDate
 
-        // Validate input
+        
         if (name.isEmpty() || title.isEmpty() || payoutStr.isEmpty() || estimatedTime.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -132,16 +148,16 @@ public class JobRegistration {
             return;
         }
 
-        // Create job listing and save
-        JobListing job = new JobListing(name, businessName, title, payout, estimatedTime, attachedFileName);
+        
+        JobListing job = new JobListing(name, businessName, title, payout, estimatedTime, attachedFileName, deadline);
         saveJobData(job);
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
-        // Clear fields
+        
         clearFields();
     }
 
-    // Save job listing data to a file
+    
     private void saveJobData(JobListing job) {
         String fileName = "JobListings.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
@@ -155,7 +171,7 @@ public class JobRegistration {
         }
     }
 
-    // Clear input fields
+    
     private void clearFields() {
         txtName.setText("");
         txtBusinessName.setText("");
@@ -163,9 +179,10 @@ public class JobRegistration {
         txtPayout.setText("");
         txtEstimatedTime.setText("");
         attachedFileName = null;
+        spinnerDeadline.setValue(new java.util.Date()); 
     }
 
-    // Main method to run the application
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(JobRegistration::new);
     }
