@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatterBuilder;
 
 public class JobRegistration {
     private JFrame frame;
-    private JTextField txtClient, txtBusinessName, txtTitle, txtPayout, txtEstimatedTime;
+    private JTextField txtClient, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
@@ -25,7 +25,6 @@ public class JobRegistration {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         txtClient = new JTextField(20);
-        txtBusinessName = new JTextField(20);
         txtTitle = new JTextField(20);
         txtPayout = new JTextField(20);
         txtEstimatedTime = new JTextField(20);
@@ -57,9 +56,6 @@ public class JobRegistration {
 
         gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Client ID:"), gbc);
         gbc.gridx = 1; gbc.gridy = 0; panel.add(txtClient, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 1; panel.add(new JLabel("Business/Lister Name:"), gbc);
-        gbc.gridx = 1; gbc.gridy = 1; panel.add(txtBusinessName, gbc);
 
         gbc.gridx = 0; gbc.gridy = 2; panel.add(new JLabel("Job Title:"), gbc);
         gbc.gridx = 1; gbc.gridy = 2; panel.add(txtTitle, gbc);
@@ -109,7 +105,7 @@ public class JobRegistration {
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
         clearFields();
-        dashboard = newDash();
+        dashboard = new Dash();
     }
 
     private void saveJobData(Job job) {
@@ -127,7 +123,6 @@ public class JobRegistration {
 
     private void clearFields() {
         txtClient.setText("");
-        txtBusinessName.setText("");
         txtTitle.setText("");
         txtPayout.setText("");
         txtEstimatedTime.setText("");
