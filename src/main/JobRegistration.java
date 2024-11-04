@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,10 +15,10 @@ public class JobRegistration {
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
-    //private Dash dashboard;
+    private Dash dashboard;
 
-    public JobRegistration(Client client) {
-        this.client = client;
+    public JobRegistration() {
+        
 
         frame = new JFrame("Job Registration");
         frame.setSize(500, 550);
@@ -107,7 +109,7 @@ public class JobRegistration {
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
         clearFields();
-        //dashBoard = newDash();
+        dashboard = newDash();
     }
 
     private void saveJobData(Job job) {
