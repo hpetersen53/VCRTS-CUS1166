@@ -97,7 +97,7 @@ public class UserRegistration {
 					vehicleReg = new VehicleRegistration();
 				} else {
 					userType = "Job Lister";
-					jobReg = new JobRegistration(null);
+					jobReg = new JobRegistration();
 				}
 				
 				
@@ -121,7 +121,7 @@ public class UserRegistration {
 				if(btnU1.isSelected()) {
 					vehicleReg = new VehicleRegistration();
 				} else {
-					jobReg = new JobRegistration(null);
+					jobReg = new JobRegistration();
 				}
 				
 				
