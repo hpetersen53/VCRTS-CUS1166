@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import main.*;
 
 // stores vehicle information
 

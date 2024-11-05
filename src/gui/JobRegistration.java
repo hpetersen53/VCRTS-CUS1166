@@ -1,4 +1,4 @@
-package main;
+package gui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatterBuilder;
+
+import main.*;
 
 public class JobRegistration {
 	private JFrame frame;

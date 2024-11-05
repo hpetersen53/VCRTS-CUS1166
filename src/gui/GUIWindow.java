@@ -12,9 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import input_utils.MouseInputs;
-import main.UserRegistration;
 import main.VCRTS;
-import main.VehicleRegistration;
 
 public class GUIWindow {
 

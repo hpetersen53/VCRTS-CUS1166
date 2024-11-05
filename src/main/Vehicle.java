@@ -2,7 +2,7 @@ package main;
 
 import java.util.Date;
 
-class Vehicle {
+public class Vehicle {
 	private String make;
 	private String model;
 	private int year;
@@ -13,7 +13,7 @@ class Vehicle {
 	
 
 	// initialize a new vehicle object
-	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, String residency2) {
+	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, String residency) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -43,5 +43,9 @@ class Vehicle {
 	
 	public void depart() {
 		
+	}
+	
+	public String getVIN() {
+		return vin;
 	}
 }

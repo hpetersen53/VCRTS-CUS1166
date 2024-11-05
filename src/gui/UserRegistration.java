@@ -1,6 +1,8 @@
-package main;
+package gui;
 
 import javax.swing.*;
+import main.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;

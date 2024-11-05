@@ -2,6 +2,7 @@ package main;
 
 
 import gui.GUIWindow;
+import gui.VehicleRegistration;
 
 public class VCRTS implements Runnable {
 
