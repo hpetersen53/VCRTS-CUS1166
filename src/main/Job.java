@@ -46,4 +46,10 @@ public class Job {
                 (attachedFileName != null ? attachedFileName : "None");
     }
 
+
+//method to get job duration for vccontroller
+public double getJobDuration() {
+	return jobDuration;
+}
+
 }
