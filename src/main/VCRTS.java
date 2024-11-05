@@ -7,9 +7,6 @@ import gui.VehicleRegistration;
 public class VCRTS implements Runnable {
 
 	private GUIWindow guiWindow;
-	private VehicleRegistration vehicleReg;
-	
-	
 	
 	public VCRTS() {
 		
