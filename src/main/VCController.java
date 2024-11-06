@@ -23,14 +23,14 @@ public class VCController {
         vehicles.add(vehicle);
     }
 
-//    public void assignJob(Vehicle vehicle, Job job) {
-//        if (vehicle.contains(vehicle) && jobs.contains(job)) {
-//        System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
-//    } else {
-//        System.out.println("Vehicle or Job not found in system. ");
-//
-//    }
-//}
+    public void assignJob(Vehicle vehicle, Job job) {
+        if (vehicles.contains(vehicle) && jobs.contains(job)) {
+        System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
+    } else {
+        System.out.println("Vehicle or Job not found in system. ");
+
+    }
+}
 
 // this creates an image of a checkpoint and associates it with a vehicle
 public void copyImage(Checkpoint checkpoint, Vehicle vehicle) {
