@@ -1,2 +1,10 @@
 2024-10-09 15:58:16,m,ce,2000,Black,12345,678AB,null
 2024-11-05 19:37:17,a,2,2,a,2,2,null
+2024-11-05 20:09:00,Vehicle Details:
+Make: hp hp 
+Model: hp
+Year: 2002
+Color: hp
+VIN: hp
+License Plate: hp
+Time Available: 0.0

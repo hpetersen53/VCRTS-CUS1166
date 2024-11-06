@@ -14,6 +14,8 @@ public class VCRTS implements Runnable {
 		
 		//vehicleReg = new VehicleRegistration();
 		
+		VCController controller = new VCController();
+		
 		
 		
 		
