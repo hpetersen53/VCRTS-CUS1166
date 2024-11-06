@@ -28,4 +28,8 @@ public class Job {
     public String toFileString() {
         return clientID + "," + title + "," + payout + "," + deadline + "," + (attachedFileName == null ? "" : attachedFileName);
     }
+    
+    public int getID() {
+    	return clientID;
+    }
 }

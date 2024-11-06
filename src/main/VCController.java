@@ -1,12 +1,16 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class VCController {
     private List<Vehicle> vehicles;
     private List<Job> jobs;
     private List<Checkpoint> checkpoints;
+    
+    private Queue<Job>jobQueue = new LinkedList<>();
 
     public VCController() {
         this.vehicles = new ArrayList<>();
@@ -24,8 +28,13 @@ public class VCController {
     }
 
     public void assignJob(Vehicle vehicle, Job job) {
-        if (vehicles.contains(vehicle) && jobs.contains(job)) {
-      //  System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
+        if (vehicles.contains(vehicle) && jobQueue.contains(job)) {
+        
+        	
+        	
+        	
+        	
+        System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
     } else {
         System.out.println("Vehicle or Job not found in system. ");
 
@@ -50,6 +59,7 @@ public void addCheckpoint(Checkpoint checkpoint) {
 
 public void addJob(Job job) {
     jobs.add(job);
+    jobQueue.add(job);
     
 }
 
