@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import main.*;
 
 public class VehicleRegistration {
-    private JFrame frame;
+	private JFrame frame;
     private JTextField txtMake, txtModel, txtYear, txtColor, txtVIN, txtLicensePlate, txtResidency;
     private VehicleOwner vehicleOwner;
 
@@ -65,7 +65,7 @@ public class VehicleRegistration {
         String color = txtColor.getText();
         String vin = txtVIN.getText();
         String licensePlate = txtLicensePlate.getText();
-        String residency = txtResidency.getText();
+        double residency = txtResidency.getText();
 
         if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() ||
             vin.isEmpty() || licensePlate.isEmpty() || residency.isEmpty()) {
