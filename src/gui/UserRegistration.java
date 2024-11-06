@@ -46,7 +46,11 @@ public class UserRegistration {
         group.add(btnU2);
 
         JButton btnRegister = new JButton("Submit & Continue");
+        JButton btnReturn = new JButton("Go Back");
 
+        btnReturn.addActionListener(e ->  new GUIWindow());
+        btnReturn.addActionListener(e ->  jFrame.dispatchEvent(new WindowEvent(jFrame, WindowEvent.WINDOW_CLOSING)));
+        
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,8 +91,11 @@ public class UserRegistration {
                 txtEmail.setText("");
                 txtLicense.setText("");
                 group.clearSelection();
+                
             }
         });
+        
+        btnRegister.addActionListener(e -> jFrame.dispatchEvent(new WindowEvent(jFrame, WindowEvent.WINDOW_CLOSING)));
 
         jPanel.add(lblFName);
         jPanel.add(txtFName);
@@ -104,6 +111,7 @@ public class UserRegistration {
         jPanel.add(btnU1);
         jPanel.add(btnU2);
         jPanel.add(btnRegister);
+        jPanel.add(btnReturn);
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);

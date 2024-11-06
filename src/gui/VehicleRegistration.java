@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,7 @@ public class VehicleRegistration {
 		frame.setSize(400, 400);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(8, 2));
+		panel.setLayout(new GridLayout(9, 2));
 
 		txtMake = new JTextField(20);
 		txtModel = new JTextField(20);
@@ -33,9 +34,12 @@ public class VehicleRegistration {
 		txtResidency = new JTextField(20);
 
 		JButton btnRegister = new JButton("Register");
+		JButton btnReturn = new JButton("Go Back");
 
 		// Action listener for the register button
 		btnRegister.addActionListener(e -> registerVehicle());
+		btnReturn.addActionListener(e -> new UserRegistration());
+		btnReturn.addActionListener(e ->  frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
 
 		// Add labels and fields to panel
 		panel.add(new JLabel("Make:"));
@@ -54,6 +58,7 @@ public class VehicleRegistration {
 		panel.add(txtResidency);
 		panel.add(new JLabel("")); // Spacer
 		panel.add(btnRegister);
+		panel.add(btnReturn);
 
 		frame.add(panel);
 		frame.setVisible(true);
