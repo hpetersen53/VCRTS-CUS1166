@@ -58,11 +58,12 @@ public class VehicleRegistration {
 				String color = txtColor.getText();
 				String vin = txtVIN.getText();
 				String licensePlate = txtLicensePlate.getText();
-				String residency = txtResidency.getText();
+				String residencyStr = txtResidency.getText();
+				double residency = Double.parseDouble(residencyStr);
 
 				// data validation
 				if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() || vin.isEmpty()
-						|| licensePlate.isEmpty() || residency.isEmpty()) {
+						|| licensePlate.isEmpty() || residencyStr.isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					return;

@@ -10,10 +10,11 @@ public class Vehicle {
 	private String vin;
 	private String licensePlate;
 	private String residency;
+	private boolean available;
 	
 
 	// initialize a new vehicle object
-	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, String residency) {
+	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, double residency) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -33,16 +34,16 @@ public class Vehicle {
 		return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate + "," + residency;
 	}
 	
-	public Date getAvailability() {
-		return null;
+	public boolean getAvailability() {
+		return available;
 	}
 	
 	public void arrive() {
-		
+		available = true;
 	}
 	
 	public void depart() {
-		
+		available = false;
 	}
 	
 	public String getVIN() {

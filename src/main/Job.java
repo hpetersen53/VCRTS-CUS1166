@@ -32,6 +32,10 @@ public class Job {
                 "\nAttached File: " + (attachedFileName != null ? attachedFileName : "None");
     }
 	
+	public int getID() {
+		return ID;
+	}
+	
 	public int getRedundancy() {
 		 return levelOfRedundancy;
     }
