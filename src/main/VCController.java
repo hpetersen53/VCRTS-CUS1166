@@ -25,7 +25,7 @@ public class VCController {
 
     public void assignJob(Vehicle vehicle, Job job) {
         if (vehicles.contains(vehicle) && jobs.contains(job)) {
-        System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
+      //  System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " +vehicle.getVIN());
     } else {
         System.out.println("Vehicle or Job not found in system. ");
 
@@ -72,7 +72,7 @@ public List<Integer> calculateCompletion() {
     int cumulativeTime = 0;
 
     for (Job job : jobs) {
-        cumulativeTime += job.getJobDuration();
+       // cumulativeTime += job.getJobDuration();
         completionTimes.add(cumulativeTime);
     }
 

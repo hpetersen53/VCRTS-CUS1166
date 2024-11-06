@@ -65,14 +65,15 @@ public class VehicleRegistration {
         String color = txtColor.getText();
         String vin = txtVIN.getText();
         String licensePlate = txtLicensePlate.getText();
-        String residency = txtResidency.getText();
+        double residency;
+        
 
-        if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() ||
-            vin.isEmpty() || licensePlate.isEmpty() || residency.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+//        if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() ||
+//            vin.isEmpty() || licensePlate.isEmpty() || residencyStr.isEmpty()) {
+//            JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error",
+//                    JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
 
         int year;
         try {
@@ -98,7 +99,7 @@ public class VehicleRegistration {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = now.format(formatter);
-            writer.write(timestamp + "," + vehicle.toFileString());
+            //writer.write(timestamp + "," + vehicle.toFileString());
             writer.newLine();
         } catch (IOException ex) {
             ex.printStackTrace();
