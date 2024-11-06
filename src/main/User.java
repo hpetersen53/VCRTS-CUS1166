@@ -25,6 +25,6 @@ public abstract class User {
     public abstract String getDetails();
     
     public String toFileString() {
-        return fName + ", " + lName + ", " + emailAddr + ", " + password + ", " + licenseNum;
+        return id + "," +fName + ", " + lName + ", " + emailAddr + ", " + password + ", " + licenseNum;
     }
 }

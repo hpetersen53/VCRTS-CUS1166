@@ -118,7 +118,16 @@ public class UserRegistration {
     }
 
     private static void saveUserData(User user) {
-        String fileName = "UserRegistrations.txt";
+        String fileName;
+        if (user instanceof VehicleOwner) {
+            fileName = "VehicleOwner.txt";
+        } else if (user instanceof Client) {
+            fileName = "Client.txt";
+        } else {
+            // Default filename in case of an unexpected user type
+            fileName = "UserRegistrations.txt";
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

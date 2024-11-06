@@ -4,20 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import main.Client;
+import main.VehicleOwner;
 
 public class Login {
     private JFrame jFrame;
     private JTextField txtEmail;
     private JPasswordField txtPassword;
-    private Map<String, String> userCredentials;
-    private Map<String, String> userTypes;
 
     public Login() {
-        userCredentials = new HashMap<>();
-        userTypes = new HashMap<>();
-
         jFrame = new JFrame("Login");
         jFrame.setSize(400, 300);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,14 +35,15 @@ public class Login {
                 String email = txtEmail.getText();
                 String password = new String(txtPassword.getPassword());
 
-                if (authenticateUser(email, password)) {
+                Object user = authenticateUser(email, password);
+                if (user instanceof Client) {
                     JOptionPane.showMessageDialog(jFrame, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    
                     jFrame.dispose();
-                    
-                    
-                    new VehicleOwnerDashboard();
+                    new ClientDashboard((Client) user);
+                } else if (user instanceof VehicleOwner) {
+                    JOptionPane.showMessageDialog(jFrame, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    jFrame.dispose();
+                    new VehicleOwnerDashboard((VehicleOwner)user);          
                 } else {
                     JOptionPane.showMessageDialog(jFrame, "Invalid email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
@@ -72,24 +68,123 @@ public class Login {
         jFrame.setVisible(true);
     }
 
-    
-    private boolean authenticateUser(String email, String password) {
-        String fileName = "UserRegistrations.txt";
+    private Object authenticateUser(String email, String password) {
+        Client client = getClientFromFile("Client.txt", email, password);
+        if (client != null) {
+            return client;
+        }
+
+        VehicleOwner vehicleOwner = VehicleOwnerFromFile("VehicleOwner.txt", email, password);
+        if (vehicleOwner != null) {
+            return vehicleOwner;
+        }
+
+        return null; // Authentication failed
+    }
+
+    private Client getClientFromFile(String fileName, String email, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Separate timestamp from user details
+                // Split the line at the first ": " to separate the timestamp and the user data
+                String[] parts = line.split(": ", 2); // Limit the split to 2 parts: timestamp and user data
+                if (parts.length > 1) {
+                    // This contains the user data after the ": " (ignore the timestamp)
+                    String userDetails = parts[1].trim();  // Remove leading/trailing spaces
+
+                    // Split by commas to extract the individual fields
+                    String[] userFields = userDetails.split(","); // Split by comma, without spaces
+
+                    if (userFields.length >= 6) { // Ensure there are enough fields (ID, Name, Email, etc.)
+                        // Parse the ID correctly
+                        try {
+                            int clientId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
+
+                            // Extract other fields
+                            String firstName = userFields[1].trim();
+                            String lastName = userFields[2].trim();
+                            String storedEmail = userFields[3].trim();
+                            String storedPassword = userFields[4].trim();
+                            String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
+
+                            // Check email and password match
+                            if (storedEmail.equals(email) && storedPassword.equals(password)) {
+                                return new Client(clientId, firstName, lastName, email, password, licenseNumber);
+                            }
+                        } catch (NumberFormatException e) {
+                            // Log and skip if the ID is invalid
+                            System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+    private VehicleOwner VehicleOwnerFromFile(String fileName, String email, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Split the line at the first ": " to separate the timestamp and the user data
+                String[] parts = line.split(": ", 2); // Limit the split to 2 parts: timestamp and user data
+                if (parts.length > 1) {
+                    // This contains the user data after the ": " (ignore the timestamp)
+                    String userDetails = parts[1].trim();  // Remove leading/trailing spaces
+
+                    // Split by commas to extract the individual fields
+                    String[] userFields = userDetails.split(","); // Split by comma, without spaces
+
+                    if (userFields.length >= 6) { // Ensure there are enough fields (ID, Name, Email, etc.)
+                        // Parse the ID correctly
+                        try {
+                            int VehicleId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
+
+                            // Extract other fields
+                            String firstName = userFields[1].trim();
+                            String lastName = userFields[2].trim();
+                            String storedEmail = userFields[3].trim();
+                            String storedPassword = userFields[4].trim();
+                            String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
+
+                            // Check email and password match
+                            if (storedEmail.equals(email) && storedPassword.equals(password)) {
+                            	return new VehicleOwner(VehicleId, firstName, lastName, email, password, userFields[4].trim());
+                            }
+                        } catch (NumberFormatException e) {
+                            // Log and skip if the ID is invalid
+                            System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private VehicleOwner getVehicleOwnerFromFile1(String fileName, String email, String password) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(": ");
                 if (parts.length > 1) {
                     String userDetails = parts[1];
                     String[] userFields = userDetails.split(", ");
-                    
-                    
+
                     String storedEmail = userFields[2].trim();
                     String storedPassword = userFields[3].trim();
 
                     if (storedEmail.equals(email) && storedPassword.equals(password)) {
-                        return true; 
+                        int vehicleId = Integer.parseInt(userFields[0].trim());
+                        String firstName = userFields[1].trim();
+                        String lastName = userFields[2].trim();
+                        return new VehicleOwner(vehicleId, firstName, lastName, email, password, userFields[4].trim());
                     }
                 }
             }
@@ -97,8 +192,6 @@ public class Login {
             JOptionPane.showMessageDialog(jFrame, "Error accessing user data", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
-        JOptionPane.showMessageDialog(jFrame, "Invalid email or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
-        return false; // Authentication failed
+        return null;
     }
 }

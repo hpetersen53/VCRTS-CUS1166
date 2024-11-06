@@ -7,7 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
+
 import main.Client;
 import main.Job;
 
@@ -61,26 +62,38 @@ public class ClientDashboard {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            ArrayList<Job> clientJobs = new ArrayList<>();
 
             while ((line = reader.readLine()) != null) {
-                // Parse job data from the file
+                // Split the line by commas
                 String[] data = line.split(",");
                 if (data.length < 5) continue; // Ensure data has all fields
-                
-                int clientId = Integer.parseInt(data[0]);
-                if (clientId == client.getID()) { // Filter jobs by client ID
-                    String title = data[1];
-                    double payout = Double.parseDouble(data[2]);
-                    LocalDate deadline = LocalDate.parse(data[3]);
-                    String attachedFileName = data[4].isEmpty() ? "None" : data[4];
 
-                    // Add to table
-                    tableModel.addRow(new Object[]{clientId, title, payout, deadline, attachedFileName});
+                try {
+                    // Parse jobId and clientId (assuming they are integers)
+                    int jobId = Integer.parseInt(data[0].trim()); // job ID should be the first field
+                    int clientId = Integer.parseInt(data[1].trim()); // client ID should be the second field
+
+                    // Check if the job is posted by the current client
+                    if (clientId == client.getID()) {
+                        String title = data[2].trim(); // job title
+                        double payout = Double.parseDouble(data[3].trim()); // job payout
+                        LocalDate deadline = LocalDate.parse(data[4].trim()); // job deadline (date format must be yyyy-MM-dd)
+                        String attachedFileName = data.length > 5 && !data[5].trim().isEmpty() ? data[5].trim() : "None"; // optional attached file
+
+                        // Add job data to the table
+                        tableModel.addRow(new Object[]{jobId, title, payout, deadline, attachedFileName});
+                    }
+                } catch (NumberFormatException e) {
+                    // Handle any number format issues
+                    System.out.println("Error parsing job data: " + line);
+                } catch (DateTimeParseException e) {
+                    // Handle any date format issues (ensure correct date format)
+                    System.out.println("Error parsing deadline for job: " + line);
                 }
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 }
