@@ -6,6 +6,8 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import main.VCController;
 import main.VehicleOwner;
 
 public class VehicleOwnerDashboard {
@@ -13,6 +15,7 @@ public class VehicleOwnerDashboard {
     private JTable table;
     private DefaultTableModel tableModel;
     private VehicleOwner vehicleOwner;
+    private VCController cloudController;
 
     public VehicleOwnerDashboard(VehicleOwner vehicleOwner) {
         if (vehicleOwner == null) {
@@ -43,6 +46,11 @@ public class VehicleOwnerDashboard {
         
         frame.add(new JLabel(vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);  
         frame.add(scrollPane, BorderLayout.CENTER);
+        
+        JButton btnCalc = new JButton("Calculate Completion Time");
+        btnCalc.addActionListener(e -> cloudController.calculateCompletion());
+        frame.add(btnCalc);
+        
 
         JButton btnReturn = new JButton("Go Back");
         btnReturn.addActionListener(e -> {
@@ -50,8 +58,12 @@ public class VehicleOwnerDashboard {
             frame.dispose();
         });
         frame.add(btnReturn, BorderLayout.SOUTH);
+        
 
         frame.setVisible(true);
+        
+        
+        
     }
 
     private void loadVehicles() {

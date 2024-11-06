@@ -19,7 +19,7 @@ public class VCController {
 	}
 
 	public void setRedundancy(Job job, int levelOfRedundancy) {
-		// job.setLevelOfRedundancy(levelOfRedundancy);
+		job.setLevelOfRedundancy(levelOfRedundancy);
 
 	}
 
@@ -29,27 +29,14 @@ public class VCController {
 
 	public void assignJob(Vehicle vehicle, Job job) {
 		if (vehicles.contains(vehicle) && jobQueue.contains(job)) {
-			
-			
-			while(!jobQueue.isEmpty()) {
-				for(int i = 0; i < vehicles.size(); i++) {
-					Job currentJob = jobQueue.peek();
-					Vehicle currentVehicle = vehicles.get(i);
-					
 
-					System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " + vehicle.getVIN());
-				}
-				
-				
-			}
-			
+			System.out.println("Job id: " + job.getID() + " assigned to Vehicle VIN: " + vehicle.getVIN());
+
 		} else {
 			System.out.println("Vehicle or Job not found in system. ");
 
 		}
 	}
-	
-	
 
 // this creates an image of a checkpoint and associates it with a vehicle
 	public void copyImage(Checkpoint checkpoint, Vehicle vehicle) {

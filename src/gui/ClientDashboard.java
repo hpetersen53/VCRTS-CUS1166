@@ -10,12 +10,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import main.Client;
 import main.Job;
+import main.VCController;
 
 public class ClientDashboard {
     private JFrame frame;
     private JTable table;
     private DefaultTableModel tableModel;
     private Client client;
+    private VCController cloudController;
 
     public ClientDashboard(Client client) {
         if (client == null) {
@@ -63,9 +65,15 @@ public class ClientDashboard {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnBackToJobRegistration);
         buttonPanel.add(btnReturn);
+        
+        JButton btnCalc = new JButton("Calculate Completion Time");
+        btnCalc.setPreferredSize(new Dimension(20,20));
+        btnCalc.addActionListener(e -> cloudController.calculateCompletion());
+        frame.add(btnCalc);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
+        
         frame.setVisible(true);
     }
 

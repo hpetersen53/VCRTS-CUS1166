@@ -26,7 +26,7 @@ public class GUIWindow {
 
 		
 
-		JButton user1Btn = new JButton("Register or Manage a Car");
+		JButton user1Btn = new JButton("Sign Up");
 		user1Btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -39,7 +39,7 @@ public class GUIWindow {
 		});
 		
 
-		JButton loginBtn = new JButton("Login");
+		JButton loginBtn = new JButton("Sign In");
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

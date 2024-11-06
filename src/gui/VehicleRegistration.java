@@ -12,6 +12,7 @@ public class VehicleRegistration {
     private JFrame frame;
     private JTextField txtMake, txtModel, txtYear, txtColor, txtVIN, txtLicensePlate, txtResidency;
     private VehicleOwner vehicleOwner;
+    private VCController cloudController;
 
     public VehicleRegistration(VehicleOwner vehicleOwner) {
         if (vehicleOwner == null) {
@@ -92,6 +93,7 @@ public class VehicleRegistration {
         // Create the vehicle and add it to the vehicle owner
         Vehicle vehicle = new Vehicle(make, model, year, color, vin, licensePlate, residency);
         vehicleOwner.ownVehicle(vehicle); // Register the vehicle under this owner
+        //cloudController.recruitVehicle(vehicle);
         saveVehicleData(vehicle); // Save vehicle data to the file
 
         JOptionPane.showMessageDialog(frame, vehicle.getDetails(), "Vehicle Registered",

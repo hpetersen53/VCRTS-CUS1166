@@ -14,3 +14,11 @@ Color: c
 VIN: d
 License Plate: e
 Time Available: 0.0
+2024-11-06 11:15:13,Vehicle Details:
+Make: 1
+Model: 1
+Year: 2011
+Color: black
+VIN: 111
+License Plate: 111
+Time Available: 0.0

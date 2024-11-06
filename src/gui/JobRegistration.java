@@ -15,6 +15,7 @@ public class JobRegistration {
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
+    private VCController cloudController;
 
     public JobRegistration(Client client) {
         if (client == null) {
@@ -53,6 +54,8 @@ public class JobRegistration {
         });
 
         btnSubmit.addActionListener(e -> submitJob());
+       
+        
         btnReturn.addActionListener(e -> {
             new UserRegistration(); 
             frame.dispose(); 
@@ -155,6 +158,7 @@ public class JobRegistration {
         Job job = new Job(client.getID(), 0, 0, payout, title, deadline, attachedFileName);
         client.submitJob(job);
         saveJobData(job);
+        //cloudController.addJob(job);
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
         

@@ -35,4 +35,9 @@ public class Job {
 	public int getID() {
 		return clientID;
 	}
+
+	public void setLevelOfRedundancy(int levelOfRedundancy2) {
+		this.levelOfRedundancy = levelOfRedundancy;
+		
+	}
 }
