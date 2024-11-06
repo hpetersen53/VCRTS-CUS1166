@@ -9,7 +9,7 @@ public class Vehicle {
 	private String color;
 	private String vin;
 	private String licensePlate;
-	private String residency;
+	private double residency;
 	private boolean available;
 	
 
@@ -23,19 +23,18 @@ public class Vehicle {
 		this.licensePlate = licensePlate;
 	}
 
-	// gets vehicle details
-	public String getDetails() {
-		return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
-				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n" + "Time Available: " + residency;
-	}
+	
 
-	// format to write vehicle details to a file.
-	public String toFileString() {
-		return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate + "," + residency;
+	public String getVIN() {
+		return vin;
 	}
 	
 	public boolean getAvailability() {
-		return available;
+		if (residency == 0) {
+			return false;
+		} else {
+			return available;
+		}
 	}
 	
 	public void arrive() {
@@ -46,7 +45,18 @@ public class Vehicle {
 		available = false;
 	}
 	
-	public String getVIN() {
-		return vin;
-	}
+	//-----------------
+	
+	// gets vehicle details
+		public String getDetails() {
+			return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
+					+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n" + "Time Available: " + residency;
+		}
+
+////		 format to write vehicle details to a file.
+//		public String toFileString() {
+//			return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate + "," + residency;
+//		}
+//	
+	
 }

@@ -127,7 +127,7 @@ public class VehicleRegistration {
 			String timestamp = now.format(formatter);
 
 			// writes timestamp and vehicle details to the file.
-			writer.write(timestamp + "," + vehicle.toFileString());
+			writer.write(timestamp + "," + vehicle.getDetails());
 			writer.newLine();
 		} catch (IOException ex) {
 			ex.printStackTrace();
