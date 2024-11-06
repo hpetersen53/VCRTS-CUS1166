@@ -1,4 +1,4 @@
-// UserRegistration.java
+
 package gui;
 
 import javax.swing.*;
@@ -23,19 +23,19 @@ public class UserRegistration {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(8, 2));
 
-        JLabel lblFName = new JLabel("First Name:");
+        JLabel lblFName = new JLabel("First Name: (Any Alphabets)");
         JTextField txtFName = new JTextField(20);
 
-        JLabel lblLName = new JLabel("Last Name:");
+        JLabel lblLName = new JLabel("Last Name:(Any Alphabets)");
         JTextField txtLName = new JTextField(20);
 
-        JLabel lblEmail = new JLabel("Email Address:");
+        JLabel lblEmail = new JLabel("Email Address: (Any Alphabets)");
         JTextField txtEmail = new JTextField(20);
 
-        JLabel lblPassword = new JLabel("Password:");
+        JLabel lblPassword = new JLabel("Password: (Any Alphabets)");
         JPasswordField txtPassword = new JPasswordField(20);
 
-        JLabel lblLicense = new JLabel("License Number:");
+        JLabel lblLicense = new JLabel("License Number: (Any Alphabets)");
         JTextField txtLicense = new JTextField(20);
 
         JLabel lblRadio = new JLabel("Select User Type:");
@@ -69,7 +69,7 @@ public class UserRegistration {
                 int clientId= 0;
                 int vehicleId=0;
                 VehicleOwner VehicleOwner;
-                // Initialize `user` as either `VehicleOwner` or `Client`
+                
                 if (btnU1.isSelected()) {
                 	VehicleOwner = new VehicleOwner(vehicleId,fName, lName, emailAddr, password, licenseNum);
                 	user = VehicleOwner;  
@@ -77,15 +77,15 @@ public class UserRegistration {
                     JOptionPane.showMessageDialog(jFrame, VehicleOwner.getDetails(), "User Registered as Car Owner", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                 	Client client = new Client(clientId, fName, lName, emailAddr, password, licenseNum);
-                    user = client;  // Assign `client` to `user` to pass to `saveUserData`
+                    user = client;  
                     jobReg = new JobRegistration(client);
                     JOptionPane.showMessageDialog(jFrame, client.getDetails(), "User Registered as Job Lister", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                // Now `user` is properly initialized before being passed to `saveUserData`
+                
                 saveUserData(user);
 
-                // Clear text fields and radio selection
+                
                 txtFName.setText("");
                 txtLName.setText("");
                 txtEmail.setText("");
@@ -124,7 +124,7 @@ public class UserRegistration {
         } else if (user instanceof Client) {
             fileName = "Client.txt";
         } else {
-            // Default filename in case of an unexpected user type
+            
             fileName = "UserRegistrations.txt";
         }
 

@@ -1,10 +1,16 @@
-2024-10-09 15:58:16,m,ce,2000,Black,12345,678AB,null
-2024-11-05 19:37:17,a,2,2,a,2,2,null
-2024-11-05 20:09:00,Vehicle Details:
-Make: hp hp 
-Model: hp
-Year: 2002
-Color: hp
-VIN: hp
-License Plate: hp
+2024-11-06 09:13:13,Vehicle Details:
+Make: Toyota
+Model: Land Cruiser
+Year: 2015
+Color: Black
+VIN: A123
+License Plate: B321
+Time Available: 0.0
+2024-11-06 09:15:44,Vehicle Details:
+Make: a
+Model: b
+Year: 2012
+Color: c
+VIN: d
+License Plate: e
 Time Available: 0.0

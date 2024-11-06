@@ -79,40 +79,40 @@ public class Login {
             return vehicleOwner;
         }
 
-        return null; // Authentication failed
+        return null; 
     }
 
     private Client getClientFromFile(String fileName, String email, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Split the line at the first ": " to separate the timestamp and the user data
-                String[] parts = line.split(": ", 2); // Limit the split to 2 parts: timestamp and user data
+                
+                String[] parts = line.split(": ", 2);
                 if (parts.length > 1) {
-                    // This contains the user data after the ": " (ignore the timestamp)
-                    String userDetails = parts[1].trim();  // Remove leading/trailing spaces
+                    
+                    String userDetails = parts[1].trim(); 
 
-                    // Split by commas to extract the individual fields
-                    String[] userFields = userDetails.split(","); // Split by comma, without spaces
+                    
+                    String[] userFields = userDetails.split(","); 
 
-                    if (userFields.length >= 6) { // Ensure there are enough fields (ID, Name, Email, etc.)
-                        // Parse the ID correctly
+                    if (userFields.length >= 6) { 
+                        
                         try {
                             int clientId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
 
-                            // Extract other fields
+                            
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
                             String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
 
-                            // Check email and password match
+                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
                                 return new Client(clientId, firstName, lastName, email, password, licenseNumber);
                             }
                         } catch (NumberFormatException e) {
-                            // Log and skip if the ID is invalid
+                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }
@@ -131,33 +131,33 @@ public class Login {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Split the line at the first ": " to separate the timestamp and the user data
-                String[] parts = line.split(": ", 2); // Limit the split to 2 parts: timestamp and user data
+                
+                String[] parts = line.split(": ", 2); 
                 if (parts.length > 1) {
-                    // This contains the user data after the ": " (ignore the timestamp)
-                    String userDetails = parts[1].trim();  // Remove leading/trailing spaces
+                   
+                    String userDetails = parts[1].trim();  
 
-                    // Split by commas to extract the individual fields
-                    String[] userFields = userDetails.split(","); // Split by comma, without spaces
+                    
+                    String[] userFields = userDetails.split(","); 
 
-                    if (userFields.length >= 6) { // Ensure there are enough fields (ID, Name, Email, etc.)
-                        // Parse the ID correctly
+                    if (userFields.length >= 6) { 
+                        
                         try {
-                            int VehicleId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
+                            int VehicleId = Integer.parseInt(userFields[0].trim());  
 
-                            // Extract other fields
+                            
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
-                            String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
+                            String licenseNumber = userFields[5].trim(); 
 
-                            // Check email and password match
+                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
                             	return new VehicleOwner(VehicleId, firstName, lastName, email, password, userFields[4].trim());
                             }
                         } catch (NumberFormatException e) {
-                            // Log and skip if the ID is invalid
+                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }

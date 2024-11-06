@@ -6,9 +6,9 @@ public abstract class User {
     protected String emailAddr;
     protected String licenseNum;
     protected String password;
-    protected int id;  // Add this line
+    protected int id;  
 
-    // Adjust constructor to take id as an argument
+    
     public User(int id, String fName, String lName, String emailAddr, String password, String licenseNum) {
         this.id = id;
         this.fName = fName;
@@ -18,7 +18,7 @@ public abstract class User {
         this.licenseNum = licenseNum;
     }
 
-    public int getID() {  // Add this method
+    public int getID() {  
         return id;
     }
 
