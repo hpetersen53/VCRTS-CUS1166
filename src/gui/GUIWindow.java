@@ -11,13 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import input_utils.MouseInputs;
 import main.VCRTS;
 
 public class GUIWindow {
 
 	private JFrame jFrame;
-	private MouseInputs mouseInputs;
+	
 	// private VehicleRegistration vehicleReg;
 	private UserRegistration userReg;
 	
