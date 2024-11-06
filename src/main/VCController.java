@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Queue;
 
 public class VCController {
-	private List<Vehicle> vehicles;
-	private List<Job> jobs;
+	private ArrayList<Vehicle> vehicles;
+	private ArrayList<Job> jobs;
 	private List<Checkpoint> checkpoints;
 
 	private Queue<Job> jobQueue = new LinkedList<>();
@@ -57,7 +57,7 @@ public class VCController {
 
 	public void addJob(Job job) {
 		jobs.add(job);
-		jobQueue.add(job);
+		
 
 	}
 
