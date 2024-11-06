@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,14 +11,12 @@ public class Login {
     private JFrame jFrame;
     private JTextField txtEmail;
     private JPasswordField txtPassword;
-    private Map<String, String> userCredentials; 
-    private Map<String, String> userTypes;      
+    private Map<String, String> userCredentials;
+    private Map<String, String> userTypes;
 
     public Login() {
-
         userCredentials = new HashMap<>();
         userTypes = new HashMap<>();
-        
 
         jFrame = new JFrame("Login");
         jFrame.setSize(400, 300);
@@ -35,20 +34,20 @@ public class Login {
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
 
-
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String email = txtEmail.getText();
                 String password = new String(txtPassword.getPassword());
 
-                if (authenticateUser(emailAddr, password)) {
-                    String userType = userTypes.get(email);
-                    if (userType.equals("Car Owner")) {
-                        VehicleOwnerDashboard();
-                    } else if (userType.equals("Job Lister")) {
-                        ClientDashboard();
-                    }
+                if (authenticateUser(email, password)) {
+                    JOptionPane.showMessageDialog(jFrame, "Login Successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    
+                    jFrame.dispose();
+                    
+                    
+                    new VehicleOwnerDashboard();
                 } else {
                     JOptionPane.showMessageDialog(jFrame, "Invalid email or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
@@ -58,7 +57,6 @@ public class Login {
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 new UserRegistration();
             }
         });
@@ -74,19 +72,33 @@ public class Login {
         jFrame.setVisible(true);
     }
 
-    // Method to authenticate the user
-    private boolean authenticateUser(String emailAddr , String password) {
-        return userCredentials.containsKey(emailAddr) && userCredentials.get(emailAddr).equals(password);
-    }
+    
+    private boolean authenticateUser(String email, String password) {
+        String fileName = "UserRegistrations.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Separate timestamp from user details
+                String[] parts = line.split(": ");
+                if (parts.length > 1) {
+                    String userDetails = parts[1];
+                    String[] userFields = userDetails.split(", ");
+                    
+                    
+                    String storedEmail = userFields[2].trim();
+                    String storedPassword = userFields[3].trim();
 
-    private void VehicleOwnerDashboard() {
-        JOptionPane.showMessageDialog(jFrame, "Welcome to the Car Owner Homepage!", "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+                    if (storedEmail.equals(email) && storedPassword.equals(password)) {
+                        return true; 
+                    }
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(jFrame, "Error accessing user data", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
 
-    }
-
-    private void ClientDashboard() {
-        JOptionPane.showMessageDialog(jFrame, "Welcome to the Job Lister Homepage!", "Login Successful", JOptionPane.INFORMATION_MESSAGE);
-      
+        JOptionPane.showMessageDialog(jFrame, "Invalid email or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        return false; // Authentication failed
     }
 }
-
