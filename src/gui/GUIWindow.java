@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import main.VCRTS;
 
+
 public class GUIWindow {
 
 	private JFrame jFrame;
@@ -50,6 +51,14 @@ public class GUIWindow {
 			}
 		});
 
+		JButton loginBtn = new JButton("Login");
+        loginBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Login();  // Opens the LoginUI screen
+            }
+        });
+
 		JLabel welcome = new JLabel("Welcome");
 		welcome.setHorizontalAlignment(JLabel.CENTER);
 		JPanel jPanel = new JPanel();
@@ -58,6 +67,7 @@ public class GUIWindow {
 		jPanel.add(welcome);
 		jPanel.add(user1Btn);
 		jPanel.add(user2Btn);
+		jPanel.add(loginBtn);
 		
 		jFrame = new JFrame();
 
