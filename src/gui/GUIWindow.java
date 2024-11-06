@@ -39,18 +39,6 @@ public class GUIWindow {
 		});
 		
 
-		JButton user2Btn = new JButton("Post or Manage a Job");
-		user2Btn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// vehicleReg = new VehicleRegistration();
-				userReg = new UserRegistration();
-
-			}
-		});
-
 		JButton loginBtn = new JButton("Login");
         loginBtn.addActionListener(new ActionListener() {
             @Override
@@ -66,7 +54,6 @@ public class GUIWindow {
 		
 		jPanel.add(welcome);
 		jPanel.add(user1Btn);
-		jPanel.add(user2Btn);
 		jPanel.add(loginBtn);
 		
 		jFrame = new JFrame();
