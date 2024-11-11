@@ -29,7 +29,7 @@ public class AdminDashboard {
 		
 
 		 JButton btnCalc = new JButton("Calculate Completion Time");
-		 btnCalc.addActionListener(e -> cloudController.calculateCompletion());
+		 btnCalc.addActionListener(e -> cloudController.calculateCompletion(null));
 		 frame.add(btnCalc);
 
 		JButton btnReturn = new JButton("Go Back");

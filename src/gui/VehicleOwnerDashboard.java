@@ -48,14 +48,13 @@ public class VehicleOwnerDashboard {
         // Add components to the frame
         frame.add(new JLabel("Vehicles Owned by: " + vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
-<<<<<<< HEAD
+
         
         //JButton btnCalc = new JButton("Calculate Completion Time");
         //btnCalc.addActionListener(e -> cloudController.calculateCompletion());
         //frame.add(btnCalc);
         
-=======
->>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
+
 
         // "Go Back" button to return to the main GUI
         JButton btnReturn = new JButton("Go Back");

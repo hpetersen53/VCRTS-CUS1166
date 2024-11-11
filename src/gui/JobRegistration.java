@@ -163,11 +163,11 @@ public class JobRegistration {
         Job job = new Job(client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
         client.submitJob(job);
         saveJobData(job);
-<<<<<<< HEAD
-        cloudController.addJob(job);
-=======
 
->>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
+        cloudController.addJob(job);
+
+
+
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
         new ClientDashboard(client);

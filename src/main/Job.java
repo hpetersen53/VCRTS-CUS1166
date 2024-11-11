@@ -46,11 +46,7 @@ public class Job {
 		this.levelOfRedundancy = levelOfRedundancy;
 		
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
 	public int getJobDuration() {
 		return jobDuration;
 	}

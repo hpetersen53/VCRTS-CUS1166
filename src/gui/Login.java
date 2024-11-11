@@ -32,11 +32,11 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
-<<<<<<< HEAD
+
         JButton btnAdminLogin = new JButton("Login For Admin");
-=======
-        JButton btnAdminLogin = new JButton("Admin Login");  // New button for admin login
->>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
+
+//        JButton btnAdminLogin = new JButton("Admin Login");  // New button for admin login
+
 
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -89,12 +89,12 @@ public class Login {
         jPanel.add(txtPassword);
         jPanel.add(btnLogin);
         jPanel.add(btnRegister);
-<<<<<<< HEAD
+
         jPanel.add(btnAdminLogin);
-=======
+
         jPanel.add(new JLabel());  // Spacer
         jPanel.add(btnAdminLogin);  // Add Admin Login button
->>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
+
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
