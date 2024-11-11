@@ -66,12 +66,7 @@ public class Login {
             }
         });
         
-        btnAdminLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new AdminDashboard();
-            }
-        });
+        
 
         btnAdminLogin.addActionListener(new ActionListener() {  // Action for the Admin Login button
             @Override
