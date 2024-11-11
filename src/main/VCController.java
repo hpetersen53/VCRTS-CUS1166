@@ -84,16 +84,27 @@ public class VCController {
 	}
 
 // Method to calculate job completion times
-	public List<Integer> calculateCompletion() {
-		List<Integer> completionTimes = new ArrayList<>();
-		int cumulativeTime = 0;
+	// Method to calculate cumulative job completion times
+	// Method to calculate cumulative job completion times
+	public List<Integer> calculateCompletion(List<Integer> jobDurations) {
+	    List<Integer> completionTimes = new ArrayList<>();
+	    int cumulativeTime = 0;
 
+<<<<<<< HEAD
 		for (Job job : jobs) {
 			cumulativeTime += job.getJobDuration();
 			completionTimes.add(cumulativeTime);
 			
 		}
+=======
+	    for (Integer duration : jobDurations) {
+	        cumulativeTime += duration;
+	        completionTimes.add(cumulativeTime);
+	    }
+>>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
 
-		return completionTimes;
+	    return completionTimes;
 	}
+
+
 }
