@@ -158,7 +158,7 @@ public class JobRegistration {
         Job job = new Job(client.getID(), 0, 0, payout, title, deadline, attachedFileName);
         client.submitJob(job);
         saveJobData(job);
-        //cloudController.addJob(job);
+        cloudController.addJob(job);
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
         

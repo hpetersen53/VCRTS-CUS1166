@@ -66,10 +66,10 @@ public class ClientDashboard {
         buttonPanel.add(btnBackToJobRegistration);
         buttonPanel.add(btnReturn);
         
-        JButton btnCalc = new JButton("Calculate Completion Time");
-        btnCalc.setPreferredSize(new Dimension(20,20));
-        btnCalc.addActionListener(e -> cloudController.calculateCompletion());
-        frame.add(btnCalc);
+       // JButton btnCalc = new JButton("Calculate Completion Time");
+        //btnCalc.setPreferredSize(new Dimension(20,20));
+        //btnCalc.addActionListener(e -> cloudController.calculateCompletion());
+       // frame.add(btnCalc);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -105,10 +105,10 @@ public class ClientDashboard {
                     }
                 } catch (NumberFormatException e) {
                     
-                    System.out.println("Error parsing job data: " + line);
+                   // System.out.println("Error parsing job data: " + line);
                 } catch (DateTimeParseException e) {
                     
-                    System.out.println("Error parsing deadline for job: " + line);
+                    //.out.println("Error parsing deadline for job: " + line);
                 }
             }
         } catch (IOException ex) {

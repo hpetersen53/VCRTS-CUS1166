@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -47,9 +48,9 @@ public class VehicleOwnerDashboard {
         frame.add(new JLabel(vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);  
         frame.add(scrollPane, BorderLayout.CENTER);
         
-        JButton btnCalc = new JButton("Calculate Completion Time");
-        btnCalc.addActionListener(e -> cloudController.calculateCompletion());
-        frame.add(btnCalc);
+        //JButton btnCalc = new JButton("Calculate Completion Time");
+        //btnCalc.addActionListener(e -> cloudController.calculateCompletion());
+        //frame.add(btnCalc);
         
 
         JButton btnReturn = new JButton("Go Back");

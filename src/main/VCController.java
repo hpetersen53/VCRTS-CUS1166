@@ -5,10 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import gui.JobRegistration;
+import gui.VehicleRegistration;
+
 public class VCController {
 	private ArrayList<Vehicle> vehicles;
 	private ArrayList<Job> jobs;
 	private List<Checkpoint> checkpoints;
+	private JobRegistration jobReg;
+	private VehicleRegistration vehReg;
 
 	private Queue<Job> jobQueue = new LinkedList<>();
 
@@ -16,6 +21,11 @@ public class VCController {
 		this.vehicles = new ArrayList<>();
 		this.jobs = new ArrayList<>();
 		this.checkpoints = new ArrayList<>();
+		
+		
+		
+		
+		
 	}
 
 	public void setRedundancy(Job job, int levelOfRedundancy) {
@@ -79,8 +89,9 @@ public class VCController {
 		int cumulativeTime = 0;
 
 		for (Job job : jobs) {
-			// cumulativeTime += job.getJobDuration();
+			cumulativeTime += job.getJobDuration();
 			completionTimes.add(cumulativeTime);
+			
 		}
 
 		return completionTimes;

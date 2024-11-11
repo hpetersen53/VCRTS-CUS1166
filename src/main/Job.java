@@ -40,4 +40,8 @@ public class Job {
 		this.levelOfRedundancy = levelOfRedundancy;
 		
 	}
+	
+	public int getJobDuration() {
+		return jobDuration;
+	}
 }

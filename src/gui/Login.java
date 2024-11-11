@@ -28,6 +28,7 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
+        JButton btnAdminLogin = new JButton("Login For Admin");
 
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -56,6 +57,13 @@ public class Login {
                 new UserRegistration();
             }
         });
+        
+        btnAdminLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AdminDashboard();
+            }
+        });
 
         jPanel.add(lblEmail);
         jPanel.add(txtEmail);
@@ -63,6 +71,7 @@ public class Login {
         jPanel.add(txtPassword);
         jPanel.add(btnLogin);
         jPanel.add(btnRegister);
+        jPanel.add(btnAdminLogin);
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
