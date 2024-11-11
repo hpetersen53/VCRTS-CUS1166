@@ -3,9 +3,13 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import main.Client;
 import main.VehicleOwner;
+import main.VCController;
 
 public class Login {
     private JFrame jFrame;
@@ -18,7 +22,7 @@ public class Login {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(4, 2));
+        jPanel.setLayout(new GridLayout(5, 2));  // Updated grid layout to accommodate extra button
 
         JLabel lblEmail = new JLabel("Email:");
         txtEmail = new JTextField(20);
@@ -28,6 +32,7 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
+        JButton btnAdminLogin = new JButton("Admin Login");  // New button for admin login
 
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -57,12 +62,24 @@ public class Login {
             }
         });
 
+        btnAdminLogin.addActionListener(new ActionListener() {  // Action for the Admin Login button
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jFrame.dispose();
+                VCController controller = new VCController(); // Instantiate the controller
+                new ControllerDashboard(controller); // Open the ControllerDashboard
+            }
+        });
+
+        // Add components to panel
         jPanel.add(lblEmail);
         jPanel.add(txtEmail);
         jPanel.add(lblPassword);
         jPanel.add(txtPassword);
         jPanel.add(btnLogin);
         jPanel.add(btnRegister);
+        jPanel.add(new JLabel());  // Spacer
+        jPanel.add(btnAdminLogin);  // Add Admin Login button
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
@@ -98,21 +115,18 @@ public class Login {
                     if (userFields.length >= 6) { 
                         
                         try {
-                            int clientId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
+                            int clientId = Integer.parseInt(userFields[0].trim());
 
-                            
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
-                            String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
+                            String licenseNumber = userFields[5].trim();
 
-                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
                                 return new Client(clientId, firstName, lastName, email, password, licenseNumber);
                             }
                         } catch (NumberFormatException e) {
-                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }
@@ -123,9 +137,6 @@ public class Login {
         }
         return null;
     }
-
-
-
 
     private VehicleOwner VehicleOwnerFromFile(String fileName, String email, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -136,60 +147,28 @@ public class Login {
                 if (parts.length > 1) {
                    
                     String userDetails = parts[1].trim();  
-
-                    
                     String[] userFields = userDetails.split(","); 
 
                     if (userFields.length >= 6) { 
-                        
                         try {
-                            int VehicleId = Integer.parseInt(userFields[0].trim());  
+                            int VehicleId = Integer.parseInt(userFields[0].trim());
 
-                            
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
-                            String licenseNumber = userFields[5].trim(); 
+                            String licenseNumber = userFields[5].trim();
 
-                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
                             	return new VehicleOwner(VehicleId, firstName, lastName, email, password, userFields[4].trim());
                             }
                         } catch (NumberFormatException e) {
-                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    private VehicleOwner getVehicleOwnerFromFile1(String fileName, String email, String password) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(": ");
-                if (parts.length > 1) {
-                    String userDetails = parts[1];
-                    String[] userFields = userDetails.split(", ");
-
-                    String storedEmail = userFields[2].trim();
-                    String storedPassword = userFields[3].trim();
-
-                    if (storedEmail.equals(email) && storedPassword.equals(password)) {
-                        int vehicleId = Integer.parseInt(userFields[0].trim());
-                        String firstName = userFields[1].trim();
-                        String lastName = userFields[2].trim();
-                        return new VehicleOwner(vehicleId, firstName, lastName, email, password, userFields[4].trim());
-                    }
-                }
-            }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(jFrame, "Error accessing user data", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         return null;

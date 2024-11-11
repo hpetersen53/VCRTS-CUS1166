@@ -30,32 +30,33 @@ public class ClientDashboard {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        
+        // Initialize table model and add columns
         tableModel = new DefaultTableModel();
-        tableModel.addColumn("Job ID");
+        tableModel.addColumn("Client ID");
+        tableModel.addColumn("Job Duration");
         tableModel.addColumn("Title");
         tableModel.addColumn("Payout");
         tableModel.addColumn("Deadline");
         tableModel.addColumn("File Attached");
 
+        // Create table and link it to the table model
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
 
-       
+        
         loadJobs();
 
         
         frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-       
+        
         JButton btnBackToJobRegistration = new JButton("Register a job");
         btnBackToJobRegistration.addActionListener(e -> {
             new JobRegistration(client); 
             frame.dispose(); 
         });
 
-        
         JButton btnReturn = new JButton("Go Back");
         btnReturn.addActionListener(e -> {
             new GUIWindow();  
@@ -66,14 +67,9 @@ public class ClientDashboard {
         buttonPanel.add(btnBackToJobRegistration);
         buttonPanel.add(btnReturn);
         
-        JButton btnCalc = new JButton("Calculate Completion Time");
-        btnCalc.setPreferredSize(new Dimension(20,20));
-        btnCalc.addActionListener(e -> cloudController.calculateCompletion());
-        frame.add(btnCalc);
-
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
-        
+        // Set frame visibility
         frame.setVisible(true);
     }
 
@@ -81,37 +77,46 @@ public class ClientDashboard {
         String fileName = "JobListings.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
+            String line;        
+            int clientId = 0;
+            String title = "";
+            int JobDuration= 0;
+            double payout = 0.0;
+            LocalDate deadline = null;
+            String attachedFileName = "None";
 
             while ((line = reader.readLine()) != null) {
-               
-                String[] data = line.split(",");
-                if (data.length < 5) continue; 
-
-                try {
-                   
-                    int jobId = Integer.parseInt(data[0].trim()); 
-                    int clientId = Integer.parseInt(data[1].trim()); 
-
-                   
+                line = line.trim();
+                
+                
+                if (line.startsWith("Client ID:")) {
+                    clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Job Duration:")) {
+                    JobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                }else if (line.startsWith("Title:")) {
+                        title = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Payout:")) {
+                    payout = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Deadline:")) {
+                    deadline = LocalDate.parse(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("FileName:")) {
+                    attachedFileName = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.isEmpty()) {
+                    
                     if (clientId == client.getID()) {
-                        String title = data[2].trim(); 
-                        double payout = Double.parseDouble(data[3].trim()); 
-                        LocalDate deadline = LocalDate.parse(data[4].trim());
-                        String attachedFileName = data.length > 5 && !data[5].trim().isEmpty() ? data[5].trim() : "None"; 
-
-                        
-                        tableModel.addRow(new Object[]{jobId, title, payout, deadline, attachedFileName});
+                        tableModel.addRow(new Object[]{clientId, JobDuration, title, payout, deadline, attachedFileName});
                     }
-                } catch (NumberFormatException e) {
                     
-                    System.out.println("Error parsing job data: " + line);
-                } catch (DateTimeParseException e) {
+                    clientId = 0;
+                    JobDuration=0;
+                    title = "";
+                    payout = 0.0;
+                    deadline = null;
+                    attachedFileName = "None";
                     
-                    System.out.println("Error parsing deadline for job: " + line);
                 }
             }
-        } catch (IOException ex) {
+        } catch (IOException | NumberFormatException | DateTimeParseException ex) {
             ex.printStackTrace();
         }
     }

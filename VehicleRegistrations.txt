@@ -22,3 +22,19 @@ Color: black
 VIN: 111
 License Plate: 111
 Time Available: 0.0
+2024-11-11 14:34:00,Vehicle Details:
+Make: Toyota
+Model: LNDCruiser
+Year: 2019
+Color: Black
+VIN: 56A
+License Plate: A65
+Time Available: 0.0
+2024-11-11 14:44:05,Vehicle Details:
+Make: LandCruiser
+Model: Toyota
+Year: 2012
+Color: Black
+VIN: 26
+License Plate: 26A
+Time Available: 0.0

@@ -120,7 +120,6 @@ public class JobRegistration {
     }
 
     private void submitJob() {
-        
         String clientIdStr = txtClientId.getText();
         int clientId;
 
@@ -133,15 +132,13 @@ public class JobRegistration {
             return;
         }
 
-        
         String title = txtTitle.getText();
         String payoutStr = txtPayout.getText();
-        String estimatedTime = txtEstimatedTime.getText();
+        String estimatedTimeStr = txtEstimatedTime.getText();
         LocalDate deadline = ((java.util.Date) spinnerDeadline.getValue()).toInstant()
                 .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
 
-        
-        if (title.isEmpty() || payoutStr.isEmpty() || estimatedTime.isEmpty()) {
+        if (title.isEmpty() || payoutStr.isEmpty() || estimatedTimeStr.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -154,21 +151,27 @@ public class JobRegistration {
             return;
         }
 
-        
-        Job job = new Job(client.getID(), 0, 0, payout, title, deadline, attachedFileName);
+        int estimatedTime;
+        try {
+            estimatedTime = Integer.parseInt(estimatedTimeStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Estimated Time must be a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Create a job with the estimated time as a parameter
+        Job job = new Job(client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
         client.submitJob(job);
         saveJobData(job);
-        //cloudController.addJob(job);
+
         JOptionPane.showMessageDialog(frame, job.getDetails(), "Job Submitted", JOptionPane.INFORMATION_MESSAGE);
 
-        
-        new ClientDashboard(client); 
+        new ClientDashboard(client);
 
-        
         frame.dispose();
-
         clearFields();
     }
+
 
 
     private void saveJobData(Job job) {
@@ -177,12 +180,14 @@ public class JobRegistration {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = now.format(formatter);
-            writer.write(timestamp + "," + job.toFileString());
-            writer.newLine();
+            
+            writer.write("Timestamp: " + timestamp + "\n" + job.toFileString());
+            writer.newLine();  // Add a blank line for readability
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 
     private void clearFields() {
         txtClientId.setText("");
