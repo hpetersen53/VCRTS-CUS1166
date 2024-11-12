@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import main.Client;
+import main.VCController;
 import main.VehicleOwner;
 
 public class Login {
@@ -29,9 +30,17 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
+        JButton btnAdminLogin = new JButton("Admin Login");
         
+        btnAdminLogin.addActionListener(new ActionListener() {  // Action for the Admin Login button
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jFrame.dispose();
+                VCController controller = new VCController(); // Instantiate the controller
+                new ControllerDashboard(controller); // Open the ControllerDashboard
+            }
+        });
         
-
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +98,13 @@ public class Login {
         gbc.gridx = 1;
         gbc.gridy = 2;
         jPanel.add(btnRegister, gbc);
+        
+        // Position the Admin Login button
+        gbc.gridx = 0;
+        gbc.gridy = 3;  // Place it on the next row
+        gbc.gridwidth = 2; // Span across two columns for better alignment
+        gbc.anchor = GridBagConstraints.CENTER; // Center-align the button
+        jPanel.add(btnAdminLogin, gbc);
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
@@ -150,9 +166,6 @@ public class Login {
         return null;
     }
 
-
-
-
     private VehicleOwner VehicleOwnerFromFile(String fileName, String email, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -194,6 +207,7 @@ public class Login {
         }
         return null;
     }
+
     private VehicleOwner getVehicleOwnerFromFile1(String fileName, String email, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
