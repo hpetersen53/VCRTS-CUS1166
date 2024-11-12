@@ -20,8 +20,10 @@ public class UserRegistration {
         jFrame = new JFrame("User Registration");
         jFrame.setSize(400, 400);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(8, 2));
+        JPanel jPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel lblFName = new JLabel("First Name: (Any Alphabets)");
         JTextField txtFName = new JTextField(20);
@@ -97,21 +99,53 @@ public class UserRegistration {
         
         btnRegister.addActionListener(e -> jFrame.dispatchEvent(new WindowEvent(jFrame, WindowEvent.WINDOW_CLOSING)));
 
-        jPanel.add(lblFName);
-        jPanel.add(txtFName);
-        jPanel.add(lblLName);
-        jPanel.add(txtLName);
-        jPanel.add(lblEmail);
-        jPanel.add(txtEmail);
-        jPanel.add(lblPassword);
-        jPanel.add(txtPassword);
-        jPanel.add(lblLicense);
-        jPanel.add(txtLicense);
-        jPanel.add(lblRadio);
-        jPanel.add(btnU1);
-        jPanel.add(btnU2);
-        jPanel.add(btnRegister);
-        jPanel.add(btnReturn);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        jPanel.add(lblFName, gbc);
+        gbc.gridx = 1;
+        jPanel.add(txtFName, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        jPanel.add(lblLName, gbc);
+        gbc.gridx = 1;
+        jPanel.add(txtLName, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        jPanel.add(lblEmail, gbc);
+        gbc.gridx = 1;
+        jPanel.add(txtEmail, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        jPanel.add(lblPassword, gbc);
+        gbc.gridx = 1;
+        jPanel.add(txtPassword, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        jPanel.add(lblLicense, gbc);
+        gbc.gridx = 1;
+        jPanel.add(txtLicense, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        jPanel.add(lblRadio, gbc);
+        gbc.gridx = 1;
+        jPanel.add(btnU1, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        jPanel.add(btnU2, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        jPanel.add(btnRegister, gbc);
+        
+        gbc.gridy = 8;
+        jPanel.add(btnReturn, gbc);
+        
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);

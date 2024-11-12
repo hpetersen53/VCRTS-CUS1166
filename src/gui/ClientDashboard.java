@@ -28,7 +28,16 @@ public class ClientDashboard {
         frame = new JFrame("Client Dashboard");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new GridBagLayout());
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        frame.add(new JLabel("Jobs Posted by: (tbd)" + client.getDetails()), gbc);
 
         
         tableModel = new DefaultTableModel();
@@ -40,15 +49,19 @@ public class ClientDashboard {
 
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        frame.add(scrollPane, gbc);
 
        
         loadJobs();
 
         
-        frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
-        frame.add(scrollPane, BorderLayout.CENTER);
-
-       
         JButton btnBackToJobRegistration = new JButton("Register a job");
         btnBackToJobRegistration.addActionListener(e -> {
             new JobRegistration(client); 
@@ -66,13 +79,22 @@ public class ClientDashboard {
         buttonPanel.add(btnBackToJobRegistration);
         buttonPanel.add(btnReturn);
         
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        frame.add(buttonPanel, gbc);
+        
         JButton btnCalc = new JButton("Calculate Completion Time");
         btnCalc.setPreferredSize(new Dimension(20,20));
         btnCalc.addActionListener(e -> cloudController.calculateCompletion());
-        frame.add(btnCalc);
 
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        frame.add(btnCalc, gbc);
         
         frame.setVisible(true);
     }

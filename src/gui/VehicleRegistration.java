@@ -23,8 +23,11 @@ public class VehicleRegistration {
         frame = new JFrame("Vehicle Registration");
         frame.setSize(400, 400);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(9, 2));
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
 
         txtMake = new JTextField(20);
         txtModel = new JTextField(20);
@@ -41,23 +44,74 @@ public class VehicleRegistration {
         btnReturn.addActionListener(e -> new UserRegistration());
         btnReturn.addActionListener(e -> frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
 
-        panel.add(new JLabel("Make: (Any Alphabets)"));
-        panel.add(txtMake);
-        panel.add(new JLabel("Model: (Any Alphabets)"));
-        panel.add(txtModel);
-        panel.add(new JLabel("Year: (Numbers)"));
-        panel.add(txtYear);
-        panel.add(new JLabel("Color: (Any Alphabets)"));
-        panel.add(txtColor);
-        panel.add(new JLabel("VIN: (Any Alphabets)"));
-        panel.add(txtVIN);
-        panel.add(new JLabel("License Plate: (Any Alphabets)"));
-        panel.add(txtLicensePlate);
-        panel.add(new JLabel("Time Available: (Numbers, Hours)"));
-        panel.add(txtResidency);
-        panel.add(new JLabel("")); // Spacer
-        panel.add(btnRegister);
-        panel.add(btnReturn);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        panel.add(new JLabel("Make: (Any Alphabets)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtMake, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        panel.add(new JLabel("Model: (Any Alphabets)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtModel, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        panel.add(new JLabel("Year: (Numbers)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtYear, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 0;
+        panel.add(new JLabel("Color: (Any Alphabets)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtColor, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
+        panel.add(new JLabel("VIN: (Any Alphabets)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtVIN, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.weightx = 0;
+        panel.add(new JLabel("License Plate: (Any Alphabets)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtLicensePlate, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
+        panel.add(new JLabel("Time Available: (Numbers, Hours)"), gbc);
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        panel.add(txtResidency, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weightx = 0;
+        panel.add(btnRegister, gbc);
+        
+        panel.add(new JLabel(""), gbc); // Spacer
+        
+        gbc.gridy = 8;
+        panel.add(btnReturn, gbc);
+        
 
         frame.add(panel);
         frame.setVisible(true);

@@ -17,8 +17,9 @@ public class Login {
         jFrame.setSize(400, 300);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new GridLayout(4, 2));
+        JPanel jPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel lblEmail = new JLabel("Email:");
         txtEmail = new JTextField(20);
@@ -28,6 +29,8 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         JButton btnRegister = new JButton("Create Account");
+        
+        
 
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -56,13 +59,36 @@ public class Login {
                 new UserRegistration();
             }
         });
-
-        jPanel.add(lblEmail);
-        jPanel.add(txtEmail);
-        jPanel.add(lblPassword);
-        jPanel.add(txtPassword);
-        jPanel.add(btnLogin);
-        jPanel.add(btnRegister);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        jPanel.add(lblEmail, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        jPanel.add(txtEmail, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.EAST;
+        jPanel.add(lblPassword, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        jPanel.add(txtPassword, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        jPanel.add(btnLogin, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        jPanel.add(btnRegister, gbc);
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
