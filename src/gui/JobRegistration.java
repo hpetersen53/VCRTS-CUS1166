@@ -164,7 +164,7 @@ public class JobRegistration {
         client.submitJob(job);
         saveJobData(job);
 
-        cloudController.addJob(job);
+        //cloudController.addJob(job);
 
 
 

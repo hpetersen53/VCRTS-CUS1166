@@ -9,6 +9,8 @@ import java.io.IOException;
 import main.VCController;
 import main.Job;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ControllerDashboard {
     private JFrame frame;
@@ -89,12 +91,9 @@ public class ControllerDashboard {
             ex.printStackTrace();
         }
     }
-
-    // Method to display client IDs and job durations in a small popup
- // Method to display client IDs and cumulative job durations in a small popup
     private void showCompletionTimes() {
         ArrayList<Integer> clientIDs = new ArrayList<>();
-        ArrayList<Integer> cumulativeDurations = new ArrayList<>();
+        Queue<Integer> cumulativeDurations = new LinkedList<>();
         int cumulativeDuration = 0;
 
         String fileName = "JobListings.txt";
@@ -121,7 +120,7 @@ public class ControllerDashboard {
 
         // Build message for popup
         StringBuilder message = new StringBuilder("ID: ");
-        
+
         // Format Client IDs
         for (int i = 0; i < clientIDs.size(); i++) {
             message.append(clientIDs.get(i));
@@ -132,10 +131,11 @@ public class ControllerDashboard {
 
         message.append("\nDuration: ");
         
-        // Format Cumulative Durations
-        for (int i = 0; i < cumulativeDurations.size(); i++) {
-            message.append(cumulativeDurations.get(i));
-            if (i < cumulativeDurations.size() - 1) {
+        // Format Cumulative Durations by using a temporary queue to iterate without removing elements
+        Queue<Integer> tempQueue = new LinkedList<>(cumulativeDurations);
+        while (!tempQueue.isEmpty()) {
+            message.append(tempQueue.poll());
+            if (!tempQueue.isEmpty()) {
                 message.append(", ");
             }
         }
