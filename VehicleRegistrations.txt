@@ -48,3 +48,27 @@ VIN: 26
 License Plate: 26A
 >>>>>>> branch 'master' of https://github.com/hpetersen53/VCRTS-CUS1166
 Time Available: 0.0
+2024-11-13 13:56:46,Vehicle Details:
+Make: toyota
+Model: b
+Year: 2002
+Color: black
+VIN: 123456
+License Plate: 123edk
+Time Available: 0.0
+2024-11-13 13:58:51,Vehicle Details:
+Make: Subaru
+Model: Outback
+Year: 2012
+Color: Black
+VIN: 25a
+License Plate: a25
+Time Available: 0.0
+2024-11-13 14:00:18,Vehicle Details:
+Make: p
+Model: p
+Year: 2012
+Color: b
+VIN: a
+License Plate: a
+Time Available: 0.0
