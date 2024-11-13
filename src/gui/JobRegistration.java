@@ -25,7 +25,7 @@ public class JobRegistration {
 
         frame = new JFrame("Job Registration");
         frame.setSize(500, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
 
         
         txtClientId = new JTextField(20);

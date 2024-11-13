@@ -74,6 +74,7 @@ public class ClientDashboard {
 
 		// Set frame visibility
 		frame.setVisible(true);
+		frame.setLocationRelativeTo(null);
 	}
 
 	private void loadJobs() {

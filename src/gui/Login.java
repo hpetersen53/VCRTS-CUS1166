@@ -16,7 +16,7 @@ public class Login {
     public Login() {
         jFrame = new JFrame("Login");
         jFrame.setSize(400, 300);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         JPanel jPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -108,6 +108,7 @@ public class Login {
 
         jFrame.add(jPanel);
         jFrame.setVisible(true);
+        jFrame.setLocationRelativeTo(null);
     }
 
     private Object authenticateUser(String email, String password) {

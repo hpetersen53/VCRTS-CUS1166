@@ -19,6 +19,7 @@ public class UserRegistration {
     public UserRegistration() {
         jFrame = new JFrame("User Registration");
         jFrame.setSize(400, 400);
+        jFrame.setLocationRelativeTo(null);
 
         JPanel jPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

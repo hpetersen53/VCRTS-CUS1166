@@ -70,6 +70,7 @@ public class VehicleOwnerDashboard {
 
         // Make the frame visible
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     // Method to load vehicles from "VehicleRegistrations.txt" and display in the table
