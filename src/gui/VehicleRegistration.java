@@ -114,7 +114,9 @@ public class VehicleRegistration {
         
 
         frame.add(panel);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        
     }
 
     private void registerVehicle() {
