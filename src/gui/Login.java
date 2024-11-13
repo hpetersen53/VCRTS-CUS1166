@@ -66,6 +66,7 @@ public class Login {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new UserRegistration();
+                jFrame.dispose();
             }
         });
         

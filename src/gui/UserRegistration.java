@@ -51,8 +51,13 @@ public class UserRegistration {
         JButton btnRegister = new JButton("Submit & Continue");
         JButton btnReturn = new JButton("Go Back");
 
-        btnReturn.addActionListener(e ->  new GUIWindow());
-        btnReturn.addActionListener(e ->  jFrame.dispatchEvent(new WindowEvent(jFrame, WindowEvent.WINDOW_CLOSING)));
+        btnReturn.addActionListener(e ->  {
+        	
+        	new GUIWindow();
+        	jFrame.dispose();
+        	
+        });
+        
         
         btnRegister.addActionListener(new ActionListener() {
             @Override

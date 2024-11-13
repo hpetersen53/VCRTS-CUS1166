@@ -50,11 +50,15 @@ public class VehicleOwnerDashboard {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         
-        //JButton btnCalc = new JButton("Calculate Completion Time");
-        //btnCalc.addActionListener(e -> cloudController.calculateCompletion());
-        //frame.add(btnCalc);
+      
         
 
+        
+//        JButton btnRegisterVehicle = new JButton("Register New Vehicle");
+//		btnRegisterVehicle.addActionListener(e -> {
+//			new VehicleRegistration(vehicleOwner);
+//			frame.dispose();
+//		});
 
         // "Go Back" button to return to the main GUI
         JButton btnReturn = new JButton("Go Back");
@@ -65,6 +69,7 @@ public class VehicleOwnerDashboard {
 
         // Add buttons to a panel and set to the frame
         JPanel buttonPanel = new JPanel();
+       // buttonPanel.add(btnRegisterVehicle);
         buttonPanel.add(btnReturn);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 

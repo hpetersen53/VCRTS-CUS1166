@@ -11,33 +11,33 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class AdminDashboard {
 	
+	private JFrame frame;
+
 	private VCController cloudController;
 
 	public AdminDashboard() {
 
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 
 		frame = new JFrame("Vehicle Owner Dashboard");
 		frame.setSize(600, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
-		
-
-		 JButton btnCalc = new JButton("Calculate Completion Time");
-		 btnCalc.addActionListener(e -> cloudController.calculateCompletion(null));
-		 frame.add(btnCalc);
+		JButton btnCalc = new JButton("Calculate Completion Time");
+		btnCalc.addActionListener(e -> cloudController.calculateCompletion(null));
+		frame.add(btnCalc);
 
 		JButton btnReturn = new JButton("Go Back");
+
+		frame.add(btnReturn, BorderLayout.SOUTH);
+
 		btnReturn.addActionListener(e -> {
 			new GUIWindow();
-			//frame.dispose();
+			frame.dispose();
 		});
-		frame.add(btnReturn, BorderLayout.SOUTH);
 
 		frame.setVisible(true);
 
