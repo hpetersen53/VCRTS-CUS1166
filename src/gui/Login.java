@@ -91,19 +91,20 @@ public class Login {
         
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.EAST;
         jPanel.add(btnLogin, gbc);
         
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
         jPanel.add(btnRegister, gbc);
         
         // Position the Admin Login button
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 3;  // Place it on the next row
-        gbc.gridwidth = 2; // Span across two columns for better alignment
-        gbc.anchor = GridBagConstraints.CENTER; // Center-align the button
+        gbc.gridwidth = 1; // Span across two columns for better alignment
+        gbc.anchor = GridBagConstraints.WEST; // Center-align the button
         jPanel.add(btnAdminLogin, gbc);
 
         jFrame.add(jPanel);

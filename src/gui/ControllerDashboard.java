@@ -61,6 +61,7 @@ public class ControllerDashboard {
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     private void loadJobs() {
