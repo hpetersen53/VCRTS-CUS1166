@@ -1,8 +1,9 @@
 package main;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class Job {
+public class Job implements Serializable{
 	private int clientID;
 	private int levelOfRedundancy;
 	private int jobDuration;

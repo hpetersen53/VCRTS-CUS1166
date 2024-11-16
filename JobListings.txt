@@ -25,3 +25,30 @@ Title: c
 Deadline: 2024-11-13
 FileName: N/A
 
+Timestamp: 2024-11-16 13:03:32
+Client ID: 1
+Level of redundancy: 0
+Job Duration: 3
+Payout: 1.0
+Title: 2
+Deadline: 2024-11-16
+FileName: N/A
+
+Timestamp: 2024-11-16 13:03:56
+Client ID: 1
+Level of redundancy: 0
+Job Duration: 1
+Payout: 1.0
+Title: 2
+Deadline: 2024-11-16
+FileName: N/A
+
+Timestamp: 2024-11-16 13:08:03
+Client ID: 5
+Level of redundancy: 0
+Job Duration: 2
+Payout: 5.0
+Title: 4
+Deadline: 2024-11-16
+FileName: N/A
+

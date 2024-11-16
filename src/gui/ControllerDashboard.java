@@ -6,23 +6,34 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import main.VCController;
 import main.Job;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ControllerDashboard {
     private JFrame frame;
     private JTable table;
     private DefaultTableModel tableModel;
     private VCController controller;
+    
+    private static final int PORT = 12345; // Server port
+    private ExecutorService threadPool;
 
     public ControllerDashboard(VCController controller) {
         if (controller == null) {
             throw new IllegalArgumentException("Controller cannot be null.");
         }
         this.controller = controller;
+        
 
         frame = new JFrame("Controller Dashboard");
         frame.setSize(600, 400);
@@ -62,6 +73,9 @@ public class ControllerDashboard {
 
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        
+        threadPool = Executors.newCachedThreadPool();
+        new Thread(this::startServer).start();
     }
 
     private void loadJobs() {
@@ -92,6 +106,50 @@ public class ControllerDashboard {
             ex.printStackTrace();
         }
     }
+    
+    
+    private void startServer() {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server started on port " + PORT);
+            
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                threadPool.execute(() -> handleClientRequest(clientSocket));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void handleClientRequest(Socket clientSocket) {
+        try (ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream())) {
+             
+            // Read job submission
+            Job job = (Job) in.readObject();
+            System.out.println("Received job: " + job.getDetails());
+            
+            // Decide whether to accept or reject
+            boolean isAccepted = decideAcceptance(job);
+            
+            // Send response back to client
+            out.writeBoolean(isAccepted);
+            out.flush();
+            
+            if (isAccepted) {
+                //saveJobData(job); // Save the job if accepted
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private boolean decideAcceptance(Job job) {
+        // Simple logic for acceptance - can be expanded
+    	return false;
+        //return job.getPayout() > 50 && job.getEstimatedTime() <= 40;
+    }
+    
     private void showCompletionTimes() {
         ArrayList<Integer> clientIDs = new ArrayList<>();
         Queue<Integer> cumulativeDurations = new LinkedList<>();
@@ -145,4 +203,3 @@ public class ControllerDashboard {
         JOptionPane.showMessageDialog(frame, message.toString(), "Completion Times", JOptionPane.PLAIN_MESSAGE);
     }
 }
-
