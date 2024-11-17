@@ -44,7 +44,7 @@ public class JobRegistration {
         btnAttachFile.addActionListener(e -> attachFile(lblFileStatus));
         btnSubmit.addActionListener(e -> submitJob());
         btnReturn.addActionListener(e -> {
-            new UserRegistration();
+            new ClientDashboard(client);
             frame.dispose();
         });
 

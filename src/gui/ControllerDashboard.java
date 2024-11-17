@@ -61,6 +61,11 @@ public class ControllerDashboard {
             frame.dispose();
         });
 
+        JButton btnJobs = new JButton("Requests");
+        btnJobs.addActionListener(e -> {
+            new IncomingJobs();
+            frame.dispose();
+        });
         // "Completion Time Check" button to display job completion times
         JButton btnCompletionCheck = new JButton("Completion Time Check");
         btnCompletionCheck.addActionListener(e -> showCompletionTimes());
@@ -68,6 +73,7 @@ public class ControllerDashboard {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnReturn);
         buttonPanel.add(btnCompletionCheck);
+        buttonPanel.add(btnJobs);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 

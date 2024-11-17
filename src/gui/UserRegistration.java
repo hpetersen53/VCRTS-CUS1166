@@ -13,7 +13,7 @@ public class UserRegistration {
 
     private JFrame jFrame;
     private VehicleRegistration vehicleReg;
-    private JobRegistration jobReg;
+    private ClientDashboard clientDashboard;
 
     public UserRegistration() {
         jFrame = new JFrame("User Registration");
@@ -85,7 +85,7 @@ public class UserRegistration {
                 } else {
                 	Client client = new Client(clientId, fName, lName, emailAddr, password, licenseNum);
                     user = client;  
-                    jobReg = new JobRegistration(client);
+                    clientDashboard = new ClientDashboard(client);
                     JOptionPane.showMessageDialog(jFrame, client.getDetails(), "User Registered as Job Lister", JOptionPane.INFORMATION_MESSAGE);
                 }
 
@@ -98,7 +98,7 @@ public class UserRegistration {
                 txtEmail.setText("");
                 txtLicense.setText("");
                 group.clearSelection();
-                
+
             }
         });
         
