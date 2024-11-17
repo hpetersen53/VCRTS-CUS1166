@@ -49,7 +49,7 @@ public class ClientDashboard {
 		table = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
 
-		loadJobs();
+		loadJobs(client.getID());
 
 		frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
 		frame.add(scrollPane, BorderLayout.CENTER);
@@ -77,7 +77,7 @@ public class ClientDashboard {
 		frame.setLocationRelativeTo(null);
 	}
 
-	private void loadJobs() {
+	private void loadJobs(int id) {
 		String fileName = "JobListings.txt";
 		
 		String line;
@@ -106,10 +106,10 @@ public class ClientDashboard {
 				} else if (line.startsWith("FileName:")) {
 					attachedFileName = line.substring(line.indexOf(":") + 1).trim();
 				} else if (line.isEmpty()) {
-					if (clientId == client.getID()) {
+//					if (clientId == client.getID()) {
 						tableModel.addRow(
 								new Object[] { clientId, JobDuration, title, payout, deadline, attachedFileName });
-					}
+//					}
 				}
 			}
 
