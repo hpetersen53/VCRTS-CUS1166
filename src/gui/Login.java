@@ -90,14 +90,15 @@ public class Login {
         gbc.anchor = GridBagConstraints.WEST;
         jPanel.add(txtPassword, gbc);
         
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.EAST;
+        gbc.anchor = GridBagConstraints.WEST;
         jPanel.add(btnLogin, gbc);
         
         gbc.gridx = 1;
         gbc.gridy = 4;
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
         jPanel.add(btnRegister, gbc);
         
