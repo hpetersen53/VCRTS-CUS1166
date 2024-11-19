@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.*;
-
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -16,7 +15,6 @@ public class VehicleOwnerDashboard {
     private JTable table;
     private DefaultTableModel tableModel;
     private VehicleOwner vehicleOwner;
-    private VCController cloudController;
 
     public VehicleOwnerDashboard(VehicleOwner vehicleOwner) {
         if (vehicleOwner == null) {
@@ -26,7 +24,7 @@ public class VehicleOwnerDashboard {
 
         // Set up the frame
         frame = new JFrame("Vehicle Owner Dashboard");
-        frame.setSize(600, 400);
+        frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
@@ -37,6 +35,7 @@ public class VehicleOwnerDashboard {
         tableModel.addColumn("Model");
         tableModel.addColumn("Year");
         tableModel.addColumn("License Plate");
+        tableModel.addColumn("Residency");
 
         // Create table and add to a scroll pane
         table = new JTable(tableModel);
@@ -49,21 +48,17 @@ public class VehicleOwnerDashboard {
         frame.add(new JLabel("Vehicles Owned by: " + vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        
-      
-        
-
-        
+        // "Register New Vehicle" button
         JButton btnRegisterVehicle = new JButton("Register New Vehicle");
-		btnRegisterVehicle.addActionListener(e -> {
-			new VehicleRegistration(vehicleOwner);
-			frame.dispose();
-		});
+        btnRegisterVehicle.addActionListener(e -> {
+            new VehicleRegistration(vehicleOwner);
+            frame.dispose();
+        });
 
-        // "Go Back" button to return to the main GUI
+        // "Go Back" button
         JButton btnReturn = new JButton("Go Back");
         btnReturn.addActionListener(e -> {
-            new GUIWindow(); 
+            new GUIWindow(); // Navigate to the main GUI
             frame.dispose();
         });
 
@@ -79,44 +74,50 @@ public class VehicleOwnerDashboard {
     }
 
     // Method to load vehicles from "VehicleRegistrations.txt" and display in the table
-    private void loadVehicles(int id) {
+    private void loadVehicles(int ownerId) {
         String fileName = "VehicleRegistrations.txt";
-        
-        String line;
-        String make = null, model = null, year = null, licensePlate = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-           
+
+            String line;
+            String vehicleId = null, make = null, model = null, licensePlate = null;
+            int year = 0;
+            double residency = 0.0;
 
             while ((line = reader.readLine()) != null) {
-                // Trim whitespace and skip if the line is empty
                 line = line.trim();
-//                if (line.isEmpty()) continue;
 
                 // Parse fields based on labels in the text file
-                if (line.startsWith("Make:")) {
-                    make = line.substring(line.indexOf("Make:") + 1).trim();
+                if (line.startsWith("VIN:")) {
+                    vehicleId = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Make:")) {
+                    make = line.substring(line.indexOf(":") + 1).trim();
                 } else if (line.startsWith("Model:")) {
-                    model = line.substring(line.indexOf("Model:") + 1).trim();
+                    model = line.substring(line.indexOf(":") + 1).trim();
                 } else if (line.startsWith("Year:")) {
-                    year = line.substring(line.indexOf("Year:") + 1).trim();
+                    try {
+                        year = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                    } catch (NumberFormatException e) {
+                        year = 0; // Default year if parsing fails
+                    }
                 } else if (line.startsWith("License Plate:")) {
-                    licensePlate = line.substring(line.indexOf("License Plate:") + 1).trim();
+                    licensePlate = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Time Available:")) {
+                    try {
+                        residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                    } catch (NumberFormatException e) {
+                        residency = 0.0; // Default residency if parsing fails
+                    }
                 }
 
                 // When all fields are parsed, add a row to the table and reset variables
-                if (make != null && model != null && year != null && licensePlate != null) {
-                    try {
-                        int yearInt = Integer.parseInt(year);
-                        // Check if vehicleOwner ID matches the vehicle's owner ID before adding
-                        if (vehicleOwner.getID() == id) { // Adjust condition to use vehicleOwner's actual ID method
-                            tableModel.addRow(new Object[]{vehicleOwner.getID(), make, model, yearInt, licensePlate});
-                        }
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error: Invalid year format for vehicle data.");
-                    }
-                    // Reset variables for the next vehicle entry
-                    make = model = year = licensePlate = null;
+                if ( make != null && model != null && licensePlate != null) {
+                    tableModel.addRow(new Object[]{vehicleId, make, model, year, licensePlate, residency});
+
+                    // Reset variables for the next entry
+                    vehicleId = make = model = licensePlate = null;
+                    year = 0;
+                    residency = 0.0;
                 }
             }
         } catch (IOException ex) {

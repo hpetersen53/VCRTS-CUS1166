@@ -2,17 +2,14 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.net.Socket;
 import main.*;
 
 public class VehicleRegistration {
     private JFrame frame;
     private JTextField txtMake, txtModel, txtYear, txtColor, txtVIN, txtLicensePlate, txtResidency;
     private VehicleOwner vehicleOwner;
-    private VCController cloudController;
 
     public VehicleRegistration(VehicleOwner vehicleOwner) {
         if (vehicleOwner == null) {
@@ -20,15 +17,12 @@ public class VehicleRegistration {
         }
         this.vehicleOwner = vehicleOwner;
 
+        // Set up the frame
         frame = new JFrame("Vehicle Registration");
-        frame.setSize(400, 400);
+        frame.setSize(500, 600);
+        frame.setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-
+        // Initialize fields
         txtMake = new JTextField(20);
         txtModel = new JTextField(20);
         txtYear = new JTextField(20);
@@ -37,86 +31,74 @@ public class VehicleRegistration {
         txtLicensePlate = new JTextField(20);
         txtResidency = new JTextField(20);
 
-        JButton btnRegister = new JButton("Register");
+        JButton btnSubmit = new JButton("Register Vehicle");
         JButton btnReturn = new JButton("Go Back");
 
-        btnRegister.addActionListener(e -> registerVehicle());
-        btnReturn.addActionListener(e -> new UserRegistration());
-        btnReturn.addActionListener(e -> frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING)));
+        btnSubmit.addActionListener(e -> registerVehicle());
+        btnReturn.addActionListener(e -> {
+            new VehicleOwnerDashboard(vehicleOwner);
+            frame.dispose();
+        });
+
+        // Layout setup
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 0;
         panel.add(new JLabel("Make: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtMake, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.weightx = 0;
         panel.add(new JLabel("Model: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtModel, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.weightx = 0;
         panel.add(new JLabel("Year: (Numbers)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtYear, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.weightx = 0;
         panel.add(new JLabel("Color: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtColor, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.weightx = 0;
-        panel.add(new JLabel("VIN: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("VIN: (Unique Identifier)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtVIN, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.weightx = 0;
         panel.add(new JLabel("License Plate: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtLicensePlate, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 6;
-        gbc.weightx = 0;
-        panel.add(new JLabel("Time Available: (Numbers, Hours)"), gbc);
+        panel.add(new JLabel("Residency: (Numbers, Hours)"), gbc);
         gbc.gridx = 1;
-        gbc.weightx = 1.0;
         panel.add(txtResidency, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.weightx = 0;
-        panel.add(btnRegister, gbc);
-        
-        panel.add(new JLabel(""), gbc); // Spacer
-        
+        panel.add(btnSubmit, gbc);
+
         gbc.gridy = 8;
         panel.add(btnReturn, gbc);
-        
 
         frame.add(panel);
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        
     }
 
     private void registerVehicle() {
@@ -128,48 +110,59 @@ public class VehicleRegistration {
         String licensePlate = txtLicensePlate.getText();
         String residencyStr = txtResidency.getText();
 
-        if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() ||
-            vin.isEmpty() || licensePlate.isEmpty() || residencyStr.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "All fields must be filled out", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int year;
-        double residency;
         try {
-            year = Integer.parseInt(yearStr);
-            residency = Double.parseDouble(residencyStr);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(frame, "Year and Residency must be valid numbers.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+            validateInputs(make, model, yearStr, color, vin, licensePlate, residencyStr);
+
+            int year = Integer.parseInt(yearStr);
+            double residency = Double.parseDouble(residencyStr);
+
+            // Create the vehicle object
+            Vehicle vehicle = new Vehicle(make, model, year, color, vin, licensePlate, residency);
+
+            // Send vehicle data to server
+            sendVehicleToServer(vehicle);
+
+            //JOptionPane.showMessageDialog(frame, "Vehicle registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // Return to the dashboard
+            new VehicleOwnerDashboard(vehicleOwner);
+            frame.dispose();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(frame, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Create the vehicle and add it to the vehicle owner
-        Vehicle vehicle = new Vehicle(make, model, year, color, vin, licensePlate, residency);
-        vehicleOwner.ownVehicle(vehicle); // Register the vehicle under this owner
-        //cloudController.recruitVehicle(vehicle);
-        saveVehicleData(vehicle); // Save vehicle data to the file
-
-        JOptionPane.showMessageDialog(frame, vehicle.getDetails(), "Vehicle Registered",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        // Now, open the VehicleOwnerDashboard after successful registration
-        new VehicleOwnerDashboard(vehicleOwner);
-        frame.dispose(); // Close the Vehicle Registration window
     }
 
-    private static void saveVehicleData(Vehicle vehicle) {
-        String fileName = "VehicleRegistrations.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String timestamp = now.format(formatter);
-            writer.write(timestamp + "," + vehicle.getDetails() + "\n");
-            writer.newLine();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    private void sendVehicleToServer(Vehicle vehicle) {
+        try (Socket socket = new Socket("localhost", 54321);
+             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream())) {
+
+            // Send the Vehicle object to the server
+            outputStream.writeObject(vehicle);
+            outputStream.flush();
+
+            JOptionPane.showMessageDialog(frame, "Vehicle submitted successfully to the server!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "Failed to send vehicle data to the server: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void validateInputs(String make, String model, String yearStr, String color, String vin, String licensePlate, String residencyStr) {
+        if (make.isEmpty() || model.isEmpty() || yearStr.isEmpty() || color.isEmpty() ||
+                vin.isEmpty() || licensePlate.isEmpty() || residencyStr.isEmpty()) {
+            throw new IllegalArgumentException("All fields must be filled out.");
+        }
+
+        try {
+            Integer.parseInt(yearStr);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Year must be a valid number.");
+        }
+
+        try {
+            Double.parseDouble(residencyStr);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Residency must be a valid number.");
         }
     }
 }

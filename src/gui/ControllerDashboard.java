@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 import main.VCController;
 import main.Job;
 import main.VCRTS;
+import main.Vehicle;
 
 public class ControllerDashboard {
     private JFrame frame;
@@ -24,7 +25,8 @@ public class ControllerDashboard {
     private DefaultTableModel tableModel;
     private VCController controller;
 
-    private static final int PORT = 12345; // Server port
+    private static final int PORT = 12345;
+    private static final int PORT2= 54321;
 
     public ControllerDashboard(){
         new VCRTS();
@@ -61,11 +63,16 @@ public class ControllerDashboard {
             frame.dispose();
         });
 
-        JButton btnJobs = new JButton("Requests");
+        JButton btnJobs = new JButton("Job Requests");
         btnJobs.addActionListener(e -> {
             new IncomingJobs();
             frame.dispose();
-        });
+            });
+        JButton btnVehicles = new JButton("Vehicle Requests");
+        btnVehicles.addActionListener(e -> {
+            new IncomingVehicles();
+            frame.dispose();
+            });
 
         // "Completion Time Check" button to display job completion times
         JButton btnCompletionCheck = new JButton("Completion Time Check");
@@ -75,6 +82,7 @@ public class ControllerDashboard {
         buttonPanel.add(btnReturn);
         buttonPanel.add(btnCompletionCheck);
         buttonPanel.add(btnJobs);
+        buttonPanel.add(btnVehicles);
 
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -112,19 +120,60 @@ public class ControllerDashboard {
         }
     }
 
+
     public void startServer() {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Server started on port " + PORT);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
+
                 handleClientRequest(clientSocket);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void startServer2() {
+        try (ServerSocket serverSocket2 = new ServerSocket(PORT2)) {
+            System.out.println("Server started on port " + PORT2);
+
+            while (true) {
+                Socket vehicleSocket = serverSocket2.accept();
+
+                handleVehicleRequest(vehicleSocket);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void handleVehicleRequest(Socket clientSocket) {
+        try (ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream())) {
+
+            // Read job submission
+            Vehicle vehicle = (Vehicle) in.readObject();
+            System.out.println("Received vehicle: " + vehicle.getDetails());
+            addVehicleRequest(vehicle);
+
+            // Decide whether to accept or reject
+//            boolean isAccepted = decideAcceptance(job);
+
+            // Send response back to client
+//            out.writeBoolean(isAccepted);
+            out.flush();
+
+//            if (isAccepted) {
+//                saveJobData(job);
+//                System.out.println("Saved");// Save the job if accepted
+//            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     private void handleClientRequest(Socket clientSocket) {
         try (ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
              ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream())) {
@@ -177,7 +226,52 @@ public class ControllerDashboard {
             e.printStackTrace(); // Handle file writing errors
         }
     }
+    public static void saveVehicleData(Vehicle vehicle) {
 
+        String fileName = "VehicleRegistrations.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            // Get the current timestamp
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timestamp = now.format(formatter);
+
+            // Append job details to the file
+            writer.write("Timestamp: " + timestamp + "\n");
+            writer.write("VIN: " + vehicle.getVIN() + "\n");
+            writer.write("Make: " + vehicle.getMake() + "\n");
+            writer.write("Model: " + vehicle.getModel() + "\n");
+            writer.write("Year: " + vehicle.getYear() + "\n");
+            writer.write("Color: " + vehicle.getColor() + "\n");
+            writer.write("License Plate: " + vehicle.getLicensePlate() + "\n");
+            writer.write("Time Available: " + vehicle.getResidency()+ "\n");
+            writer.newLine();// Add an empty line between jobs
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle file writing errors
+        }
+    }
+    private void addVehicleRequest(Vehicle vehicle) {
+
+        String fileName = "IncomingVehicles.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            // Get the current timestamp
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String timestamp = now.format(formatter);
+
+            // Append job details to the file
+            writer.write("Timestamp: " + timestamp + "\n");
+            writer.write("VIN: " + vehicle.getVIN() + "\n");
+            writer.write("Make: " + vehicle.getMake() + "\n");
+            writer.write("Model: " + vehicle.getModel() + "\n");
+            writer.write("Year: " + vehicle.getYear() + "\n");
+            writer.write("Color: " + vehicle.getColor() + "\n");
+            writer.write("License Plate: " + vehicle.getLicensePlate() + "\n");
+            writer.write("Time Available: " + vehicle.getResidency()+ "\n");
+            writer.newLine(); // Add an empty line between jobs
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle file writing errors
+        }
+    }
     private void addClientRequest(Job job) {
         String fileName = "IncomingJobs.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {

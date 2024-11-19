@@ -9,8 +9,15 @@ public class Main {
 
 		VCController vcController = new VCController();
 		ControllerDashboard controllerDashboard = new ControllerDashboard();
-		controllerDashboard.startServer();
-		
+		new Thread(() -> {
+			System.out.println("Starting Server 1...");
+			controllerDashboard.startServer();
+		}).start();
+		new Thread(() -> {
+			System.out.println("Starting Server 2...");
+			controllerDashboard.startServer2();
+		}).start();
+
 	}
 
 }

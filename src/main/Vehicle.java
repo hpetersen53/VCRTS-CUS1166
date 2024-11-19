@@ -1,8 +1,9 @@
 package main;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Vehicle {
+public class Vehicle implements Serializable {
 	private String make;
 	private String model;
 	private int year;
@@ -21,6 +22,7 @@ public class Vehicle {
 		this.color = color;
 		this.vin = vin;
 		this.licensePlate = licensePlate;
+		this.residency = residency;
 	}
 
 	
@@ -42,9 +44,10 @@ public class Vehicle {
 	public String getColor() {
 		return color;
 	}
-	public String getPlate() {
+	public String getLicensePlate() {
 		return licensePlate;
 	}
+	public double getResidency() { return residency; }
 	
 	public boolean getAvailability() {
 		if (residency == 0) {

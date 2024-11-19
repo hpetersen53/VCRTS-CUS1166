@@ -1,18 +1,18 @@
-2024-11-19 08:04:35,Vehicle Details:
-Make: toyota
-Model: 2
-Year: 2012
-Color: black
-VIN: 2
-License Plate: 234
-Time Available: 0.0
+Timestamp: 2024-11-19 16:30:46
+VIN: White
+Make: 45C
+Model: Toyota
+Year: 2020
+Color: Camry
+License Plate: NY123
+Time Available: 2.0
 
-2024-11-19 08:05:09,Vehicle Details:
-Make: Honda
-Model: Civic
-Year: 2000
-Color: White
-VIN: 20
-License Plate: 432
-Time Available: 0.0
+Timestamp: 2024-11-19 16:30:48
+VIN: Black
+Make: 54D
+Model: Honda
+Year: 2012
+Color: Civic
+License Plate: YN321
+Time Available: 2.0
 
