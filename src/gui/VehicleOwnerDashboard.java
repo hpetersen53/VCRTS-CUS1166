@@ -94,14 +94,14 @@ public class VehicleOwnerDashboard {
 //                if (line.isEmpty()) continue;
 
                 // Parse fields based on labels in the text file
-                if (line.contains("Make:")) {
-                    make = line.substring(line.indexOf("Make:") + 5).trim();
-                } else if (line.contains("Model:")) {
-                    model = line.substring(line.indexOf("Model:") + 6).trim();
-                } else if (line.contains("Year:")) {
-                    year = line.substring(line.indexOf("Year:") + 5).trim();
-                } else if (line.contains("License Plate:")) {
-                    licensePlate = line.substring(line.indexOf("License Plate:") + 13).trim();
+                if (line.startsWith("Make:")) {
+                    make = line.substring(line.indexOf("Make:") + 1).trim();
+                } else if (line.startsWith("Model:")) {
+                    model = line.substring(line.indexOf("Model:") + 1).trim();
+                } else if (line.startsWith("Year:")) {
+                    year = line.substring(line.indexOf("Year:") + 1).trim();
+                } else if (line.startsWith("License Plate:")) {
+                    licensePlate = line.substring(line.indexOf("License Plate:") + 1).trim();
                 }
 
                 // When all fields are parsed, add a row to the table and reset variables
