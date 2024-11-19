@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.VCController;
 import main.VCRTS;
 import java.awt.GridBagLayout;
 
@@ -32,6 +33,7 @@ public class GUIWindow {
 			public void actionPerformed(ActionEvent e) {
 
 				userReg = new UserRegistration();
+
 				jFrame.dispose();
 
 			}

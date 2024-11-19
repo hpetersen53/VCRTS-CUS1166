@@ -2,8 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -133,13 +133,28 @@ public class JobRegistration {
             client.setID(clientId);
             Job job = new Job(client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
             client.submitJob(job);
-            saveJobData(job);
 
-            JOptionPane.showMessageDialog(frame, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            sendJobToServer(job);
+
             new ClientDashboard(client);
             frame.dispose();
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void sendJobToServer(Job job) {
+        try (Socket socket = new Socket("localhost", 12345);
+             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream())) {
+
+            // Send the Job object
+            outputStream.writeObject(job);
+            outputStream.flush();
+            JOptionPane.showMessageDialog(frame, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "Failed to send job data to server: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
@@ -182,17 +197,5 @@ public class JobRegistration {
         }
     }
 
-    private void saveJobData(Job job) {
-        String fileName = "JobListings.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String timestamp = now.format(formatter);
 
-            writer.write("Timestamp: " + timestamp + "\n" + job.toFileString());
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
