@@ -109,7 +109,7 @@ public class VehicleOwnerDashboard {
                     try {
                         int yearInt = Integer.parseInt(year);
                         // Check if vehicleOwner ID matches the vehicle's owner ID before adding
-                        if (vehicleOwner.getID() == 1) { // Adjust condition to use vehicleOwner's actual ID method
+                        if (vehicleOwner.getID() == id) { // Adjust condition to use vehicleOwner's actual ID method
                             tableModel.addRow(new Object[]{vehicleOwner.getID(), make, model, yearInt, licensePlate});
                         }
                     } catch (NumberFormatException e) {
