@@ -43,7 +43,7 @@ public class VehicleOwnerDashboard {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Load vehicles from file
-        loadVehicles();
+        loadVehicles(vehicleOwner.getID());
 
         // Add components to the frame
         frame.add(new JLabel("Vehicles Owned by: " + vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
@@ -69,7 +69,7 @@ public class VehicleOwnerDashboard {
 
         // Add buttons to a panel and set to the frame
         JPanel buttonPanel = new JPanel();
-       // buttonPanel.add(btnRegisterVehicle);
+        buttonPanel.add(btnRegisterVehicle);
         buttonPanel.add(btnReturn);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -79,17 +79,19 @@ public class VehicleOwnerDashboard {
     }
 
     // Method to load vehicles from "VehicleRegistrations.txt" and display in the table
-    private void loadVehicles() {
+    private void loadVehicles(int id) {
         String fileName = "VehicleRegistrations.txt";
+        
+        String line;
+        String make = null, model = null, year = null, licensePlate = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            String make = null, model = null, year = null, licensePlate = null;
+           
 
             while ((line = reader.readLine()) != null) {
                 // Trim whitespace and skip if the line is empty
                 line = line.trim();
-                if (line.isEmpty()) continue;
+//                if (line.isEmpty()) continue;
 
                 // Parse fields based on labels in the text file
                 if (line.contains("Make:")) {

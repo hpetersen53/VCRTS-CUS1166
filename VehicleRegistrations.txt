@@ -72,3 +72,12 @@ Color: b
 VIN: a
 License Plate: a
 Time Available: 0.0
+2024-11-18 21:01:29,Vehicle Details:
+Make: Toyota
+Model: Camry
+Year: 2016
+Color: Black
+VIN: 12345678
+License Plate: 1234567
+Time Available: 0.0
+
