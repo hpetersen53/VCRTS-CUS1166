@@ -29,6 +29,23 @@ public class Vehicle {
 		return vin;
 	}
 	
+	public String getMake() {
+		return make;
+	}
+	
+	public String getModel() {
+		return model;
+	}
+	public int getYear() {
+		return year;
+	}
+	public String getColor() {
+		return color;
+	}
+	public String getPlate() {
+		return licensePlate;
+	}
+	
 	public boolean getAvailability() {
 		if (residency == 0) {
 			return false;
@@ -53,10 +70,6 @@ public class Vehicle {
 					+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n" + "Time Available: " + residency;
 		}
 
-////		 format to write vehicle details to a file.
-//		public String toFileString() {
-//			return make + "," + model + "," + year + "," + color + "," + vin + "," + licensePlate + "," + residency;
-//		}
-//	
+
 	
 }

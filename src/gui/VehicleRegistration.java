@@ -166,7 +166,7 @@ public class VehicleRegistration {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = now.format(formatter);
-            writer.write(timestamp + "," + vehicle.getDetails());
+            writer.write(timestamp + "," + vehicle.getDetails() + "\n");
             writer.newLine();
         } catch (IOException ex) {
             ex.printStackTrace();

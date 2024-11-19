@@ -54,11 +54,11 @@ public class VehicleOwnerDashboard {
         
 
         
-//        JButton btnRegisterVehicle = new JButton("Register New Vehicle");
-//		btnRegisterVehicle.addActionListener(e -> {
-//			new VehicleRegistration(vehicleOwner);
-//			frame.dispose();
-//		});
+        JButton btnRegisterVehicle = new JButton("Register New Vehicle");
+		btnRegisterVehicle.addActionListener(e -> {
+			new VehicleRegistration(vehicleOwner);
+			frame.dispose();
+		});
 
         // "Go Back" button to return to the main GUI
         JButton btnReturn = new JButton("Go Back");

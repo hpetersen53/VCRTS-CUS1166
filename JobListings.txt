@@ -52,3 +52,12 @@ Title: 1
 Deadline: 2024-11-18
 FileName: N/A
 
+Timestamp: 2024-11-18 20:25:20
+Client ID: 123
+Level of Redundancy: 0
+Job Duration: 4
+Payout: 200.0
+Title: delivery
+Deadline: 2024-11-19
+FileName: N/A
+
