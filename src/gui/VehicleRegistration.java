@@ -72,7 +72,7 @@ public class VehicleRegistration {
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        panel.add(new JLabel("VIN: (Unique Identifier)"), gbc);
+        panel.add(new JLabel("Vechile ID: (Unique Identifier)"), gbc);
         gbc.gridx = 1;
         panel.add(txtVIN, gbc);
 
