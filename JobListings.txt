@@ -70,3 +70,12 @@ Title: 2
 Deadline: 2024-11-19
 FileName: N/A
 
+Timestamp: 2024-11-20 08:41:15
+Client ID: 2
+Level of Redundancy: 0
+Job Duration: 3
+Payout: 2.0
+Title: c
+Deadline: 2024-11-20
+FileName: N/A
+

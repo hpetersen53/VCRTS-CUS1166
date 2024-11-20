@@ -179,7 +179,7 @@ public class IncomingVehicles {
 
             // Handle the last vehicle entry if the file does not end with a blank line
             if (vehicleId != null && make != null && model != null && color != null && licensePlate != null) {
-                vehicles.add(new JButton("VIN: " + vehicleId));
+                vehicles.add(new JButton("Vehicle ID: " + vehicleId));
                 details = "VIN: " + vehicleId + "\nMake: " + make + "\nModel: " + model + "\nYear: " + year +
                         "\nColor: " + color + "\nLicense Plate: " + licensePlate + "\nResidency: " + residency;
                 vehicleDetails.add(details);
