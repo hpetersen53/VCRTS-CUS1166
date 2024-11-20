@@ -1,107 +1,99 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Insets;
+public class GUIWindow extends JFrame {
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+    private JButton signUpButton, signInButton;
+    private JLabel logoLabel, welcomeLabel, descriptionLabel;
+    private JPanel mainPanel, buttonPanel;
 
-import main.VCController;
-import main.VCRTS;
-import java.awt.GridBagLayout;
+    public GUIWindow() {
+       
+        setTitle("Vehicular Cloud Real-Time System");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLocationRelativeTo(null);
 
+        
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS)); 
+        mainPanel.setBackground(new Color(160, 208, 240)); 
 
-public class GUIWindow {
+        // Welcome label
+        welcomeLabel = new JLabel(
+                "<html><span style='font-size:18px; color:white; font-weight:bold;'>Welcome to the VCRTS!</span></html>");
+        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(welcomeLabel); 
 
-	private JFrame jFrame;
+        // Logo
+        try {
+            BufferedImage logoImage = ImageIO.read(new File("car.png"));
+            Image scaledImage = logoImage.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            logoLabel = new JLabel(new ImageIcon(scaledImage));
+            logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+            mainPanel.add(logoLabel); 
+        } catch (IOException e) {
+            System.out.println("Logo image not found: " + e.getMessage());
+        }
 
-	private UserRegistration userReg;
+        // Description label
+        descriptionLabel = new JLabel(
+                "<html><center><span style='font-size:12px; color:white;'>"
+                        + "The Vehicular Cloud Real-Time System is designed to manage computation resources "
+                        + "and job assignments in a vehicular cloud. Get started by signing up or logging in."
+                        + "</span></center></html>");
+        descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER); 
+        descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); 
+        mainPanel.add(descriptionLabel); 
 
-	public GUIWindow() {
+        // Buttons panel
+        buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(160, 208, 240)); 
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-		JButton user1Btn = new JButton("Sign Up");
-		user1Btn.addActionListener(new ActionListener() {
+        // Sign Up button
+        signUpButton = new JButton("Sign Up");
+        signUpButton.setPreferredSize(new Dimension(120, 40)); 
+        signUpButton.setBackground(new Color(217, 217, 217));
+        signUpButton.setForeground(new Color(0, 0, 0));
+        signUpButton.setFont(new Font("Inter", Font.BOLD, 16));
+        signUpButton.addActionListener(e -> {
+            new UserRegistration(); // Redirect to UserRegistration window
+            dispose(); 
+        });
+        buttonPanel.add(signUpButton);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
+        // Sign In button
+        signInButton = new JButton("Sign In");
+        signInButton.setPreferredSize(new Dimension(120, 40));
+        signInButton.setBackground(new Color(217, 217, 217));
+        signInButton.setForeground(new Color(0, 0, 0));
+        signInButton.setFont(new Font("Inter", Font.BOLD, 16));
+        signInButton.addActionListener(e -> {
+            new Login(); // Redirect to Login window
+            dispose(); 
+        });
+        buttonPanel.add(signInButton);
 
-				userReg = new UserRegistration();
+        // Add panels to the main panel
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); 
+        mainPanel.add(buttonPanel);
 
-				jFrame.dispose();
+        add(mainPanel);
+        setVisible(true);
+    }
 
-			}
-		});
-
-		JButton loginBtn = new JButton("Sign In");
-		loginBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				new Login();
-				jFrame.dispose();
-			}
-
-		});
-
-		JLabel welcome = new JLabel("Welcome to the VCRTS!");
-		welcome.setFont(new Font("Verdana", Font.BOLD, 15));
-
-		JLabel introduction = new JLabel(
-				"The Vehicular Cloud Real Time System was made for managing and organizing computation resources and jobs in vehicular cloud.");
-		introduction.setFont(new Font("Verdana", Font.PLAIN, 12));
-
-		JPanel jPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new java.awt.Insets(10, 10, 10, 10);
-
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.gridwidth = 2;
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 1.0;
-		gbc.weighty = 0.1;
-		jPanel.add(welcome, gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.gridwidth = 2;
-		gbc.anchor = GridBagConstraints.CENTER;
-		gbc.weightx = 1.0;
-		gbc.weighty = 0.2;
-		jPanel.add(introduction, gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.gridwidth = 1;
-		gbc.anchor = GridBagConstraints.EAST;
-		gbc.weightx = 0.5;
-		gbc.insets = new java.awt.Insets(10, 10, 10, 5);
-		jPanel.add(user1Btn, gbc);
-
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		gbc.anchor = GridBagConstraints.WEST;
-		gbc.weightx = 0.5;
-		gbc.insets = new java.awt.Insets(10, 5, 10, 10);
-		jPanel.add(loginBtn, gbc);
-
-		jFrame = new JFrame();
-
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jFrame.setTitle("Vehicular Cloud Real-Time System");
-		jFrame.setVisible(true);
-		jFrame.pack();
-		jFrame.setSize(800, 600);
-		jFrame.add(jPanel);
-
-		jFrame.setLocationRelativeTo(null);
-
-	}
-
+    public static void main(String[] args) {
+        new GUIWindow();
+    }
 }
