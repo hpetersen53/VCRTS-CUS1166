@@ -82,11 +82,13 @@ public class UserRegistration {
                 	user = VehicleOwner;  
                     vehicleReg = new VehicleRegistration(VehicleOwner);
                     JOptionPane.showMessageDialog(jFrame, VehicleOwner.getDetails(), "User Registered as Car Owner", JOptionPane.INFORMATION_MESSAGE);
+                    Database.insertVehicleOwner(VehicleOwner);
                 } else {
                 	Client client = new Client(clientId, fName, lName, emailAddr, password, licenseNum);
                     user = client;  
                     clientDashboard = new ClientDashboard(client);
                     JOptionPane.showMessageDialog(jFrame, client.getDetails(), "User Registered as Job Lister", JOptionPane.INFORMATION_MESSAGE);
+                    Database.insertClient(client);
                 }
 
                 

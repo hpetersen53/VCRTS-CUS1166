@@ -1,6 +1,7 @@
 package gui;
 
 import main.Vehicle;
+import main.Database;
 import main.VCController;
 
 import javax.swing.*;
@@ -85,7 +86,7 @@ public class IncomingVehicles {
             vehicleObject.add(smallPart[1].trim());
         }
 
-        return new Vehicle(
+        Vehicle vehicle = new Vehicle(
                 vehicleObject.get(0), // VIN
                 vehicleObject.get(1), // Make
                 Integer.parseInt(vehicleObject.get(3)), //Year
@@ -94,6 +95,10 @@ public class IncomingVehicles {
                 vehicleObject.get(5), // License Plate
                 Double.parseDouble(vehicleObject.get(6)) // Residency
         );
+        
+        // Sends new vehicle to database (need to be able to get owner ID)
+        Database.insertVehicle(vehicle, null);
+        return vehicle;
     }
 
     public void resizeButtons() {

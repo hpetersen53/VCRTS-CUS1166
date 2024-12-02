@@ -1,7 +1,7 @@
 package gui;
 
-import main.Job;
-import main.VCController;
+import main.*;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,6 +90,9 @@ public class IncomingJobs {
         }
         Job job = new Job(Integer.parseInt(jobObject.get(0)), Integer.parseInt(jobObject.get(1)), 0, Integer.parseInt(jobObject.get(2)),
                 Double.parseDouble(jobObject.get(4)), jobObject.get(3), LocalDate.parse(jobObject.get(5)), jobObject.get(6));
+        
+        // Sends the new job to the database
+        Database.insertJob(job);
         
         // Old version before JobID added
 //        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
