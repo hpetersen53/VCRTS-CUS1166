@@ -25,3 +25,48 @@ Color: a
 License Plate: a1
 Time Available: 1.0
 
+Timestamp: 2024-11-20 15:05:59
+VIN: a
+Make: 1234
+Model: a
+Year: 2
+Color: a
+License Plate: a
+Time Available: 2.0
+
+Timestamp: 2024-11-20 15:08:00
+VIN: a
+Make: 789
+Model: a
+Year: 2
+Color: a
+License Plate: a
+Time Available: 2.0
+
+Timestamp: 2024-11-23 18:20:53
+VIN: blue
+Make: 12345367856
+Model: a
+Year: 2000
+Color: b
+License Plate: 12341341234
+Time Available: 12.0
+
+Timestamp: 2024-11-28 14:57:50
+VIN: black
+Make: 12345678
+Model: honda
+Year: 2022
+Color: civic
+License Plate: abc-1234
+Time Available: 12.0
+
+Timestamp: 2024-11-28 17:20:04
+VIN: blue
+Make: 12344555
+Model: honda
+Year: 2004
+Color: odyssey
+License Plate: abc1234
+Time Available: 5.0
+

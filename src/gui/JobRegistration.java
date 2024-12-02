@@ -11,7 +11,7 @@ import main.*;
 
 public class JobRegistration {
     private JFrame frame;
-    private JTextField txtClientId, txtTitle, txtPayout, txtEstimatedTime;
+    private JTextField txtJobId, txtClientId, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
@@ -26,6 +26,7 @@ public class JobRegistration {
         frame.setSize(500, 600);
         frame.setLocationRelativeTo(null);
 
+        txtJobId = new JTextField(20);
         txtClientId = new JTextField(20);
         txtTitle = new JTextField(20);
         txtPayout = new JTextField(20);
@@ -54,50 +55,57 @@ public class JobRegistration {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
+        // Job ID
         gbc.gridx = 0;
         gbc.gridy = 0;
+        panel.add(new JLabel("Job ID: (Numbers)"), gbc);
+        gbc.gridx = 1;
+        panel.add(txtJobId, gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         panel.add(new JLabel("Client ID: (Numbers)"), gbc);
         gbc.gridx = 1;
         panel.add(txtClientId, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         panel.add(new JLabel("Job Title: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
         panel.add(txtTitle, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         panel.add(new JLabel("Payout: (Numbers)"), gbc);
         gbc.gridx = 1;
         panel.add(txtPayout, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         panel.add(new JLabel("Estimated Time: (Numbers, Hours)"), gbc);
         gbc.gridx = 1;
         panel.add(txtEstimatedTime, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         panel.add(new JLabel("Deadline:"), gbc);
         gbc.gridx = 1;
         panel.add(spinnerDeadline, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         panel.add(btnAttachFile, gbc);
         gbc.gridx = 1;
         panel.add(lblFileStatus, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(btnSubmit, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(btnReturn, gbc);
@@ -117,6 +125,7 @@ public class JobRegistration {
     }
 
     private void submitJob() {
+    	String jobIdStr = txtJobId.getText();
         String clientIdStr = txtClientId.getText();
         String title = txtTitle.getText();
         String payoutStr = txtPayout.getText();
@@ -125,13 +134,14 @@ public class JobRegistration {
                 .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
 
         try {
+        	int jobId = validateJobId(jobIdStr);
             int clientId = validateClientId(clientIdStr);
             double payout = validatePayout(payoutStr);
             int estimatedTime = validateEstimatedTime(estimatedTimeStr);
             validateTitle(title);
 
             client.setID(clientId);
-            Job job = new Job(client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
+            Job job = new Job(jobId, client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
             client.submitJob(job);
 
 
@@ -155,6 +165,17 @@ public class JobRegistration {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, "Failed to send job data to server: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+        }
+    }
+    
+    private int validateJobId(String jobIdStr) {
+        if (jobIdStr.isEmpty()) {
+            throw new IllegalArgumentException("Job ID cannot be empty.");
+        }
+        try {
+            return Integer.parseInt(jobIdStr);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Job ID must be a valid integer.");
         }
     }
 

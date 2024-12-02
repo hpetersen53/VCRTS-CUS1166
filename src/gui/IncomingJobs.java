@@ -88,8 +88,12 @@ public class IncomingJobs {
             String [] smallPart = s.split(":");
             jobObject.add(smallPart[1].trim());
         }
-        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
-                Double.parseDouble(jobObject.get(3)), jobObject.get(2), LocalDate.parse(jobObject.get(4)), jobObject.get(5));
+        Job job = new Job(Integer.parseInt(jobObject.get(0)), Integer.parseInt(jobObject.get(1)), 0, Integer.parseInt(jobObject.get(2)),
+                Double.parseDouble(jobObject.get(4)), jobObject.get(3), LocalDate.parse(jobObject.get(5)), jobObject.get(6));
+        
+        // Old version before JobID added
+//        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
+//                Double.parseDouble(jobObject.get(3)), jobObject.get(2), LocalDate.parse(jobObject.get(4)), jobObject.get(5));
 
         return job;
     }
@@ -135,6 +139,7 @@ public class IncomingJobs {
 
         String line;
         String details;
+        int jobId = 0;
         int clientId = 0;
         String title = "";
         int JobDuration = 0;
@@ -147,7 +152,10 @@ public class IncomingJobs {
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
 
-                if (line.startsWith("Client ID:")) {
+                if (line.startsWith("Job ID:" )) {
+                	jobId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                }
+                else if (line.startsWith("Client ID:")) {
                     clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
                 } else if (line.startsWith("Job Duration:")) {
                     JobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());

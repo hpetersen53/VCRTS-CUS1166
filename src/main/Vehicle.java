@@ -4,18 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Vehicle implements Serializable {
-	private String make;
-	private String model;
-	private int year;
-	private String color;
-	private String vin;
-	private String licensePlate;
-	private double residency;
-	private boolean available;
-	
+	String make;
+	String model;
+	int year;
+	String color;
+	String vin;
+	String licensePlate;
+	double residency;
+	boolean available;
 
 	// initialize a new vehicle object
-	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate, double residency) {
+	public Vehicle(String make, String model, int year, String color, String vin, String licensePlate,
+			double residency) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -25,30 +25,34 @@ public class Vehicle implements Serializable {
 		this.residency = residency;
 	}
 
-	
-
 	public String getVIN() {
 		return vin;
 	}
-	
+
 	public String getMake() {
 		return make;
 	}
-	
+
 	public String getModel() {
 		return model;
 	}
+
 	public int getYear() {
 		return year;
 	}
+
 	public String getColor() {
 		return color;
 	}
+
 	public String getLicensePlate() {
 		return licensePlate;
 	}
-	public double getResidency() { return residency; }
-	
+
+	public double getResidency() {
+		return residency;
+	}
+
 	public boolean getAvailability() {
 		if (residency == 0) {
 			return false;
@@ -56,23 +60,22 @@ public class Vehicle implements Serializable {
 			return available;
 		}
 	}
-	
+
 	public void arrive() {
 		available = true;
 	}
-	
+
 	public void depart() {
 		available = false;
 	}
-	
-	//-----------------
-	
+
+	// -----------------
+
 	// gets vehicle details
-		public String getDetails() {
-			return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
-					+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n" + "Time Available: " + residency;
-		}
+	public String getDetails() {
+		return "Vehicle Details:\n" + "Make: " + make + "\n" + "Model: " + model + "\n" + "Year: " + year + "\n"
+				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n"
+				+ "Time Available: " + residency;
+	}
 
-
-	
 }

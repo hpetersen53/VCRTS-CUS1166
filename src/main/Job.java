@@ -6,17 +6,19 @@ import java.io.Serializable;
 public class Job implements Serializable {
 	private static final long serialVersionUID = 1L; // Recommended for Serializable classes
 
-	private int clientID;
-	private int levelOfRedundancy;
-	private int jobDuration; // Estimated time in hours
-	private double payout;
-	private String title;
-	private LocalDate deadline;
-	private String attachedFileName;
+	int jobID;
+	int clientID;
+	int levelOfRedundancy;
+	int jobDuration; // Estimated time in hours
+	double payout;
+	String title;
+	LocalDate deadline;
+	String attachedFileName;
 
 	// Constructor
-	public Job(int clientID, int levelOfRedundancy, int jobDuration, double payout, String title, LocalDate deadline,
-			   String attachedFileName) {
+	public Job(int jobID, int clientID, int levelOfRedundancy, int jobDuration, double payout, String title,
+			LocalDate deadline, String attachedFileName) {
+//		this.jobID = jobID;
 		this.clientID = clientID;
 		this.levelOfRedundancy = levelOfRedundancy;
 		this.jobDuration = jobDuration;
@@ -27,6 +29,14 @@ public class Job implements Serializable {
 	}
 
 	// Getters and Setters
+//	public int getJobID() {
+//		return jobID;
+//	}
+//
+//	public void setJobID(int jobID) {
+//		this.jobID = jobID;
+//	}
+
 	public int getClientID() {
 		return clientID;
 	}
@@ -85,20 +95,14 @@ public class Job implements Serializable {
 
 	// Method to get job details as a formatted string
 	public String getDetails() {
-		return "Job Title: " + title + "\n" +
-				"Payout: " + payout + "\n" +
-				"Deadline: " + deadline + "\n" +
-				"File: " + (attachedFileName == null ? "None" : attachedFileName);
+		return "Job Title: " + title + "\n" + "Payout: " + payout + "\n" + "Deadline: " + deadline + "\n" + "File: "
+				+ (attachedFileName == null ? "None" : attachedFileName);
 	}
 
 	// Method to format job details for saving to a file
 	public String toFileString() {
-		return "Client ID: " + clientID + "\n" +
-				"Level of Redundancy: " + levelOfRedundancy + "\n" +
-				"Job Duration: " + jobDuration + "\n" +
-				"Payout: " + payout + "\n" +
-				"Title: " + title + "\n" +
-				"Deadline: " + deadline + "\n" +
-				"FileName: " + (attachedFileName != null ? attachedFileName : "N/A") + "\n";
+		return "Client ID: " + clientID + "\n" + "Level of Redundancy: " + levelOfRedundancy + "\n" + "Job Duration: "
+				+ jobDuration + "\n" + "Payout: " + payout + "\n" + "Title: " + title + "\n" + "Deadline: " + deadline
+				+ "\n" + "FileName: " + (attachedFileName != null ? attachedFileName : "N/A") + "\n";
 	}
 }

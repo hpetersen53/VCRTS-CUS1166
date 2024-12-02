@@ -79,3 +79,30 @@ Title: c
 Deadline: 2024-11-20
 FileName: N/A
 
+Timestamp: 2024-11-20 15:02:17
+Client ID: 1234
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 2.0
+Title: a
+Deadline: 2024-11-20
+FileName: N/A
+
+Timestamp: 2024-11-20 15:04:19
+Client ID: 789
+Level of Redundancy: 0
+Job Duration: 3
+Payout: 3.0
+Title: c
+Deadline: 2024-11-20
+FileName: N/A
+
+Timestamp: 2024-11-23 18:22:08
+Client ID: 1234231
+Level of Redundancy: 0
+Job Duration: 5
+Payout: 200.0
+Title: delivery
+Deadline: 2024-11-25
+FileName: N/A
+
