@@ -1,4 +1,4 @@
- package gui;
+package gui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +30,7 @@ public class VehicleOwnerDashboard {
 
         // Initialize table model and add columns
         tableModel = new DefaultTableModel(new Object[]{
-            "Vehicle ID", "Make", "Model", "Color", "Year", "License Plate", "Residency"
+                "Vehicle ID", "Make", "Model", "Color", "Year", "License Plate", "Residency"
         }, 0);
 
         // Create table and add to a scroll pane
@@ -90,7 +90,10 @@ public class VehicleOwnerDashboard {
                     make = line.substring(line.indexOf(":") + 1).trim();
                 } else if (line.startsWith("Model:")) {
                     model = line.substring(line.indexOf(":") + 1).trim();
-                } else if (line.startsWith("Color:")) {
+                }
+                else if (line.startsWith("Time Available:")) {
+                    residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+            }else if (line.startsWith("Color:")) {
                     color = line.substring(line.indexOf(":") + 1).trim();
                 } else if (line.startsWith("Year:")) {
                     try {
@@ -100,21 +103,17 @@ public class VehicleOwnerDashboard {
                     }
                 } else if (line.startsWith("License Plate:")) {
                     licensePlate = line.substring(line.indexOf(":") + 1).trim();
-                } else if (line.startsWith("Time Available:")) {
-                    try {
-                        residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
-                    } catch (NumberFormatException e) {
-                        residency = 0.0; // Default residency if parsing fails
-                    }
+
+
                 }
 
                 // Debugging log for residency
-                System.out.println("Residency parsed: " + residency);
+                //System.out.println("Residency parsed: " + residency);
 
                 // When all fields are parsed, add a row to the table and reset variables
-                if (vehicleId != null && make != null && model != null && color != null && licensePlate != null) {
+                if (vehicleId != null && make != null && model != null && color != null && licensePlate != null && year != 0 && residency !=0) {
                     Object[] row = new Object[]{vehicleId, make, model, color, year, licensePlate, residency};
-                    System.out.println("Adding row to table: " + java.util.Arrays.toString(row)); // Debug row data
+                    //System.out.println("Adding row to table: " + java.util.Arrays.toString(row)); // Debug row data
                     tableModel.addRow(row);
 
                     // Reset variables for the next entry
