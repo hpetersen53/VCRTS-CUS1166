@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -234,16 +235,23 @@ public class ControllerDashboard {
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = now.format(formatter);
+            String VIN= vehicle.getVIN();
+            String Make= vehicle.getMake();
+            String Model= vehicle.getModel();
+            String Color=vehicle.getColor();
+            String LicensePlate= vehicle.getLicensePlate();
+            int year= vehicle.getYear();
+            double residency= vehicle.getResidency();
 
             // Append job details to the file
             writer.write("Timestamp: " + timestamp + "\n");
-            writer.write("VIN: " + vehicle.getVIN() + "\n");
-            writer.write("Make: " + vehicle.getMake() + "\n");
-            writer.write("Model: " + vehicle.getModel() + "\n");
-            writer.write("Year: " + vehicle.getYear() + "\n");
-            writer.write("Color: " + vehicle.getColor() + "\n");
-            writer.write("License Plate: " + vehicle.getLicensePlate() + "\n");
-            writer.write("Time Available: " + vehicle.getResidency()+ "\n");
+            writer.write("VIN: " + VIN + "\n");
+            writer.write("Make: " + Make + "\n");
+            writer.write("Model: " + Model + "\n");
+            writer.write("Year: " + year + "\n");
+            writer.write("Color: " + Color + "\n");
+            writer.write("License Plate: " + LicensePlate + "\n");
+            writer.write("Time Available: " + residency + "\n");
             writer.newLine();// Add an empty line between jobs
         } catch (IOException e) {
             e.printStackTrace(); // Handle file writing errors

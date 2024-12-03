@@ -79,25 +79,51 @@ public class IncomingVehicles {
     }
 
     private Vehicle addToVehicleList(String detail) {
+        // Initialize variables to store parsed values
+        String vehicleId = null, make = null, model = null, licensePlate = null, color = null;
+        int year = 0;
+        double residency = 0.0;
+
+        // Split the input detail into lines
         String[] vehicleDetail = detail.split("\n");
-        List<String> vehicleObject = new ArrayList<>();
-        for (String s : vehicleDetail) {
-            String[] smallPart = s.split(":");
-            vehicleObject.add(smallPart[1].trim());
+
+
+        // Split the input detail into lines
+
+
+        for (String line : vehicleDetail) {
+            line = line.trim(); // Trim any extra whitespace
+
+            try {
+                if (line.startsWith("VIN:")) {
+                    vehicleId = line.substring(line.indexOf(":") + 1).trim(); // Corrected to VIN
+                } else if (line.startsWith("Make:")) {
+                    make = line.substring(line.indexOf(":") + 1).trim(); // Corrected to Make
+                } else if (line.startsWith("Model:")) {
+                    model = line.substring(line.indexOf(":") + 1).trim(); // Corrected to Model
+                } else if (line.startsWith("Color:")) {
+                    color = line.substring(line.indexOf(":") + 1).trim(); // Corrected to Color
+                } else if (line.startsWith("Year:")) {
+                    year = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("License Plate:")) {
+                    licensePlate = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Residency:")) {
+                    residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                }
+
+            } catch (Exception e) {
+                // Catch any other unexpected errors and continue
+                System.err.println("Error parsing line: " + line + ", Error: " + e.getMessage());
+            }
         }
 
-        Vehicle vehicle = new Vehicle(
-                vehicleObject.get(0), // VIN
-                vehicleObject.get(1), // Make
-                Integer.parseInt(vehicleObject.get(3)), //Year
-                vehicleObject.get(2),//Model
-                vehicleObject.get(4), // Color
-                vehicleObject.get(5), // License Plate
-                Double.parseDouble(vehicleObject.get(6)) // Residency
-        );
-        
+        // Debugging log to ensure residency value is set correctly
+        System.out.println("Parsed Residency: " + residency);
+
+
+        Vehicle vehicle = new Vehicle(make, model, year, color, vehicleId, licensePlate, residency);
         // Sends new vehicle to database (need to be able to get owner ID)
-        Database.insertVehicle(vehicle, null);
+        //Database.insertVehicle(vehicle, null);
         return vehicle;
     }
 
