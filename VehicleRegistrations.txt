@@ -16,3 +16,21 @@ Color: black
 License Plate: abc1234
 Time Available: 12.0
 
+Timestamp: 2024-12-04 08:05:15
+VIN: 67
+Make: Kia
+Model: Sportage
+Year: 2018
+Color: Red
+License Plate: O9
+Time Available: 9.0
+
+Timestamp: 2024-12-04 08:12:30
+VIN: 87
+Make: Lamborghini
+Model: Aventador
+Year: 2020
+Color: Yellow
+License Plate: 567A
+Time Available: 1.0
+

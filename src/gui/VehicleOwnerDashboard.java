@@ -51,6 +51,12 @@ public class VehicleOwnerDashboard {
             frame.dispose();
         });
 
+        // "Access Vehicle Acknowledgments" button
+        JButton btnVehicleAcknowledgments = new JButton("Access Vehicle Acknowledgments");
+        btnVehicleAcknowledgments.addActionListener(e -> {
+            new vehicleAcknowledgment();
+        });
+
         // "Go Back" button
         JButton btnReturn = new JButton("Go Back");
         btnReturn.addActionListener(e -> {
@@ -61,6 +67,7 @@ public class VehicleOwnerDashboard {
         // Add buttons to a panel and set to the frame
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnRegisterVehicle);
+        buttonPanel.add(btnVehicleAcknowledgments);
         buttonPanel.add(btnReturn);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -93,7 +100,7 @@ public class VehicleOwnerDashboard {
                 }
                 else if (line.startsWith("Time Available:")) {
                     residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
-            }else if (line.startsWith("Color:")) {
+                }else if (line.startsWith("Color:")) {
                     color = line.substring(line.indexOf(":") + 1).trim();
                 } else if (line.startsWith("Year:")) {
                     try {
@@ -107,13 +114,9 @@ public class VehicleOwnerDashboard {
 
                 }
 
-                // Debugging log for residency
-                //System.out.println("Residency parsed: " + residency);
-
                 // When all fields are parsed, add a row to the table and reset variables
                 if (vehicleId != null && make != null && model != null && color != null && licensePlate != null && year != 0 && residency !=0) {
                     Object[] row = new Object[]{vehicleId, make, model, color, year, licensePlate, residency};
-                    //System.out.println("Adding row to table: " + java.util.Arrays.toString(row)); // Debug row data
                     tableModel.addRow(row);
 
                     // Reset variables for the next entry

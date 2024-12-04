@@ -41,9 +41,12 @@ public class IncomingVehicles {
                         Vehicle objVehicle = addToVehicleList(detail);
                         ControllerDashboard.saveVehicleData(objVehicle);
                         Database.insertVehicle(objVehicle);
+                        vehicleAcknowledgment.saveacceptedVehicleData(objVehicle);
                         removeVehicle(vehicle, detail);
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");
+                        Vehicle objVehicle = addToVehicleList(detail);
+                        vehicleAcknowledgment.saverejectedVehicleData(objVehicle);
                         removeVehicle(vehicle, detail);
                     } else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {
                         System.out.println("Cancelled");

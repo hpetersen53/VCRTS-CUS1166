@@ -123,8 +123,8 @@ public class ClientDashboard {
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		buttonPanel.add(btnBackToJobRegistration);
-		buttonPanel.add(btnReturn);
 		buttonPanel.add(btnJobAcknowledgment);
+		buttonPanel.add(btnReturn);
 
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
