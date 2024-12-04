@@ -11,7 +11,7 @@ import main.*;
 
 public class JobRegistration {
     private JFrame frame;
-    private JTextField txtJobId, txtClientId, txtTitle, txtPayout, txtEstimatedTime;
+    private JTextField  txtClientId, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
@@ -26,7 +26,7 @@ public class JobRegistration {
         frame.setSize(500, 600);
         frame.setLocationRelativeTo(null);
 
-        txtJobId = new JTextField(20);
+
         txtClientId = new JTextField(20);
         txtTitle = new JTextField(20);
         txtPayout = new JTextField(20);
@@ -55,13 +55,7 @@ public class JobRegistration {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Job ID
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(new JLabel("Job ID: (Numbers)"), gbc);
-        gbc.gridx = 1;
-        panel.add(txtJobId, gbc);
-        
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(new JLabel("Client ID: (Numbers)"), gbc);
@@ -125,7 +119,7 @@ public class JobRegistration {
     }
 
     private void submitJob() {
-    	String jobIdStr = txtJobId.getText();
+
         String clientIdStr = txtClientId.getText();
         String title = txtTitle.getText();
         String payoutStr = txtPayout.getText();
@@ -134,14 +128,14 @@ public class JobRegistration {
                 .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
 
         try {
-        	int jobId = validateJobId(jobIdStr);
+
             int clientId = validateClientId(clientIdStr);
             double payout = validatePayout(payoutStr);
             int estimatedTime = validateEstimatedTime(estimatedTimeStr);
             validateTitle(title);
 
             client.setID(clientId);
-            Job job = new Job(jobId, client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
+            Job job = new Job(client.getID(), 0, estimatedTime, payout, title, deadline, attachedFileName);
             client.submitJob(job);
 
 
@@ -168,16 +162,7 @@ public class JobRegistration {
         }
     }
     
-    private int validateJobId(String jobIdStr) {
-        if (jobIdStr.isEmpty()) {
-            throw new IllegalArgumentException("Job ID cannot be empty.");
-        }
-        try {
-            return Integer.parseInt(jobIdStr);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Job ID must be a valid integer.");
-        }
-    }
+
 
     private int validateClientId(String clientIdStr) {
         if (clientIdStr.isEmpty()) {

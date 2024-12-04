@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class IncomingJobs {
     private JFrame jframe;
     private JPanel jPanel;
@@ -40,9 +41,12 @@ public class IncomingJobs {
                         System.out.println("Accepted");
                         Job objJob = addToJobList(detail);
                         ControllerDashboard.saveJobData(objJob);
+                        jobAcknowledgment.saveacceptedJobData(objJob);
                         removeJob(job, detail);
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");
+                        Job objJob = addToJobList(detail);
+                        jobAcknowledgment.saverejectectedJobData(objJob);
                         removeJob(job, detail);
                     } else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {
                         System.out.println("Cancelled");
@@ -88,12 +92,11 @@ public class IncomingJobs {
             String [] smallPart = s.split(":");
             jobObject.add(smallPart[1].trim());
         }
-        Job job = new Job(Integer.parseInt(jobObject.get(0)), Integer.parseInt(jobObject.get(1)), 0, Integer.parseInt(jobObject.get(2)),
-                Double.parseDouble(jobObject.get(4)), jobObject.get(3), LocalDate.parse(jobObject.get(5)), jobObject.get(6));
-        
+        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
+                Double.parseDouble(jobObject.get(3)), jobObject.get(2), LocalDate.parse(jobObject.get(4)), jobObject.get(5));
         // Sends the new job to the database
         Database.insertJob(job);
-        
+
         // Old version before JobID added
 //        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
 //                Double.parseDouble(jobObject.get(3)), jobObject.get(2), LocalDate.parse(jobObject.get(4)), jobObject.get(5));

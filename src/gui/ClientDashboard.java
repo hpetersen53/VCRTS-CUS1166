@@ -66,9 +66,15 @@ public class ClientDashboard {
 			frame.dispose();
 		});
 
+		JButton btnJobAcknowledgment = new JButton("Job Acknowledgment");
+		btnJobAcknowledgment.addActionListener(e -> {
+			new jobAcknowledgment();
+		});
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(btnBackToJobRegistration);
 		buttonPanel.add(btnReturn);
+		buttonPanel.add(btnJobAcknowledgment);
 
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -79,7 +85,7 @@ public class ClientDashboard {
 
 	private void loadJobs(int id) {
 		String fileName = "JobListings.txt";
-		
+
 		String line;
 		int clientId = 0;
 		String title = "";
@@ -89,7 +95,7 @@ public class ClientDashboard {
 		String attachedFileName = "None";
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-			
+
 			while ((line = reader.readLine()) != null) {
 				line = line.trim();
 
@@ -106,10 +112,8 @@ public class ClientDashboard {
 				} else if (line.startsWith("FileName:")) {
 					attachedFileName = line.substring(line.indexOf(":") + 1).trim();
 				} else if (line.isEmpty()) {
-//					if (clientId == client.getID()) {
-						tableModel.addRow(
-								new Object[] { clientId, JobDuration, title, payout, deadline, attachedFileName });
-//					}
+					tableModel.addRow(
+							new Object[] { clientId, JobDuration, title, payout, deadline, attachedFileName });
 				}
 			}
 

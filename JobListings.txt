@@ -106,3 +106,31 @@ Title: delivery
 Deadline: 2024-11-25
 FileName: N/A
 
+Timestamp: 2024-12-03 16:49:45
+Timestamp: 2024-12-03 16:52:02
+Client ID: 45
+Level of Redundancy: 0
+Job Duration: 90
+Payout: 67.0
+Title: Yeah
+Deadline: 2024-12-03
+FileName: N/A
+
+Timestamp: 2024-12-03 16:53:41
+Client ID: 2
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 6.0
+Title: Yes
+Deadline: 2024-12-03
+FileName: N/A
+
+Timestamp: 2024-12-03 19:59:04
+Client ID: 45
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 500.0
+Title: Yeah
+Deadline: 2024-12-03
+FileName: N/A
+

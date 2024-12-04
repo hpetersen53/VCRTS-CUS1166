@@ -16,7 +16,7 @@ public class Job implements Serializable {
 	String attachedFileName;
 
 	// Constructor
-	public Job(int jobID, int clientID, int levelOfRedundancy, int jobDuration, double payout, String title,
+	public Job( int clientID, int levelOfRedundancy, int jobDuration, double payout, String title,
 			LocalDate deadline, String attachedFileName) {
 //		this.jobID = jobID;
 		this.clientID = clientID;

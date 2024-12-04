@@ -1,9 +1,9 @@
-Timestamp: 2024-12-03 15:47:21
-VIN: 2
-Make: Honda
-Model: Civic
-Year: 2012
-Color: White
-License Plate: 612B
+Timestamp: 2024-12-03 15:41:55
+VIN: 56
+Make: Mercedes
+Model: GWagon
+Year: 2020
+Color: Black
+License Plate: 12b
 Time Available: 2.0
 
