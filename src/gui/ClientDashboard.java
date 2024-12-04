@@ -1,12 +1,15 @@
 package gui;
 
+import java.awt.*;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;  // <-- Add this import
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +38,28 @@ public class ClientDashboard {
 		frame.setSize(600, 400);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+		
+		//adding png
+		JPanel mainPanel = new JPanel() {
+			private Image backgroundImage;
+			
+			{
+				try {
+					backgroundImage = ImageIO.read(new File("clientdashboard.jpg"));
+				} catch (IOException e) {
+					System.out.println("background image not found: " + e.getMessage());
+				}
+			}
+			
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (backgroundImage !=null) {
+					g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+				}
+			}
+		};
+		mainPanel.setLayout(new BorderLayout());
 
 		// Initialize table model and add columns
 		tableModel = new DefaultTableModel();
@@ -46,13 +71,34 @@ public class ClientDashboard {
 		tableModel.addColumn("File Attached");
 
 		// Create table and link it to the table model
-		table = new JTable(tableModel);
+		table = new JTable(tableModel) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+			
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+			}
+		};
+		
+		table.setOpaque(false);
+		table.setBackground(new Color(0, 0, 0, 0));
+		
 		JScrollPane scrollPane = new JScrollPane(table);
+		
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(null);
 
 		loadJobs(client.getID());
+		
+		mainPanel.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
+		mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-		frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
-		frame.add(scrollPane, BorderLayout.CENTER);
+		//frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
+		//frame.add(scrollPane, BorderLayout.CENTER);
 
 		JButton btnBackToJobRegistration = new JButton("Register a job");
 		btnBackToJobRegistration.addActionListener(e -> {
@@ -72,6 +118,10 @@ public class ClientDashboard {
 		});
 
 		JPanel buttonPanel = new JPanel();
+		
+		buttonPanel.setOpaque(false);
+		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+		
 		buttonPanel.add(btnBackToJobRegistration);
 		buttonPanel.add(btnReturn);
 		buttonPanel.add(btnJobAcknowledgment);
@@ -79,6 +129,9 @@ public class ClientDashboard {
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
 		// Set frame visibility
+		
+		frame.add(mainPanel);
+		
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 	}
