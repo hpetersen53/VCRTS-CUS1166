@@ -7,3 +7,12 @@ Color: Black
 License Plate: 12b
 Time Available: 2.0
 
+Timestamp: 2024-12-03 21:16:40
+VIN: 12
+Make: toyota
+Model: camry
+Year: 2016
+Color: black
+License Plate: abc1234
+Time Available: 12.0
+

@@ -37,11 +37,12 @@ public class IncomingJobs {
                     String detail = jobDetails.get(jobs.indexOf(job));
                     int result = JOptionPane.showConfirmDialog(null, detail);
 
-                    if (result == JOptionPane.YES_NO_OPTION) {
+                    if (result == JOptionPane.YES_OPTION) {
                         System.out.println("Accepted");
                         Job objJob = addToJobList(detail);
                         ControllerDashboard.saveJobData(objJob);
                         jobAcknowledgment.saveacceptedJobData(objJob);
+                        Database.insertJob(objJob);
                         removeJob(job, detail);
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");
@@ -94,8 +95,8 @@ public class IncomingJobs {
         }
         Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),
                 Double.parseDouble(jobObject.get(3)), jobObject.get(2), LocalDate.parse(jobObject.get(4)), jobObject.get(5));
-        // Sends the new job to the database
-        Database.insertJob(job);
+       
+       
 
         // Old version before JobID added
 //        Job job = new Job(Integer.parseInt(jobObject.get(0)), 0, Integer.parseInt(jobObject.get(1)),

@@ -40,6 +40,7 @@ public class IncomingVehicles {
                         System.out.println("Accepted");
                         Vehicle objVehicle = addToVehicleList(detail);
                         ControllerDashboard.saveVehicleData(objVehicle);
+                        Database.insertVehicle(objVehicle);
                         removeVehicle(vehicle, detail);
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");

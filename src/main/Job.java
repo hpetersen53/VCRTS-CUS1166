@@ -105,4 +105,8 @@ public class Job implements Serializable {
 				+ jobDuration + "\n" + "Payout: " + payout + "\n" + "Title: " + title + "\n" + "Deadline: " + deadline
 				+ "\n" + "FileName: " + (attachedFileName != null ? attachedFileName : "N/A") + "\n";
 	}
+	
+	public String getAttributes() {
+		return clientID + ", " + levelOfRedundancy + ", " + jobDuration + ", " + payout + ", '" + title + "', '" + deadline + "', '" + attachedFileName + "'";
+	}
 }

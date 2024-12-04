@@ -1,0 +1,50 @@
+This Job has been accepted, details below
+Timestamp: 2024-12-03 21:16:50
+Client ID: 123
+Level of Redundancy: 0
+Job Duration: 12
+Payout: 300.0
+Title: Delivery
+Deadline: 2024-12-03
+FileName: N/A
+
+This Job has been accepted, details below
+Timestamp: 2024-12-03 21:26:26
+Client ID: 124
+Level of Redundancy: 0
+Job Duration: 12
+Payout: 60.0
+Title: delivery
+Deadline: 2024-12-03
+FileName: N/A
+
+This Job has been accepted, details below
+Timestamp: 2024-12-03 21:33:48
+Client ID: 125
+Level of Redundancy: 0
+Job Duration: 12
+Payout: 100.0
+Title: delivery
+Deadline: 2025-12-03
+FileName: N/A
+
+This Job has been accepted, details below
+Timestamp: 2024-12-03 21:37:09
+Client ID: 126
+Level of Redundancy: 0
+Job Duration: 15
+Payout: 1200.0
+Title: delivery
+Deadline: 2024-12-06
+FileName: N/A
+
+This Job has been accepted, details below
+Timestamp: 2024-12-03 21:42:33
+Client ID: 120
+Level of Redundancy: 0
+Job Duration: 12
+Payout: 60.0
+Title: delivery
+Deadline: 2025-12-03
+FileName: N/A
+

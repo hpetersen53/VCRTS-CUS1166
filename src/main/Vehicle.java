@@ -77,5 +77,9 @@ public class Vehicle implements Serializable {
 				+ "Color: " + color + "\n" + "VIN: " + vin + "\n" + "License Plate: " + licensePlate + "\n"
 				+ "Time Available: " + residency;
 	}
+	
+	public String getAttributes() {
+		return vin + ", '" + make + "', '" + model + "', '" + color + "', " + year + ", '" + licensePlate + "', " + residency;
+	}
 
 }
