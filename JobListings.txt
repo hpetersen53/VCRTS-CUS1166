@@ -179,3 +179,57 @@ Title: delivery
 Deadline: 2025-12-03
 FileName: N/A
 
+Timestamp: 2024-12-07 14:46:30
+Client ID: 123
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 2.0
+Title: a
+Deadline: 2024-12-07
+FileName: N/A
+
+Timestamp: 2024-12-07 14:46:56
+Client ID: 9
+Level of Redundancy: 0
+Job Duration: 3
+Payout: 3.0
+Title: b
+Deadline: 2024-12-07
+FileName: N/A
+
+Timestamp: 2024-12-10 17:53:48
+Client ID: 1
+Level of Redundancy: 0
+Job Duration: 1
+Payout: 2.0
+Title: Check
+Deadline: 2024-12-10
+FileName: N/A
+
+Timestamp: 2024-12-10 17:58:03
+Client ID: 2
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 2.0
+Title: Yeah
+Deadline: 2024-12-10
+FileName: N/A
+
+Timestamp: 2024-12-10 18:01:59
+Client ID: 2
+Level of Redundancy: 0
+Job Duration: 1
+Payout: 8.0
+Title: Check3
+Deadline: 2024-12-10
+FileName: N/A
+
+Timestamp: 2024-12-10 18:21:18
+Client ID: 25
+Level of Redundancy: 0
+Job Duration: 2
+Payout: 2.0
+Title: Yeah
+Deadline: 2024-12-10
+FileName: N/A
+

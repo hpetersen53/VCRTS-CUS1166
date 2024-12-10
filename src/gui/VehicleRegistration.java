@@ -72,7 +72,7 @@ public class VehicleRegistration {
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        panel.add(new JLabel("Vechile ID: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("Vehicle ID: (Any Alphabets)"), gbc);
         gbc.gridx = 1;
         panel.add(txtVIN, gbc);
 

@@ -37,7 +37,7 @@ public class Login {
             public void actionPerformed(ActionEvent e) {
                 jFrame.dispose();
                 VCController controller = new VCController(); // Instantiate the controller
-                new ControllerDashboard(controller); // Open the ControllerDashboard
+                new ControllerDashboard(controller,0); // Open the ControllerDashboard
             }
         });
         

@@ -43,11 +43,16 @@ public class IncomingVehicles {
                         Database.insertVehicle(objVehicle);
                         vehicleAcknowledgment.saveacceptedVehicleData(objVehicle);
                         removeVehicle(vehicle, detail);
+                        JOptionPane.showMessageDialog(jframe, "Vehicle accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");
                         Vehicle objVehicle = addToVehicleList(detail);
                         vehicleAcknowledgment.saverejectedVehicleData(objVehicle);
                         removeVehicle(vehicle, detail);
+                        JOptionPane.showMessageDialog(jframe, "Vehicle rejected.", "Information", JOptionPane.INFORMATION_MESSAGE);
+
                     } else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {
                         System.out.println("Cancelled");
                         jframe.dispose();
@@ -62,7 +67,7 @@ public class IncomingVehicles {
             backButton.addActionListener(e -> {
                 jframe.dispose(); // Close current frame
                 VCController controller = new VCController();
-                new ControllerDashboard(controller); // Navigate to the previous screen
+                new ControllerDashboard(controller,2); // Navigate to the previous screen
             });
 
             // Add Buttons and Table
@@ -78,7 +83,7 @@ public class IncomingVehicles {
         } else {
             JOptionPane.showMessageDialog(null, "No vehicle requests currently");
             VCController controller = new VCController();
-            new ControllerDashboard(controller);
+            new ControllerDashboard(controller,2);
         }
     }
 
@@ -145,7 +150,7 @@ public class IncomingVehicles {
 
             if (vehicles.isEmpty()) {
                 VCController controller = new VCController();
-                new ControllerDashboard(controller);
+                new ControllerDashboard(controller,2);
                 jframe.dispose();
             }
 

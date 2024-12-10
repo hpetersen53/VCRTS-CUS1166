@@ -44,11 +44,15 @@ public class IncomingJobs {
                         jobAcknowledgment.saveacceptedJobData(objJob);
                         Database.insertJob(objJob);
                         removeJob(job, detail);
+                        JOptionPane.showMessageDialog(jframe, "Job accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
                     } else if (result == JOptionPane.NO_OPTION) {
                         System.out.println("Rejected");
                         Job objJob = addToJobList(detail);
                         jobAcknowledgment.saverejectectedJobData(objJob);
                         removeJob(job, detail);
+                        JOptionPane.showMessageDialog(jframe, "Job rejected.", "Information", JOptionPane.INFORMATION_MESSAGE);
+
                     } else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {
                         System.out.println("Cancelled");
                         jframe.dispose();
@@ -62,7 +66,7 @@ public class IncomingJobs {
             backButton.addActionListener(e -> {
                 jframe.dispose(); // Close current frame
                 VCController controller = new VCController();
-                new ControllerDashboard(controller); // Navigate to the previous screen
+                new ControllerDashboard(controller,0); // Navigate to the previous screen
             });
 
             jframe.add(backButton, BorderLayout.SOUTH);
@@ -82,7 +86,7 @@ public class IncomingJobs {
         }else{
             JOptionPane.showMessageDialog(null, "No job requests currently");
             VCController controller = new VCController();
-            new ControllerDashboard(controller);
+            new ControllerDashboard(controller,0);
         }
     }
 
@@ -117,7 +121,7 @@ public class IncomingJobs {
 
             if(jobs.isEmpty()){
                 VCController controller = new VCController();
-                new ControllerDashboard(controller);
+                new ControllerDashboard(controller,0);
                 jframe.dispose();
             }
 

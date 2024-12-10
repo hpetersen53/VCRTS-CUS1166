@@ -6,14 +6,13 @@ import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import main.VCController;
 import main.Job;
@@ -22,54 +21,119 @@ import main.Vehicle;
 
 public class ControllerDashboard {
     private JFrame frame;
-    private JTable table;
-    private DefaultTableModel tableModel;
+    private JTable jobTable, incomingJobsTable, vehicleTable, incomingVehiclesTable;
+    private DefaultTableModel jobTableModel, incomingJobsTableModel, vehicleTableModel, incomingVehiclesTableModel;
+    private JTabbedPane tabbedPane;
     private VCController controller;
 
     private static final int PORT = 12345;
-    private static final int PORT2= 54321;
+    private static final int PORT2 = 54321;
 
-    public ControllerDashboard(){
+    public ControllerDashboard() {
         new VCRTS();
     }
-    public ControllerDashboard(VCController controller) {
+
+    public ControllerDashboard(VCController controller, int SelectedTabIndex) {
         if (controller == null) {
             throw new IllegalArgumentException("Controller cannot be null.");
         }
         this.controller = controller;
 
         frame = new JFrame("Controller Dashboard");
-        frame.setSize(600, 400);
+        frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        // Initialize the tabbed pane
+        tabbedPane = new JTabbedPane();
+        tabbedPane.addChangeListener(e -> {
+            int currentTab = tabbedPane.getSelectedIndex();
+            switch (currentTab) {
+                case 0:
+                    jobTableModel.setRowCount(0);
+                    loadJobsRegistered();
+                    break;
+                case 1:
+                    incomingJobsTableModel.setRowCount(0);
+                    loadIncomingJobs();
+                    break;
+                case 2:
+                    vehicleTableModel.setRowCount(0);
+                    loadVehiclesRegistration();
+                    break;
+                case 3:
+                    incomingVehiclesTableModel.setRowCount(0);
+                    loadIncomingVehicles();
+                    break;
+            }
+        });
+
+        // Initialize panels for each table
+        initializeJobPanel();
+        initializeIncomingJobsPanel();
+        initializeVehiclePanel();
+        initializeIncomingVehiclesPanel();
+
+        // Add tabbed pane to frame
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        // Set the selected tab based on the parameter
+        tabbedPane.setSelectedIndex(SelectedTabIndex);
+
+        // Initialize panels for each table
+
+
+        // Add tabbed pane to frame
+        frame.add(tabbedPane, BorderLayout.CENTER);
+        // Add tabbed pane to frame
+
         // Initialize table model and add columns
-        tableModel = new DefaultTableModel();
-        tableModel.addColumn("Client ID");
-        tableModel.addColumn("Job Duration");
 
-        // Create table and link it to the table model
-        table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
 
-        loadJobs();
 
-        frame.add(new JLabel("Controller Dashboard"), BorderLayout.NORTH);
-        frame.add(scrollPane, BorderLayout.CENTER);
+
+
+       // loadJobs();
+
+
+
 
         // "Go Back" button to return to main GUI
-        JButton btnReturn = new JButton("Go Back");
+        JButton btnReturn = new JButton("Logout");
+
+        btnReturn.setFocusPainted(false);
+        btnReturn.setHorizontalAlignment(SwingConstants.CENTER);
+        btnReturn.setVerticalAlignment(SwingConstants.CENTER);
+        btnReturn.setIcon(new ImageIcon("powerButton.png"));
+        btnReturn.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnReturn.setVerticalTextPosition(SwingConstants.CENTER);
+        btnReturn.setIconTextGap(1);
+
         btnReturn.addActionListener(e -> {
             new GUIWindow();
             frame.dispose();
         });
 
         JButton btnJobs = new JButton("Job Requests");
+        btnJobs.setFocusPainted(false);
+        btnJobs.setHorizontalAlignment(SwingConstants.CENTER);
+        btnJobs.setVerticalAlignment(SwingConstants.CENTER);
+        btnJobs.setIcon(new ImageIcon("tick.png"));
+        btnJobs.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnJobs.setVerticalTextPosition(SwingConstants.CENTER);
+        btnJobs.setIconTextGap(1);
         btnJobs.addActionListener(e -> {
             new IncomingJobs();
             frame.dispose();
             });
         JButton btnVehicles = new JButton("Vehicle Requests");
+        btnVehicles.setFocusPainted(false);
+        btnVehicles.setHorizontalAlignment(SwingConstants.CENTER);
+        btnVehicles.setVerticalAlignment(SwingConstants.CENTER);
+        btnVehicles.setIcon(new ImageIcon("tick.png"));
+        btnVehicles.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnVehicles.setVerticalTextPosition(SwingConstants.CENTER);
+        btnVehicles.setIconTextGap(1);
         btnVehicles.addActionListener(e -> {
             new IncomingVehicles();
             frame.dispose();
@@ -77,6 +141,13 @@ public class ControllerDashboard {
 
         // "Completion Time Check" button to display job completion times
         JButton btnCompletionCheck = new JButton("Completion Time Check");
+        btnCompletionCheck.setFocusPainted(false);
+        btnCompletionCheck.setHorizontalAlignment(SwingConstants.CENTER);
+        btnCompletionCheck.setVerticalAlignment(SwingConstants.CENTER);
+        btnCompletionCheck.setIcon(new ImageIcon("Clock.png"));
+        btnCompletionCheck.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnCompletionCheck.setVerticalTextPosition(SwingConstants.CENTER);
+        btnCompletionCheck.setIconTextGap(1);
         btnCompletionCheck.addActionListener(e -> showCompletionTimes());
 
         JPanel buttonPanel = new JPanel();
@@ -88,11 +159,10 @@ public class ControllerDashboard {
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
 
     }
 
-    private void loadJobs() {
+    /*private void loadJobs() {
         String fileName = "JobListings.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -119,7 +189,7 @@ public class ControllerDashboard {
         } catch (IOException | NumberFormatException ex) {
             ex.printStackTrace();
         }
-    }
+    }*/
 
 
     public void startServer() {
@@ -355,4 +425,194 @@ public class ControllerDashboard {
         // Display the popup
         JOptionPane.showMessageDialog(frame, message.toString(), "Completion Times", JOptionPane.PLAIN_MESSAGE);
     }
+    private void loadJobsRegistered() {
+        String fileName = "JobListings.txt";
+        String line;
+        int clientId = 0;
+        String title = "";
+        int jobDuration = 0;
+        double payout = 0.0;
+        LocalDate deadline = null;
+        String attachedFileName = "None";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                if (line.startsWith("Client ID:")) {
+                    clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Job Duration:")) {
+                    jobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Title:")) {
+                    title = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Payout:")) {
+                    payout = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Deadline:")) {
+                    deadline = LocalDate.parse(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("FileName:")) {
+                    attachedFileName = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.isEmpty()) {
+                    jobTableModel.addRow(new Object[]{clientId, jobDuration, title, payout, deadline, attachedFileName});
+                }
+            }
+        } catch (DateTimeParseException | IOException | NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadIncomingJobs() {
+        String fileName = "IncomingJobs.txt";
+        String line;
+        int clientId = 0;
+        String title = "";
+        int jobDuration = 0;
+        double payout = 0.0;
+        LocalDate deadline = null;
+        String attachedFileName = "None";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                if (line.startsWith("Client ID:")) {
+                    clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Job Duration:")) {
+                    jobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Title:")) {
+                    title = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Payout:")) {
+                    payout = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Deadline:")) {
+                    deadline = LocalDate.parse(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("FileName:")) {
+                    attachedFileName = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.isEmpty()) {
+                    incomingJobsTableModel.addRow(new Object[]{clientId, jobDuration, title, payout, deadline, attachedFileName});
+                }
+            }
+        } catch (DateTimeParseException | IOException | NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadVehiclesRegistration() {
+        String fileName = "VehicleRegistrations.txt";
+        loadVehicleData(fileName, vehicleTableModel);
+    }
+
+    private void loadIncomingVehicles() {
+        String fileName = "IncomingVehicles.txt";
+        loadVehicleData(fileName, incomingVehiclesTableModel);
+    }
+
+    private void loadVehicleData(String fileName, DefaultTableModel tableModel) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            String vehicleId = null, make = null, model = null, licensePlate = null, color = null;
+            int year = 0;
+            double residency = 0.0;
+
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                if (line.startsWith("VIN:")) {
+                    vehicleId = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Make:")) {
+                    make = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Model:")) {
+                    model = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Color:")) {
+                    color = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Year:")) {
+                    year = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("License Plate:")) {
+                    licensePlate = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Time Available:")) {
+                    residency = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                }
+
+                if (vehicleId != null && make != null && model != null && color != null && licensePlate != null && year != 0 && residency != 0) {
+                    tableModel.addRow(new Object[]{vehicleId, make, model, color, year, licensePlate, residency});
+                    vehicleId = make = model = color = licensePlate = null;
+                    year = 0;
+                    residency = 0.0;
+                }
+            }
+        } catch (IOException | NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void initializeJobPanel() {
+        // Create table model for jobs
+        jobTableModel = new DefaultTableModel(
+                new Object[]{"Client ID", "Job Duration", "Title", "Payout", "Deadline", "File Name"}, 0);
+        jobTable = new JTable(jobTableModel);
+
+        // Load data for jobs
+        loadJobsRegistered();
+
+        // Add table to panel
+        JScrollPane scrollPane = new JScrollPane(jobTable);
+        JPanel jobPanel = new JPanel(new BorderLayout());
+        jobPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add panel to tabbed pane
+        tabbedPane.addTab("Registered Jobs", jobPanel);
+    }
+
+    private void initializeIncomingJobsPanel() {
+        // Create table model for incoming jobs
+        incomingJobsTableModel = new DefaultTableModel(
+                new Object[]{"Client ID", "Job Duration", "Title", "Payout", "Deadline", "File Name"}, 0);
+        incomingJobsTable = new JTable(incomingJobsTableModel);
+
+        // Load data for incoming jobs
+        loadIncomingJobs();
+
+        // Add table to panel
+        JScrollPane scrollPane = new JScrollPane(incomingJobsTable);
+        JPanel incomingJobsPanel = new JPanel(new BorderLayout());
+        incomingJobsPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add panel to tabbed pane
+        tabbedPane.addTab("Incoming Jobs", incomingJobsPanel);
+    }
+
+    private void initializeVehiclePanel() {
+        // Create table model for vehicle registrations
+        vehicleTableModel = new DefaultTableModel(
+                new Object[]{"VIN", "Make", "Model", "Color", "Year", "License Plate", "Time Available"}, 0);
+        vehicleTable = new JTable(vehicleTableModel);
+
+        // Load data for vehicles
+        loadVehiclesRegistration();
+
+        // Add table to panel
+        JScrollPane scrollPane = new JScrollPane(vehicleTable);
+        JPanel vehiclePanel = new JPanel(new BorderLayout());
+        vehiclePanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add panel to tabbed pane
+        tabbedPane.addTab("Registrated Vehicles", vehiclePanel);
+    }
+
+    private void initializeIncomingVehiclesPanel() {
+        // Create table model for incoming vehicles
+        incomingVehiclesTableModel = new DefaultTableModel(
+                new Object[]{"VIN", "Make", "Model", "Color", "Year", "License Plate", "Time Available"}, 0);
+        incomingVehiclesTable = new JTable(incomingVehiclesTableModel);
+
+        // Load data for incoming vehicles
+        loadIncomingVehicles();
+
+        // Add table to panel
+        JScrollPane scrollPane = new JScrollPane(incomingVehiclesTable);
+        JPanel incomingVehiclesPanel = new JPanel(new BorderLayout());
+        incomingVehiclesPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add panel to tabbed pane
+        tabbedPane.addTab("Incoming Vehicles", incomingVehiclesPanel);
+    }
+
 }

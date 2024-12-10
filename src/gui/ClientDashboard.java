@@ -10,12 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import main.Client;
@@ -35,7 +30,7 @@ public class ClientDashboard {
 		this.client = client;
 
 		frame = new JFrame("Client Dashboard");
-		frame.setSize(600, 400);
+		frame.setSize(800, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		
@@ -94,25 +89,48 @@ public class ClientDashboard {
 
 		loadJobs(client.getID());
 		
-		mainPanel.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
+		mainPanel.add(new JLabel(  client.getDetails()), BorderLayout.NORTH);
 		mainPanel.add(scrollPane, BorderLayout.CENTER);
 
 		//frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
 		//frame.add(scrollPane, BorderLayout.CENTER);
+		JButton btnReturn = new JButton("Logout");
 
-		JButton btnBackToJobRegistration = new JButton("Register a job");
+		btnReturn.setFocusPainted(false);
+		btnReturn.setHorizontalAlignment(SwingConstants.CENTER);
+		btnReturn.setVerticalAlignment(SwingConstants.CENTER);
+		btnReturn.setIcon(new ImageIcon("powerButton.png"));
+		btnReturn.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+		btnReturn.setVerticalTextPosition(SwingConstants.CENTER);
+		btnReturn.setIconTextGap(1);
+		btnReturn.addActionListener(e -> {
+			new GUIWindow();
+			frame.dispose();
+		});
+		JButton btnBackToJobRegistration = new JButton("Add a Job");
+		btnBackToJobRegistration.setFocusPainted(false);
+		btnBackToJobRegistration.setHorizontalAlignment(SwingConstants.CENTER);
+		btnBackToJobRegistration.setVerticalAlignment(SwingConstants.CENTER);
+		btnBackToJobRegistration.setIcon(new ImageIcon("plus.png"));
+		btnBackToJobRegistration.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+		btnBackToJobRegistration.setVerticalTextPosition(SwingConstants.CENTER);
+		btnBackToJobRegistration.setIconTextGap(1);
 		btnBackToJobRegistration.addActionListener(e -> {
 			new JobRegistration(client);
 			frame.dispose();
 		});
 
-		JButton btnReturn = new JButton("Go Back");
-		btnReturn.addActionListener(e -> {
-			new GUIWindow();
-			frame.dispose();
-		});
 
-		JButton btnJobAcknowledgment = new JButton("Job Acknowledgment");
+
+
+		JButton btnJobAcknowledgment = new JButton("Notifications");
+		btnJobAcknowledgment.setFocusPainted(false);
+		btnJobAcknowledgment.setHorizontalAlignment(SwingConstants.CENTER);
+		btnJobAcknowledgment.setVerticalAlignment(SwingConstants.CENTER);
+		btnJobAcknowledgment.setIcon(new ImageIcon("Bell.png"));
+		btnJobAcknowledgment.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+		btnJobAcknowledgment.setVerticalTextPosition(SwingConstants.CENTER);
+		btnJobAcknowledgment.setIconTextGap(1);
 		btnJobAcknowledgment.addActionListener(e -> {
 			new jobAcknowledgment();
 		});
@@ -121,10 +139,10 @@ public class ClientDashboard {
 		
 		buttonPanel.setOpaque(false);
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-		
+		buttonPanel.add(btnReturn);
 		buttonPanel.add(btnBackToJobRegistration);
 		buttonPanel.add(btnJobAcknowledgment);
-		buttonPanel.add(btnReturn);
+
 
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 

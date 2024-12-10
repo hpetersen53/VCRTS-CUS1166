@@ -34,3 +34,21 @@ Color: Yellow
 License Plate: 567A
 Time Available: 1.0
 
+Timestamp: 2024-12-10 17:58:59
+VIN: 25
+Make: Dodge
+Model: Challenger
+Year: 2012
+Color: Blue
+License Plate: 1
+Time Available: 1.0
+
+Timestamp: 2024-12-10 18:23:15
+VIN: 95
+Make: Toyota
+Model: Yaris
+Year: 2020
+Color: White
+License Plate: 57A
+Time Available: 1.0
+
