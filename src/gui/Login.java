@@ -34,6 +34,14 @@ public class Login {
 
         JButton btnLogin = new JButton("Login");
         styleButton(btnLogin);
+        btnLogin.setFocusPainted(false);
+        btnLogin.setHorizontalAlignment(SwingConstants.CENTER);
+        btnLogin.setVerticalAlignment(SwingConstants.CENTER);
+        btnLogin.setIcon(new ImageIcon("login.png"));
+        btnLogin.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnLogin.setVerticalTextPosition(SwingConstants.CENTER);
+        btnLogin.setIconTextGap(1);
+        
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +65,14 @@ public class Login {
 
         JButton btnRegister = new JButton("Create Account");
         styleButton(btnRegister);
+        btnRegister.setFocusPainted(false);
+        btnRegister.setHorizontalAlignment(SwingConstants.CENTER);
+        btnRegister.setVerticalAlignment(SwingConstants.CENTER);
+        btnRegister.setIcon(new ImageIcon("create.png"));
+        btnRegister.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnRegister.setVerticalTextPosition(SwingConstants.CENTER);
+        btnRegister.setIconTextGap(1);
+        
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,6 +83,14 @@ public class Login {
 
         JButton btnAdminLogin = new JButton("Admin Login");
         styleButton(btnAdminLogin);
+        btnAdminLogin.setFocusPainted(false);
+        btnAdminLogin.setHorizontalAlignment(SwingConstants.CENTER);
+        btnAdminLogin.setVerticalAlignment(SwingConstants.CENTER);
+        btnAdminLogin.setIcon(new ImageIcon("admin.png"));
+        btnAdminLogin.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        btnAdminLogin.setVerticalTextPosition(SwingConstants.CENTER);
+        btnAdminLogin.setIconTextGap(1);
+        
         btnAdminLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,7 +151,7 @@ public class Login {
         button.setPreferredSize(new Dimension(150, 40));
         button.setBackground(new Color(217, 217, 217)); 
         button.setForeground(Color.BLACK);
-        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setFont(new Font("Inter", Font.BOLD, 12));
         button.setFocusPainted(false);
     }
 

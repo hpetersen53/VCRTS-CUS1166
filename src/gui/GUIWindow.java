@@ -67,6 +67,13 @@ public class GUIWindow extends JFrame {
         signUpButton.setBackground(new Color(217, 217, 217));
         signUpButton.setForeground(new Color(0, 0, 0));
         signUpButton.setFont(new Font("Inter", Font.BOLD, 16));
+        signUpButton.setFocusPainted(false);
+        signUpButton.setHorizontalAlignment(SwingConstants.CENTER);
+        signUpButton.setVerticalAlignment(SwingConstants.CENTER);
+        signUpButton.setIcon(new ImageIcon("create.png"));
+        signUpButton.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        signUpButton.setVerticalTextPosition(SwingConstants.CENTER);
+        signUpButton.setIconTextGap(1);
         signUpButton.addActionListener(e -> {
             new UserRegistration(); // Redirect to UserRegistration window
             dispose(); 
@@ -79,6 +86,13 @@ public class GUIWindow extends JFrame {
         signInButton.setBackground(new Color(217, 217, 217));
         signInButton.setForeground(new Color(0, 0, 0));
         signInButton.setFont(new Font("Inter", Font.BOLD, 16));
+        signInButton.setFocusPainted(false);
+        signInButton.setHorizontalAlignment(SwingConstants.CENTER);
+        signInButton.setVerticalAlignment(SwingConstants.CENTER);
+        signInButton.setIcon(new ImageIcon("SignIn.png"));
+        signInButton.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
+        signInButton.setVerticalTextPosition(SwingConstants.CENTER);
+        signInButton.setIconTextGap(1);
         signInButton.addActionListener(e -> {
             new Login(); // Redirect to Login window
             dispose(); 
