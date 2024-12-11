@@ -15,32 +15,25 @@ public class Login {
 
     public Login() {
         jFrame = new JFrame("Login");
-        jFrame.setSize(400, 300);
+        jFrame.setSize(800, 600); 
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setLocationRelativeTo(null);
+
+       
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBackground(new Color(160, 208, 240)); 
+
         
-
-        JPanel jPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
         JLabel lblEmail = new JLabel("Email:");
+        lblEmail.setFont(new Font("Inter", Font.BOLD, 18));
         txtEmail = new JTextField(20);
 
         JLabel lblPassword = new JLabel("Password:");
+        lblPassword.setFont(new Font("Inter", Font.BOLD, 18));
         txtPassword = new JPasswordField(20);
 
         JButton btnLogin = new JButton("Login");
-        JButton btnRegister = new JButton("Create Account");
-        JButton btnAdminLogin = new JButton("Admin Login");
-        
-        btnAdminLogin.addActionListener(new ActionListener() {  // Action for the Admin Login button
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jFrame.dispose();
-                VCController controller = new VCController(); // Instantiate the controller
-                new ControllerDashboard(controller,0); // Open the ControllerDashboard
-            }
-        });
-        
+        styleButton(btnLogin);
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,6 +55,8 @@ public class Login {
             }
         });
 
+        JButton btnRegister = new JButton("Create Account");
+        styleButton(btnRegister);
         btnRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,49 +64,71 @@ public class Login {
                 jFrame.dispose();
             }
         });
-        
+
+        JButton btnAdminLogin = new JButton("Admin Login");
+        styleButton(btnAdminLogin);
+        btnAdminLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jFrame.dispose();
+                VCController controller = new VCController(); // Instantiate the controller
+                new ControllerDashboard(controller,0); // Open the ControllerDashboard
+            }
+        });
+
+        // Layout components
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
-        jPanel.add(lblEmail, gbc);
-        
+        mainPanel.add(lblEmail, gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        jPanel.add(txtEmail, gbc);
-        
+        mainPanel.add(txtEmail, gbc);
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
-        jPanel.add(lblPassword, gbc);
-        
+        mainPanel.add(lblPassword, gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        jPanel.add(txtPassword, gbc);
-        
+        mainPanel.add(txtPassword, gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
-        jPanel.add(btnLogin, gbc);
-        
+        mainPanel.add(btnLogin, gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
-        jPanel.add(btnRegister, gbc);
-        
-        // Position the Admin Login button
-        gbc.gridx = 1;
-        gbc.gridy = 3;  // Place it on the next row
-        gbc.gridwidth = 1; // Span across two columns for better alignment
-        gbc.anchor = GridBagConstraints.WEST; // Center-align the button
-        jPanel.add(btnAdminLogin, gbc);
+        mainPanel.add(btnRegister, gbc);
 
-        jFrame.add(jPanel);
+        gbc.gridx = 1;
+        gbc.gridy = 3;  
+        gbc.gridwidth = 1; 
+        gbc.anchor = GridBagConstraints.WEST; 
+        mainPanel.add(btnAdminLogin, gbc);
+
+        jFrame.add(mainPanel);
         jFrame.setVisible(true);
-        jFrame.setLocationRelativeTo(null);
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(150, 40));
+        button.setBackground(new Color(217, 217, 217)); 
+        button.setForeground(Color.BLACK);
+        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setFocusPainted(false);
     }
 
     private Object authenticateUser(String email, String password) {
@@ -132,33 +149,24 @@ public class Login {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                
                 String[] parts = line.split(": ", 2);
                 if (parts.length > 1) {
-                    
                     String userDetails = parts[1].trim(); 
-
-                    
                     String[] userFields = userDetails.split(","); 
 
                     if (userFields.length >= 6) { 
-                        
                         try {
-                            int clientId = Integer.parseInt(userFields[0].trim());  // ID should be the first field
-
-                            
+                            int clientId = Integer.parseInt(userFields[0].trim());  
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
-                            String licenseNumber = userFields[5].trim(); // Assuming this is the license number or other info
+                            String licenseNumber = userFields[5].trim(); 
 
-                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
                                 return new Client(clientId, firstName, lastName, email, password, licenseNumber);
                             }
                         } catch (NumberFormatException e) {
-                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }
@@ -174,33 +182,24 @@ public class Login {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                
                 String[] parts = line.split(": ", 2); 
                 if (parts.length > 1) {
-                   
                     String userDetails = parts[1].trim();  
-
-                    
                     String[] userFields = userDetails.split(","); 
 
                     if (userFields.length >= 6) { 
-                        
                         try {
                             int VehicleId = Integer.parseInt(userFields[0].trim());  
-
-                            
                             String firstName = userFields[1].trim();
                             String lastName = userFields[2].trim();
                             String storedEmail = userFields[3].trim();
                             String storedPassword = userFields[4].trim();
                             String licenseNumber = userFields[5].trim(); 
 
-                            
                             if (storedEmail.equals(email) && storedPassword.equals(password)) {
-                            	return new VehicleOwner(VehicleId, firstName, lastName, email, password, userFields[4].trim());
+                                return new VehicleOwner(VehicleId, firstName, lastName, email, password, userFields[4].trim());
                             }
                         } catch (NumberFormatException e) {
-                            
                             System.out.println("Error: Invalid ID format for client: " + userFields[0].trim());
                         }
                     }
@@ -239,3 +238,4 @@ public class Login {
         return null;
     }
 }
+

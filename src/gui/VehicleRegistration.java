@@ -17,12 +17,12 @@ public class VehicleRegistration {
         }
         this.vehicleOwner = vehicleOwner;
 
-        // Set up the frame
+        
         frame = new JFrame("Vehicle Registration");
-        frame.setSize(500, 600);
+        frame.setSize(800, 600); 
         frame.setLocationRelativeTo(null);
 
-        // Initialize fields
+
         txtMake = new JTextField(20);
         txtModel = new JTextField(20);
         txtYear = new JTextField(20);
@@ -32,7 +32,9 @@ public class VehicleRegistration {
         txtResidency = new JTextField(20);
 
         JButton btnSubmit = new JButton("Register Vehicle");
+        styleButton(btnSubmit);
         JButton btnReturn = new JButton("Go Back");
+        styleButton(btnReturn);
 
         btnSubmit.addActionListener(e -> registerVehicle());
         btnReturn.addActionListener(e -> {
@@ -42,49 +44,50 @@ public class VehicleRegistration {
 
         // Layout setup
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(160, 208, 240)); 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Make: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("Make: (Any Alphabets)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtMake, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(new JLabel("Model: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("Model: (Any Alphabets)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtModel, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        panel.add(new JLabel("Year: (Numbers)"), gbc);
+        panel.add(new JLabel("Year: (Numbers)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtYear, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        panel.add(new JLabel("Color: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("Color: (Any Alphabets)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtColor, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        panel.add(new JLabel("Vehicle ID: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("Vehicle ID: (Any Alphabets)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtVIN, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
-        panel.add(new JLabel("License Plate: (Any Alphabets)"), gbc);
+        panel.add(new JLabel("License Plate: (Any Alphabets)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtLicensePlate, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
-        panel.add(new JLabel("Residency: (Numbers, Hours)"), gbc);
+        panel.add(new JLabel("Residency: (Numbers, Hours)", JLabel.RIGHT), gbc);
         gbc.gridx = 1;
         panel.add(txtResidency, gbc);
 
@@ -99,6 +102,14 @@ public class VehicleRegistration {
 
         frame.add(panel);
         frame.setVisible(true);
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(150, 40));
+        button.setBackground(new Color(217, 217, 217)); 
+        button.setForeground(Color.BLACK);
+        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setFocusPainted(false);
     }
 
     private void registerVehicle() {
@@ -121,8 +132,6 @@ public class VehicleRegistration {
 
             // Send vehicle data to server
             sendVehicleToServer(vehicle);
-
-            //JOptionPane.showMessageDialog(frame, "Vehicle registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
             // Return to the dashboard
             new VehicleOwnerDashboard(vehicleOwner);
@@ -166,3 +175,4 @@ public class VehicleRegistration {
         }
     }
 }
+

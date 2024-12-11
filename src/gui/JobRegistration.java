@@ -11,7 +11,7 @@ import main.*;
 
 public class JobRegistration {
     private JFrame frame;
-    private JTextField  txtClientId, txtTitle, txtPayout, txtEstimatedTime;
+    private JTextField txtClientId, txtTitle, txtPayout, txtEstimatedTime;
     private String attachedFileName = null;
     private JSpinner spinnerDeadline;
     private Client client;
@@ -23,9 +23,8 @@ public class JobRegistration {
         this.client = client;
 
         frame = new JFrame("Job Registration");
-        frame.setSize(500, 600);
+        frame.setSize(800, 600); 
         frame.setLocationRelativeTo(null);
-
 
         txtClientId = new JTextField(20);
         txtTitle = new JTextField(20);
@@ -38,9 +37,12 @@ public class JobRegistration {
         spinnerDeadline.setValue(new java.util.Date());
 
         JButton btnAttachFile = new JButton("Attach File");
+        styleButton(btnAttachFile);
         JLabel lblFileStatus = new JLabel("No file attached");
         JButton btnSubmit = new JButton("Submit Job");
+        styleButton(btnSubmit);
         JButton btnReturn = new JButton("Go Back");
+        styleButton(btnReturn);
 
         btnAttachFile.addActionListener(e -> attachFile(lblFileStatus));
         btnSubmit.addActionListener(e -> submitJob());
@@ -49,12 +51,11 @@ public class JobRegistration {
             frame.dispose();
         });
 
-        // Layout setup
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(160, 208, 240)); 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
-
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -106,6 +107,14 @@ public class JobRegistration {
 
         frame.add(panel);
         frame.setVisible(true);
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(150, 40));
+        button.setBackground(new Color(217, 217, 217)); 
+        button.setForeground(Color.BLACK);
+        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setFocusPainted(false);
     }
 
     private void attachFile(JLabel lblFileStatus) {
@@ -161,8 +170,6 @@ public class JobRegistration {
             e.printStackTrace();
         }
     }
-    
-
 
     private int validateClientId(String clientIdStr) {
         if (clientIdStr.isEmpty()) {
@@ -202,6 +209,4 @@ public class JobRegistration {
             throw new IllegalArgumentException("Job Title cannot be empty.");
         }
     }
-
-
 }
