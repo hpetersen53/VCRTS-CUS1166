@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import main.VehicleOwner;
-import main.VCController;
 
 public class VehicleOwnerDashboard {
     private JFrame frame;
@@ -30,8 +29,8 @@ public class VehicleOwnerDashboard {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        // Add a background image
-        JPanel mainPanel = new JPanel() {
+        // Create a panel with background image
+        JPanel backgroundPanel = new JPanel() {
             private Image backgroundImage;
 
             {
@@ -50,7 +49,7 @@ public class VehicleOwnerDashboard {
                 }
             }
         };
-        mainPanel.setLayout(new BorderLayout());
+        backgroundPanel.setLayout(new BorderLayout());
 
         // Initialize table model and add columns
         tableModel = new DefaultTableModel(new Object[]{
@@ -74,9 +73,16 @@ public class VehicleOwnerDashboard {
         // Load vehicles from file
         loadVehicles(vehicleOwner.getID());
 
-        // Add components to the main panel
-        mainPanel.add(new JLabel( vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        // Add components to the background panel
+        backgroundPanel.add(new JLabel(vehicleOwner.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
+        backgroundPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add background panel to the frame
+        frame.add(backgroundPanel, BorderLayout.CENTER);
+
+        // Create a separate button panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         // "Register New Vehicle" button
         JButton btnRegisterVehicle = new JButton("Add a Vehicle");
@@ -97,7 +103,7 @@ public class VehicleOwnerDashboard {
             new vehicleAcknowledgment();
         });
 
-        // "Go Back" button
+        // "Logout" button
         JButton btnReturn = new JButton("Logout");
         btnReturn.setFocusPainted(false);
         btnReturn.setIcon(new ImageIcon("powerButton.png"));
@@ -107,18 +113,13 @@ public class VehicleOwnerDashboard {
             frame.dispose();
         });
 
-        // Add buttons to a panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false);
+        // Add buttons to the button panel
         buttonPanel.add(btnReturn);
         buttonPanel.add(btnRegisterVehicle);
         buttonPanel.add(btnVehicleAcknowledgments);
 
-        // Add button panel to the main panel
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Add main panel to the frame
-        frame.add(mainPanel);
+        // Add button panel to the frame (below the background)
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Make the frame visible
         frame.setVisible(true);
