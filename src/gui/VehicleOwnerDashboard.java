@@ -81,12 +81,11 @@ public class VehicleOwnerDashboard {
         frame.add(backgroundPanel, BorderLayout.CENTER);
 
         // Create a separate button panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel buttonPanel = new JPanel(new BorderLayout());
 
         // "Register New Vehicle" button
         JButton btnRegisterVehicle = new JButton("Add a Vehicle");
-        btnRegisterVehicle.setFocusPainted(false);
+        styleButton(btnRegisterVehicle);
         btnRegisterVehicle.setIcon(new ImageIcon("plus.png"));
         btnRegisterVehicle.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnRegisterVehicle.addActionListener(e -> {
@@ -96,7 +95,7 @@ public class VehicleOwnerDashboard {
 
         // "Access Vehicle Acknowledgments" button
         JButton btnVehicleAcknowledgments = new JButton("Notifications");
-        btnVehicleAcknowledgments.setFocusPainted(false);
+        styleButton(btnVehicleAcknowledgments);
         btnVehicleAcknowledgments.setIcon(new ImageIcon("Bell.png"));
         btnVehicleAcknowledgments.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnVehicleAcknowledgments.addActionListener(e -> {
@@ -105,7 +104,7 @@ public class VehicleOwnerDashboard {
 
         // "Logout" button
         JButton btnReturn = new JButton("Logout");
-        btnReturn.setFocusPainted(false);
+        styleButton(btnReturn);
         btnReturn.setIcon(new ImageIcon("powerButton.png"));
         btnReturn.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnReturn.addActionListener(e -> {
@@ -114,9 +113,9 @@ public class VehicleOwnerDashboard {
         });
 
         // Add buttons to the button panel
-        buttonPanel.add(btnReturn);
-        buttonPanel.add(btnRegisterVehicle);
-        buttonPanel.add(btnVehicleAcknowledgments);
+        buttonPanel.add(btnReturn, BorderLayout.WEST);
+        buttonPanel.add(btnRegisterVehicle, BorderLayout.CENTER);
+        buttonPanel.add(btnVehicleAcknowledgments, BorderLayout.EAST);
 
         // Add button panel to the frame (below the background)
         frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -124,6 +123,14 @@ public class VehicleOwnerDashboard {
         // Make the frame visible
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+    }
+
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(200, 50));
+        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setBackground(new Color(217, 217, 217)); // Light gray
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
     }
 
     private void loadVehicles(int ownerId) {
