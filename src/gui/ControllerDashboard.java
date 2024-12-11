@@ -69,99 +69,68 @@ public class ControllerDashboard {
             }
         });
 
-        // Initialize panels for each table
-        initializeJobPanel();
-        initializeIncomingJobsPanel();
-        initializeVehiclePanel();
-        initializeIncomingVehiclesPanel();
+         initializeJobPanel();
+         initializeIncomingJobsPanel();
+         initializeVehiclePanel();
+         initializeIncomingVehiclesPanel();
+ 
+         frame.add(tabbedPane, BorderLayout.CENTER);
 
-        // Add tabbed pane to frame
-        frame.add(tabbedPane, BorderLayout.CENTER);
-
-        // Set the selected tab based on the parameter
-        tabbedPane.setSelectedIndex(SelectedTabIndex);
-
-        // Initialize panels for each table
-
-
-        // Add tabbed pane to frame
-        frame.add(tabbedPane, BorderLayout.CENTER);
-        // Add tabbed pane to frame
-
-        // Initialize table model and add columns
-
-
-
-
-
-       // loadJobs();
-
-
-
-
-        // "Go Back" button to return to main GUI
-        JButton btnReturn = new JButton("Logout");
-
-        btnReturn.setFocusPainted(false);
-        btnReturn.setHorizontalAlignment(SwingConstants.CENTER);
-        btnReturn.setVerticalAlignment(SwingConstants.CENTER);
-        btnReturn.setIcon(new ImageIcon("powerButton.png"));
-        btnReturn.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-        btnReturn.setVerticalTextPosition(SwingConstants.CENTER);
-        btnReturn.setIconTextGap(1);
-
-        btnReturn.addActionListener(e -> {
-            new GUIWindow();
-            frame.dispose();
-        });
-
-        JButton btnJobs = new JButton("Job Requests");
-        btnJobs.setFocusPainted(false);
-        btnJobs.setHorizontalAlignment(SwingConstants.CENTER);
-        btnJobs.setVerticalAlignment(SwingConstants.CENTER);
-        btnJobs.setIcon(new ImageIcon("tick.png"));
-        btnJobs.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-        btnJobs.setVerticalTextPosition(SwingConstants.CENTER);
-        btnJobs.setIconTextGap(1);
-        btnJobs.addActionListener(e -> {
-            new IncomingJobs();
-            frame.dispose();
-            });
-        JButton btnVehicles = new JButton("Vehicle Requests");
-        btnVehicles.setFocusPainted(false);
-        btnVehicles.setHorizontalAlignment(SwingConstants.CENTER);
-        btnVehicles.setVerticalAlignment(SwingConstants.CENTER);
-        btnVehicles.setIcon(new ImageIcon("tick.png"));
-        btnVehicles.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-        btnVehicles.setVerticalTextPosition(SwingConstants.CENTER);
-        btnVehicles.setIconTextGap(1);
-        btnVehicles.addActionListener(e -> {
-            new IncomingVehicles();
-            frame.dispose();
-            });
-
-        // "Completion Time Check" button to display job completion times
-        JButton btnCompletionCheck = new JButton("Completion Time Check");
-        btnCompletionCheck.setFocusPainted(false);
-        btnCompletionCheck.setHorizontalAlignment(SwingConstants.CENTER);
-        btnCompletionCheck.setVerticalAlignment(SwingConstants.CENTER);
-        btnCompletionCheck.setIcon(new ImageIcon("Clock.png"));
-        btnCompletionCheck.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-        btnCompletionCheck.setVerticalTextPosition(SwingConstants.CENTER);
-        btnCompletionCheck.setIconTextGap(1);
-        btnCompletionCheck.addActionListener(e -> showCompletionTimes());
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(btnReturn);
-        buttonPanel.add(btnCompletionCheck);
-        buttonPanel.add(btnJobs);
-        buttonPanel.add(btnVehicles);
-
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-
-    }
+         tabbedPane.setSelectedIndex(SelectedTabIndex);
+ 
+         JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+ 
+         // "Logout" button
+         JButton btnReturn = new JButton("Logout");
+         styleButton(btnReturn);
+         btnReturn.setIcon(new ImageIcon("powerButton.png"));
+         btnReturn.addActionListener(e -> {
+             new GUIWindow();
+             frame.dispose();
+         });
+ 
+         // "Completion Time Check" button
+         JButton btnCompletionCheck = new JButton("Completion Time");
+         styleButton(btnCompletionCheck);
+         btnCompletionCheck.setIcon(new ImageIcon("Clock.png"));
+         btnCompletionCheck.addActionListener(e -> showCompletionTimes());
+ 
+         // "Job Requests" button
+         JButton btnJobs = new JButton("Job Requests");
+         styleButton(btnJobs);
+         btnJobs.setIcon(new ImageIcon("tick.png"));
+         btnJobs.addActionListener(e -> {
+             new IncomingJobs();
+             frame.dispose();
+         });
+ 
+         // "Vehicle Requests" button
+         JButton btnVehicles = new JButton("Vehicle Requests");
+         styleButton(btnVehicles);
+         btnVehicles.setIcon(new ImageIcon("tick.png"));
+         btnVehicles.addActionListener(e -> {
+             new IncomingVehicles();
+             frame.dispose();
+         });
+ 
+         buttonPanel.add(btnReturn);
+         buttonPanel.add(btnCompletionCheck);
+         buttonPanel.add(btnJobs);
+         buttonPanel.add(btnVehicles);
+ 
+         frame.add(buttonPanel, BorderLayout.SOUTH);
+ 
+         frame.setVisible(true);
+     }
+ 
+     private void styleButton(JButton button) {
+         button.setPreferredSize(new Dimension(200, 50));
+         button.setFont(new Font("Inter", Font.BOLD, 16));
+         button.setBackground(new Color(217, 217, 217)); // Light gray
+         button.setForeground(Color.BLACK);
+         button.setFocusPainted(false);
+     }
+ 
 
     /*private void loadJobs() {
         String fileName = "JobListings.txt";
