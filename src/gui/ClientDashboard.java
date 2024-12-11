@@ -17,181 +17,171 @@ import main.Client;
 import main.VCController;
 
 public class ClientDashboard {
-	private JFrame frame;
-	private JTable table;
-	private DefaultTableModel tableModel;
-	private Client client;
-	private VCController cloudController;
+    private JFrame frame;
+    private JTable table;
+    private DefaultTableModel tableModel;
+    private Client client;
+    private VCController cloudController;
 
-	public ClientDashboard(Client client) {
-		if (client == null) {
-			throw new IllegalArgumentException("Client cannot be null.");
-		}
-		this.client = client;
+    public ClientDashboard(Client client) {
+        if (client == null) {
+            throw new IllegalArgumentException("Client cannot be null.");
+        }
+        this.client = client;
 
-		frame = new JFrame("Client Dashboard");
-		frame.setSize(800, 600);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		
-		//adding png
-		JPanel mainPanel = new JPanel() {
-			private Image backgroundImage;
-			
-			{
-				try {
-					backgroundImage = ImageIO.read(new File("clientdashboard.jpg"));
-				} catch (IOException e) {
-					System.out.println("background image not found: " + e.getMessage());
-				}
-			}
-			
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				if (backgroundImage !=null) {
-					g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-				}
-			}
-		};
-		mainPanel.setLayout(new BorderLayout());
+        frame = new JFrame("Client Dashboard");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
 
-		// Initialize table model and add columns
-		tableModel = new DefaultTableModel();
-		tableModel.addColumn("Client ID");
-		tableModel.addColumn("Job Duration");
-		tableModel.addColumn("Title");
-		tableModel.addColumn("Payout");
-		tableModel.addColumn("Deadline");
-		tableModel.addColumn("File Attached");
+        // Adding background image
+        JPanel mainPanel = new JPanel() {
+            private Image backgroundImage;
 
-		// Create table and link it to the table model
-		table = new JTable(tableModel) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-			
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-			}
-		};
-		
-		table.setOpaque(false);
-		table.setBackground(new Color(0, 0, 0, 0));
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		
-		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		scrollPane.setBorder(null);
+            {
+                try {
+                    backgroundImage = ImageIO.read(new File("clientdashboard.jpg"));
+                } catch (IOException e) {
+                    System.out.println("Background image not found: " + e.getMessage());
+                }
+            }
 
-		loadJobs(client.getID());
-		
-		mainPanel.add(new JLabel(  client.getDetails()), BorderLayout.NORTH);
-		mainPanel.add(scrollPane, BorderLayout.CENTER);
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+        mainPanel.setLayout(new BorderLayout());
 
-		//frame.add(new JLabel("Jobs Posted by: " + client.getDetails()), BorderLayout.NORTH);
-		//frame.add(scrollPane, BorderLayout.CENTER);
-		JButton btnReturn = new JButton("Logout");
+        // Initialize table model and add columns
+        tableModel = new DefaultTableModel();
+        tableModel.addColumn("Client ID");
+        tableModel.addColumn("Job Duration");
+        tableModel.addColumn("Title");
+        tableModel.addColumn("Payout");
+        tableModel.addColumn("Deadline");
+        tableModel.addColumn("File Attached");
 
-		btnReturn.setFocusPainted(false);
-		btnReturn.setHorizontalAlignment(SwingConstants.CENTER);
-		btnReturn.setVerticalAlignment(SwingConstants.CENTER);
-		btnReturn.setIcon(new ImageIcon("powerButton.png"));
-		btnReturn.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-		btnReturn.setVerticalTextPosition(SwingConstants.CENTER);
-		btnReturn.setIconTextGap(1);
-		btnReturn.addActionListener(e -> {
-			new GUIWindow();
-			frame.dispose();
-		});
-		JButton btnBackToJobRegistration = new JButton("Add a Job");
-		btnBackToJobRegistration.setFocusPainted(false);
-		btnBackToJobRegistration.setHorizontalAlignment(SwingConstants.CENTER);
-		btnBackToJobRegistration.setVerticalAlignment(SwingConstants.CENTER);
-		btnBackToJobRegistration.setIcon(new ImageIcon("plus.png"));
-		btnBackToJobRegistration.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-		btnBackToJobRegistration.setVerticalTextPosition(SwingConstants.CENTER);
-		btnBackToJobRegistration.setIconTextGap(1);
-		btnBackToJobRegistration.addActionListener(e -> {
-			new JobRegistration(client);
-			frame.dispose();
-		});
+        // Create table and link it to the table model
+        table = new JTable(tableModel) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
 
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
 
+        table.setOpaque(false);
+        table.setBackground(new Color(0, 0, 0, 0));
 
+        JScrollPane scrollPane = new JScrollPane(table);
 
-		JButton btnJobAcknowledgment = new JButton("Notifications");
-		btnJobAcknowledgment.setFocusPainted(false);
-		btnJobAcknowledgment.setHorizontalAlignment(SwingConstants.CENTER);
-		btnJobAcknowledgment.setVerticalAlignment(SwingConstants.CENTER);
-		btnJobAcknowledgment.setIcon(new ImageIcon("Bell.png"));
-		btnJobAcknowledgment.setHorizontalTextPosition(SwingConstants.RIGHT); // Text to the right of the icon
-		btnJobAcknowledgment.setVerticalTextPosition(SwingConstants.CENTER);
-		btnJobAcknowledgment.setIconTextGap(1);
-		btnJobAcknowledgment.addActionListener(e -> {
-			new jobAcknowledgment();
-		});
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
 
-		JPanel buttonPanel = new JPanel();
-		
-		buttonPanel.setOpaque(false);
-		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-		buttonPanel.add(btnReturn);
-		buttonPanel.add(btnBackToJobRegistration);
-		buttonPanel.add(btnJobAcknowledgment);
+        loadJobs(client.getID());
 
+        mainPanel.add(new JLabel(client.getDetails(), SwingConstants.CENTER), BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-		frame.add(buttonPanel, BorderLayout.SOUTH);
+        // Create a button panel with styled buttons
+        JPanel buttonPanel = new JPanel(new BorderLayout());
 
-		// Set frame visibility
-		
-		frame.add(mainPanel);
-		
-		frame.setVisible(true);
-		frame.setLocationRelativeTo(null);
-	}
+        // "Logout" button
+        JButton btnReturn = new JButton("Logout");
+        styleButton(btnReturn);
+        btnReturn.setIcon(new ImageIcon("powerButton.png"));
+        btnReturn.addActionListener(e -> {
+            new GUIWindow();
+            frame.dispose();
+        });
 
-	private void loadJobs(int id) {
-		String fileName = "JobListings.txt";
+        // "Add a Job" button
+        JButton btnBackToJobRegistration = new JButton("Add a Job");
+        styleButton(btnBackToJobRegistration);
+        btnBackToJobRegistration.setIcon(new ImageIcon("plus.png"));
+        btnBackToJobRegistration.addActionListener(e -> {
+            new JobRegistration(client);
+            frame.dispose();
+        });
 
-		String line;
-		int clientId = 0;
-		String title = "";
-		int JobDuration = 0;
-		double payout = 0.0;
-		LocalDate deadline = null;
-		String attachedFileName = "None";
+        // "Notifications" button
+        JButton btnJobAcknowledgment = new JButton("Notifications");
+        styleButton(btnJobAcknowledgment);
+        btnJobAcknowledgment.setIcon(new ImageIcon("Bell.png"));
+        btnJobAcknowledgment.addActionListener(e -> {
+            new jobAcknowledgment();
+        });
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        // Add buttons to the button panel
+        buttonPanel.add(btnReturn, BorderLayout.WEST);
+        buttonPanel.add(btnBackToJobRegistration, BorderLayout.CENTER);
+        buttonPanel.add(btnJobAcknowledgment, BorderLayout.EAST);
 
-			while ((line = reader.readLine()) != null) {
-				line = line.trim();
+        // Add button panel to the frame (below the background)
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.add(mainPanel);
 
-				if (line.startsWith("Client ID:")) {
-					clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-				} else if (line.startsWith("Job Duration:")) {
-					JobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
-				} else if (line.startsWith("Title:")) {
-					title = line.substring(line.indexOf(":") + 1).trim();
-				} else if (line.startsWith("Payout:")) {
-					payout = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
-				} else if (line.startsWith("Deadline:")) {
-					deadline = LocalDate.parse(line.substring(line.indexOf(":") + 1).trim());
-				} else if (line.startsWith("FileName:")) {
-					attachedFileName = line.substring(line.indexOf(":") + 1).trim();
-				} else if (line.isEmpty()) {
-					tableModel.addRow(
-							new Object[] { clientId, JobDuration, title, payout, deadline, attachedFileName });
-				}
-			}
+        // Set frame visibility
+        frame.setVisible(true);
+    }
 
-		} catch (DateTimeParseException e) {
-			//System.out.println("Error parsing deadline for job: " + line);
-		} catch (IOException | NumberFormatException ex) {
-			ex.printStackTrace();
-		}
-	}
+    private void styleButton(JButton button) {
+        button.setPreferredSize(new Dimension(200, 50));
+        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setBackground(new Color(217, 217, 217)); // Light gray
+        button.setForeground(Color.BLACK);
+        button.setFocusPainted(false);
+    }
+
+    private void loadJobs(int id) {
+        String fileName = "JobListings.txt";
+
+        String line;
+        int clientId = 0;
+        String title = "";
+        int JobDuration = 0;
+        double payout = 0.0;
+        LocalDate deadline = null;
+        String attachedFileName = "None";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                if (line.startsWith("Client ID:")) {
+                    clientId = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Job Duration:")) {
+                    JobDuration = Integer.parseInt(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Title:")) {
+                    title = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.startsWith("Payout:")) {
+                    payout = Double.parseDouble(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("Deadline:")) {
+                    deadline = LocalDate.parse(line.substring(line.indexOf(":") + 1).trim());
+                } else if (line.startsWith("FileName:")) {
+                    attachedFileName = line.substring(line.indexOf(":") + 1).trim();
+                } else if (line.isEmpty()) {
+                    tableModel.addRow(
+                            new Object[] { clientId, JobDuration, title, payout, deadline, attachedFileName });
+                }
+            }
+
+        } catch (DateTimeParseException e) {
+            //System.out.println("Error parsing deadline for job: " + line);
+        } catch (IOException | NumberFormatException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
+
