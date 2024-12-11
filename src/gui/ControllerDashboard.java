@@ -43,6 +43,7 @@ public class ControllerDashboard {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
 
         // Initialize the tabbed pane
         tabbedPane = new JTabbedPane();
