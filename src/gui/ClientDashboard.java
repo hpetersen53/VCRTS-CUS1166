@@ -94,7 +94,7 @@ public class ClientDashboard {
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         // Create a button panel with styled buttons
-        JPanel buttonPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         // "Logout" button
         JButton btnReturn = new JButton("Logout");
@@ -136,8 +136,8 @@ public class ClientDashboard {
     }
 
     private void styleButton(JButton button) {
-        button.setPreferredSize(new Dimension(200, 50));
-        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setPreferredSize(new Dimension(150, 40));
+        button.setFont(new Font("Inter", Font.BOLD, 14));
         button.setBackground(new Color(217, 217, 217)); // Light gray
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);

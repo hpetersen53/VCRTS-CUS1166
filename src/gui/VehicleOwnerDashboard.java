@@ -81,7 +81,7 @@ public class VehicleOwnerDashboard {
         frame.add(backgroundPanel, BorderLayout.CENTER);
 
         // Create a separate button panel
-        JPanel buttonPanel = new JPanel(new BorderLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         // "Register New Vehicle" button
         JButton btnRegisterVehicle = new JButton("Add a Vehicle");

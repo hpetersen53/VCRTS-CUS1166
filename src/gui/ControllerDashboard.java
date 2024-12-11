@@ -78,7 +78,7 @@ public class ControllerDashboard {
 
          tabbedPane.setSelectedIndex(SelectedTabIndex);
  
-         JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
  
          // "Logout" button
          JButton btnReturn = new JButton("Logout");
@@ -124,8 +124,8 @@ public class ControllerDashboard {
      }
  
      private void styleButton(JButton button) {
-         button.setPreferredSize(new Dimension(200, 50));
-         button.setFont(new Font("Inter", Font.BOLD, 16));
+         button.setPreferredSize(new Dimension(160, 40));
+         button.setFont(new Font("Inter", Font.BOLD, 12));
          button.setBackground(new Color(217, 217, 217)); // Light gray
          button.setForeground(Color.BLACK);
          button.setFocusPainted(false);
