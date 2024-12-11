@@ -40,10 +40,18 @@ public class ControllerDashboard {
         this.controller = controller;
 
         frame = new JFrame("Controller Dashboard");
-        frame.setSize(800, 600);
+        frame.setSize(770, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setLocationRelativeTo(null);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        
+        int xPosition = 0;  
+        int yPosition = (screenHeight - frame.getHeight()) / 2;  
+        frame.setLocation(xPosition, yPosition);
 
         // Initialize the tabbed pane
         tabbedPane = new JTabbedPane();

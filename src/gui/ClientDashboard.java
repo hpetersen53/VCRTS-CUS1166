@@ -30,12 +30,21 @@ public class ClientDashboard {
         this.client = client;
 
         frame = new JFrame("Client Dashboard");
-        frame.setSize(800, 600);
+        frame.setSize(770, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setLocationRelativeTo(null);
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
-        // Adding background image
+        
+        int xPosition = screenWidth - frame.getWidth();  
+        int yPosition = (screenHeight - frame.getHeight()) / 2;  
+        frame.setLocation(xPosition, yPosition);
+
+        
         JPanel mainPanel = new JPanel() {
             private Image backgroundImage;
 
@@ -120,6 +129,7 @@ public class ClientDashboard {
         btnJobAcknowledgment.setIcon(new ImageIcon("Bell.png"));
         btnJobAcknowledgment.addActionListener(e -> {
             new jobAcknowledgment();
+            reloadJobs();
         });
 
         // Add buttons to the button panel
@@ -182,6 +192,13 @@ public class ClientDashboard {
         } catch (IOException | NumberFormatException ex) {
             ex.printStackTrace();
         }
+    }
+    private void reloadJobs() {
+        // Clear the existing rows from the table
+        tableModel.setRowCount(0);
+        
+        // Reload jobs from the file
+        loadJobs(client.getID());
     }
 }
 

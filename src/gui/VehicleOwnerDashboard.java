@@ -23,13 +23,22 @@ public class VehicleOwnerDashboard {
         }
         this.vehicleOwner = vehicleOwner;
 
-        // Set up the frame
+        
         frame = new JFrame("Vehicle Owner Dashboard");
-        frame.setSize(800, 600);
+        frame.setSize(770, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
-        // Create a panel with background image
+        
+        int xPosition = screenWidth - frame.getWidth();  
+        int yPosition = (screenHeight - frame.getHeight()) / 2;  
+        frame.setLocation(xPosition, yPosition);
+
+        
         JPanel backgroundPanel = new JPanel() {
             private Image backgroundImage;
 
@@ -100,6 +109,7 @@ public class VehicleOwnerDashboard {
         btnVehicleAcknowledgments.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnVehicleAcknowledgments.addActionListener(e -> {
             new vehicleAcknowledgment();
+            reloadVehicles();
         });
 
         // "Logout" button
@@ -122,7 +132,7 @@ public class VehicleOwnerDashboard {
 
         // Make the frame visible
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        
     }
 
     private void styleButton(JButton button) {
@@ -178,5 +188,12 @@ public class VehicleOwnerDashboard {
             JOptionPane.showMessageDialog(frame, "Error loading vehicle data", "Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+    }
+    private void reloadVehicles() {
+        // Clear the existing rows from the table
+        tableModel.setRowCount(0);
+        
+        // Reload jobs from the file
+        loadVehicles(vehicleOwner.getID());
     }
 }

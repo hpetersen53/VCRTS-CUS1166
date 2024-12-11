@@ -233,3 +233,21 @@ Title: Yeah
 Deadline: 2024-12-10
 FileName: N/A
 
+Timestamp: 2024-12-11 07:22:17
+Client ID: 45
+Level of Redundancy: 0
+Job Duration: 1
+Payout: 25.0
+Title: test
+Deadline: 2024-12-11
+FileName: N/A
+
+Timestamp: 2024-12-11 07:26:47
+Client ID: 45
+Level of Redundancy: 0
+Job Duration: 9
+Payout: 7.0
+Title: Test2
+Deadline: 2024-12-11
+FileName: N/A
+

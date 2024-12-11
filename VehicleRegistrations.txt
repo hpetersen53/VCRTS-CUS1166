@@ -52,3 +52,12 @@ Color: White
 License Plate: 57A
 Time Available: 1.0
 
+Timestamp: 2024-12-11 07:33:24
+VIN: 67
+Make: Hyundai
+Model: Santa Fe
+Year: 2019
+Color: White
+License Plate: 89a
+Time Available: 1.0
+

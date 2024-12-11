@@ -59,7 +59,15 @@ public class vehicleAcknowledgment {
         frame.add(backButton, BorderLayout.SOUTH);
 
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        
+        int xPosition = screenWidth - frame.getWidth();  
+        int yPosition = (screenHeight - frame.getHeight()) / 2;  
+        frame.setLocation(xPosition-250, yPosition);
     }
 
     public static void saveacceptedVehicleData(Vehicle vehicle) {
