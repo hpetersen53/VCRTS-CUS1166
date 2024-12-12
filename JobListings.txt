@@ -1,253 +1,45 @@
-Timestamp: 2024-11-13 13:54:08
-Client ID: 1234
-Level of redundancy: 0
-Job Duration: 5
-Payout: 2.0
-Title: a
-Deadline: 2024-11-13
-FileName: N/A
-
-Timestamp: 2024-11-13 13:54:29
-Client ID: 23
-Level of redundancy: 0
-Job Duration: 2
-Payout: 2.0
-Title: b
-Deadline: 2024-11-13
-FileName: N/A
-
-Timestamp: 2024-11-13 13:54:46
-Client ID: 690
-Level of redundancy: 0
-Job Duration: 9
-Payout: 2.0
-Title: c
-Deadline: 2024-11-13
-FileName: N/A
-
-Timestamp: 2024-11-16 13:03:32
-Client ID: 1
-Level of redundancy: 0
-Job Duration: 3
-Payout: 1.0
-Title: 2
-Deadline: 2024-11-16
-FileName: N/A
-
-Timestamp: 2024-11-19 00:03:36
-Client ID: 159
-Level of Redundancy: 0
-Job Duration: 1
-Payout: 1.0
-Title: clean
-Deadline: 2024-11-18
-FileName: N/A
-
-Timestamp: 2024-11-18 19:09:07
-Client ID: 1
-Level of Redundancy: 0
-Job Duration: 1
-Payout: 1.0
-Title: 1
-Deadline: 2024-11-18
-FileName: N/A
-
-Timestamp: 2024-11-18 20:25:20
-Client ID: 123
-Level of Redundancy: 0
-Job Duration: 4
-Payout: 200.0
-Title: delivery
-Deadline: 2024-11-19
-FileName: N/A
-
-Timestamp: 2024-11-19 15:28:28
-Client ID: 1
-Level of Redundancy: 0
-Job Duration: 1
-Payout: 4.0
-Title: 2
-Deadline: 2024-11-19
-FileName: N/A
-
-Timestamp: 2024-11-20 08:41:15
-Client ID: 2
-Level of Redundancy: 0
-Job Duration: 3
-Payout: 2.0
-Title: c
-Deadline: 2024-11-20
-FileName: N/A
-
-Timestamp: 2024-11-20 15:02:17
+Timestamp: 2024-12-11 14:33:21
 Client ID: 1234
 Level of Redundancy: 0
-Job Duration: 2
-Payout: 2.0
-Title: a
-Deadline: 2024-11-20
-FileName: N/A
-
-Timestamp: 2024-11-20 15:04:19
-Client ID: 789
-Level of Redundancy: 0
-Job Duration: 3
-Payout: 3.0
-Title: c
-Deadline: 2024-11-20
-FileName: N/A
-
-Timestamp: 2024-11-23 18:22:08
-Client ID: 1234231
-Level of Redundancy: 0
-Job Duration: 5
-Payout: 200.0
-Title: delivery
-Deadline: 2024-11-25
-FileName: N/A
-
-Timestamp: 2024-12-03 16:49:45
-Timestamp: 2024-12-03 16:52:02
-Client ID: 45
-Level of Redundancy: 0
-Job Duration: 90
-Payout: 67.0
-Title: Yeah
-Deadline: 2024-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 16:53:41
-Client ID: 2
-Level of Redundancy: 0
-Job Duration: 2
-Payout: 6.0
-Title: Yes
-Deadline: 2024-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 19:59:04
-Client ID: 45
-Level of Redundancy: 0
-Job Duration: 2
-Payout: 500.0
-Title: Yeah
-Deadline: 2024-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 21:16:50
-Client ID: 123
-Level of Redundancy: 0
-Job Duration: 12
-Payout: 300.0
-Title: Delivery
-Deadline: 2024-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 21:26:26
-Client ID: 124
-Level of Redundancy: 0
-Job Duration: 12
-Payout: 60.0
-Title: delivery
-Deadline: 2024-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 21:33:48
-Client ID: 125
-Level of Redundancy: 0
-Job Duration: 12
-Payout: 100.0
-Title: delivery
-Deadline: 2025-12-03
-FileName: N/A
-
-Timestamp: 2024-12-03 21:37:09
-Client ID: 126
-Level of Redundancy: 0
-Job Duration: 15
-Payout: 1200.0
-Title: delivery
-Deadline: 2024-12-06
-FileName: N/A
-
-Timestamp: 2024-12-03 21:42:33
-Client ID: 120
-Level of Redundancy: 0
-Job Duration: 12
-Payout: 60.0
-Title: delivery
-Deadline: 2025-12-03
-FileName: N/A
-
-Timestamp: 2024-12-07 14:46:30
-Client ID: 123
-Level of Redundancy: 0
-Job Duration: 2
-Payout: 2.0
-Title: a
-Deadline: 2024-12-07
-FileName: N/A
-
-Timestamp: 2024-12-07 14:46:56
-Client ID: 9
-Level of Redundancy: 0
-Job Duration: 3
-Payout: 3.0
-Title: b
-Deadline: 2024-12-07
-FileName: N/A
-
-Timestamp: 2024-12-10 17:53:48
-Client ID: 1
-Level of Redundancy: 0
 Job Duration: 1
-Payout: 2.0
-Title: Check
-Deadline: 2024-12-10
-FileName: N/A
-
-Timestamp: 2024-12-10 17:58:03
-Client ID: 2
-Level of Redundancy: 0
-Job Duration: 2
-Payout: 2.0
-Title: Yeah
-Deadline: 2024-12-10
-FileName: N/A
-
-Timestamp: 2024-12-10 18:01:59
-Client ID: 2
-Level of Redundancy: 0
-Job Duration: 1
-Payout: 8.0
-Title: Check3
-Deadline: 2024-12-10
-FileName: N/A
-
-Timestamp: 2024-12-10 18:21:18
-Client ID: 25
-Level of Redundancy: 0
-Job Duration: 2
-Payout: 2.0
-Title: Yeah
-Deadline: 2024-12-10
-FileName: N/A
-
-Timestamp: 2024-12-11 07:22:17
-Client ID: 45
-Level of Redundancy: 0
-Job Duration: 1
-Payout: 25.0
-Title: test
+Payout: 12123.0
+Title: 12331
 Deadline: 2024-12-11
 FileName: N/A
 
-Timestamp: 2024-12-11 07:26:47
-Client ID: 45
+Timestamp: 2024-12-11 14:36:01
+Client ID: 4
 Level of Redundancy: 0
-Job Duration: 9
-Payout: 7.0
-Title: Test2
+Job Duration: 1
+Payout: 12.0
+Title: yes
+Deadline: 2025-12-11
+FileName: N/A
+
+Timestamp: 2024-12-11 14:42:51
+Client ID: 1234
+Level of Redundancy: 0
+Job Duration: 5
+Payout: 1.0
+Title: a
+Deadline: 2024-12-11
+FileName: N/A
+
+Timestamp: 2024-12-11 14:43:55
+Client ID: 456
+Level of Redundancy: 0
+Job Duration: 1
+Payout: 1.0
+Title: a
+Deadline: 2024-12-11
+FileName: N/A
+
+Timestamp: 2024-12-11 14:45:10
+Client ID: 678
+Level of Redundancy: 0
+Job Duration: 7
+Payout: 1.0
+Title: a
 Deadline: 2024-12-11
 FileName: N/A
 

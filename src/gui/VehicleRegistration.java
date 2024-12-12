@@ -19,7 +19,7 @@ public class VehicleRegistration {
 
         
         frame = new JFrame("Vehicle Registration");
-        frame.setSize(770, 600); 
+        frame.setSize(600, 600); 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int screenWidth = screenSize.width;
@@ -28,7 +28,7 @@ public class VehicleRegistration {
         
         int xPosition = screenWidth - frame.getWidth();  
         int yPosition = (screenHeight - frame.getHeight()) / 2;  
-        frame.setLocation(xPosition, yPosition);
+        frame.setLocation(xPosition+5, yPosition);
 
 
         txtMake = new JTextField(20);

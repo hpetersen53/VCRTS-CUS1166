@@ -25,7 +25,7 @@ public class VehicleOwnerDashboard {
 
         
         frame = new JFrame("Vehicle Owner Dashboard");
-        frame.setSize(770, 600);
+        frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -136,8 +136,8 @@ public class VehicleOwnerDashboard {
     }
 
     private void styleButton(JButton button) {
-        button.setPreferredSize(new Dimension(200, 50));
-        button.setFont(new Font("Inter", Font.BOLD, 16));
+        button.setPreferredSize(new Dimension(150, 50));
+        button.setFont(new Font("Inter", Font.BOLD, 14));
         button.setBackground(new Color(217, 217, 217)); // Light gray
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);

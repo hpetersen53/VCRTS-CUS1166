@@ -23,7 +23,7 @@ public class JobRegistration {
         this.client = client;
 
         frame = new JFrame("Job Registration");
-        frame.setSize(770, 600); 
+        frame.setSize(600, 600); 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int screenWidth = screenSize.width;
@@ -32,7 +32,7 @@ public class JobRegistration {
         
         int xPosition = screenWidth - frame.getWidth();  
         int yPosition = (screenHeight - frame.getHeight()) / 2;  
-        frame.setLocation(xPosition, yPosition);
+        frame.setLocation(xPosition+5, yPosition);
 
         txtClientId = new JTextField(20);
         txtTitle = new JTextField(20);

@@ -30,7 +30,7 @@ public class ClientDashboard {
         this.client = client;
 
         frame = new JFrame("Client Dashboard");
-        frame.setSize(770, 600);
+        frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         
@@ -42,7 +42,7 @@ public class ClientDashboard {
         
         int xPosition = screenWidth - frame.getWidth();  
         int yPosition = (screenHeight - frame.getHeight()) / 2;  
-        frame.setLocation(xPosition, yPosition);
+        frame.setLocation(xPosition+5, yPosition);
 
         
         JPanel mainPanel = new JPanel() {

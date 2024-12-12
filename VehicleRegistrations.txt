@@ -1,63 +1,27 @@
-Timestamp: 2024-12-03 15:41:55
-VIN: 56
-Make: Mercedes
-Model: GWagon
-Year: 2020
-Color: Black
-License Plate: 12b
-Time Available: 2.0
-
-Timestamp: 2024-12-03 21:16:40
-VIN: 12
-Make: toyota
-Model: camry
-Year: 2016
-Color: black
-License Plate: abc1234
+Timestamp: 2024-12-11 14:33:16
+VIN: car
+Make: car
+Model: car
+Year: 1002
+Color: car
+License Plate: car
 Time Available: 12.0
 
-Timestamp: 2024-12-04 08:05:15
-VIN: 67
-Make: Kia
-Model: Sportage
-Year: 2018
-Color: Red
-License Plate: O9
-Time Available: 9.0
-
-Timestamp: 2024-12-04 08:12:30
-VIN: 87
-Make: Lamborghini
-Model: Aventador
-Year: 2020
-Color: Yellow
-License Plate: 567A
+Timestamp: 2024-12-11 14:35:01
+VIN: 111
+Make: car1
+Model: car
+Year: 122
+Color: 11
+License Plate: 111
 Time Available: 1.0
 
-Timestamp: 2024-12-10 17:58:59
-VIN: 25
-Make: Dodge
-Model: Challenger
+Timestamp: 2024-12-11 14:40:18
+VIN: 1234
+Make: a
+Model: a
 Year: 2012
-Color: Blue
-License Plate: 1
-Time Available: 1.0
-
-Timestamp: 2024-12-10 18:23:15
-VIN: 95
-Make: Toyota
-Model: Yaris
-Year: 2020
-Color: White
-License Plate: 57A
-Time Available: 1.0
-
-Timestamp: 2024-12-11 07:33:24
-VIN: 67
-Make: Hyundai
-Model: Santa Fe
-Year: 2019
-Color: White
-License Plate: 89a
+Color: a
+License Plate: a
 Time Available: 1.0
 
